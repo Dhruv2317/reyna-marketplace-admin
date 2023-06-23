@@ -1,0 +1,192 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <div class="w-100 d-flex flex-row justify-content-between align-items-center">
+            <p class="font-weight-bold mb-0">{{ modalEvent =='EDIT' ? 'Edit FAQ Group' : 'Add FAQ Group' }}</p>
+            <button (click)="closeModal()" type="button" class="close float-right" aria-label="Close"
+                data-dismiss="modal">
+                <span aria-hidden="true">x</span>
+            </button>
+        </div>
+    </div>
+    <div class="modal-body">
+        <form (ngSubmit)="saveManufacturer(manufacturerForm.valid)" [formGroup]="manufacturerForm" autocomplete="off">
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Name (English)</label><br />
+                        <input type="hidden" id="id" formControlName="id" />
+                        <input type="text" id="name" class="form-control" placeholder="Enter  Name"
+                            formControlName="name" />
+                        <div class="invalid-feedback" *ngIf="name?.invalid && (name?.dirty || name?.touched)"
+                            class="text-danger">
+                            <div *ngIf="name?.errors?.required">Name is required.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Heading</label>
+                        <input type="text" id="heading" formControlName="heading"  class="form-control"  placeholder="Enter heading" />
+                        <div class="invalid-feedback"
+                            *ngIf="heading?.invalid && (heading?.dirty || heading?.touched)" class="text-danger">
+                            <div *ngIf="heading?.errors?.required">heading is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Subheading</label>
+                        <input type="text" id="subheading" formControlName="subheading"  class="form-control"  placeholder="Enter Subheading" />
+                        <div class="invalid-feedback"
+                            *ngIf="subheading?.invalid && (subheading?.dirty || subheading?.touched)" class="text-danger">
+                            <div *ngIf="subheading?.errors?.required">Subheading is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Name (French)</label><br />
+                        <input type="text" id="name_fr" class="form-control" placeholder="Enter  Name_fr"
+                            formControlName="name_fr" />
+                        <div class="invalid-feedback" *ngIf="name_fr?.invalid && (name_fr?.dirty || name_fr?.touched)"
+                            class="text-danger">
+                            <div *ngIf="name_fr?.errors?.required">name_fr is required.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Heading</label>
+                        <input type="text" id="heading_fr" formControlName="heading_fr"  class="form-control"  placeholder="Enter heading_fr" />
+                        <div class="invalid-feedback"
+                            *ngIf="heading_fr?.invalid && (heading_fr?.dirty || heading_fr?.touched)" class="text-danger">
+                            <div *ngIf="heading_fr?.errors?.required">heading_fr is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Subheading</label>
+                        <input type="text" id="subheading_fr" formControlName="subheading_fr"  class="form-control"  placeholder="Enter Subheading_fr" />
+                        <div class="invalid-feedback"
+                            *ngIf="subheading_fr?.invalid && (subheading_fr?.dirty || subheading_fr?.touched)" class="text-danger">
+                            <div *ngIf="subheading_fr?.errors?.required">Subheading_fr is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Name (Dutch)</label><br />
+                        <input type="text" id="name_nl" class="form-control" placeholder="Enter Name_nl"
+                            formControlName="name_nl" />
+                        <div class="invalid-feedback" *ngIf="name_nl?.invalid && (name_nl?.dirty || name_nl?.touched)"
+                            class="text-danger">
+                            <div *ngIf="name_nl?.errors?.required">Name_nl is required.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Heading</label>
+                        <input type="text" id="heading_nl" formControlName="heading_nl"  class="form-control"  placeholder="Enter heading_nl" />
+                        <div class="invalid-feedback"
+                            *ngIf="heading_nl?.invalid && (heading_nl?.dirty || heading_nl?.touched)" class="text-danger">
+                            <div *ngIf="heading_nl?.errors?.required">heading_nl is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Subheading</label>
+                        <input type="text" id="subheading_nl" formControlName="subheading_nl"  class="form-control"  placeholder="Enter Subheading_nl" />
+                        <div class="invalid-feedback"
+                            *ngIf="subheading_nl?.invalid && (subheading_nl?.dirty || subheading_nl?.touched)" class="text-danger">
+                            <div *ngIf="subheading_nl?.errors?.required">Subheading_nl is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Name (Spanish)</label><br />
+                        <input type="text" id="name_es" class="form-control" placeholder="Enter  Name_es"
+                            formControlName="name_es" />
+                        <div class="invalid-feedback" *ngIf="name_es?.invalid && (name_es?.dirty || name_es?.touched)"
+                            class="text-danger">
+                            <div *ngIf="name_es?.errors?.required">Name_es is required.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Heading</label>
+                        <input type="text" id="heading_es" formControlName="heading_es"  class="form-control"  placeholder="Enter heading_es" />
+                        <div class="invalid-feedback"
+                            *ngIf="heading_es?.invalid && (heading_es?.dirty || heading_es?.touched)" class="text-danger">
+                            <div *ngIf="heading_es?.errors?.required">heading_es is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Subheading</label>
+                        <input type="text" id="subheading_es" formControlName="subheading_es"  class="form-control"  placeholder="Enter Subheading_es" />
+                        <div class="invalid-feedback"
+                            *ngIf="subheading_es?.invalid && (subheading_es?.dirty || subheading_es?.touched)" class="text-danger">
+                            <div *ngIf="subheading_es?.errors?.required">Subheading_es is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Name (Portuguese)</label><br />
+                        <input type="text" id="name_pt" class="form-control" placeholder="Enter  Name_pt"
+                            formControlName="name_pt" />
+                        <div class="invalid-feedback" *ngIf="name_pt?.invalid && (name_pt?.dirty || name_pt?.touched)"
+                            class="text-danger">
+                            <div *ngIf="name_pt?.errors?.required">Name_pt is required.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Heading</label>
+                        <input type="text" id="heading_pt" formControlName="heading_pt"  class="form-control"  placeholder="Enter heading_pt" />
+                        <div class="invalid-feedback"
+                            *ngIf="heading_pt?.invalid && (heading_pt?.dirty || heading_pt?.touched)" class="text-danger">
+                            <div *ngIf="heading_pt?.errors?.required">heading_pt is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Subheading</label>
+                        <input type="text" id="subheading_pt" formControlName="subheading_pt"  class="form-control"  placeholder="Enter Subheading_pt" />
+                        <div class="invalid-feedback"
+                            *ngIf="subheading_pt?.invalid && (subheading_pt?.dirty || subheading_pt?.touched)" class="text-danger">
+                            <div *ngIf="subheading_pt?.errors?.required">Subheading_pt is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+ 
+            <div class="form-group">
+                <button class="btn btn-success btn-block btn-sm mt-2" type="submit">Save</button>
+            </div>
+        </form>
+    </div>
+</div>

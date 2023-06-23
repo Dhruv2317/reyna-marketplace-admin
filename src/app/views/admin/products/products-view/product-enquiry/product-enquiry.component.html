@@ -1,0 +1,78 @@
+<div class="row">
+  <div class="col-12">
+        <div *ngIf="collection.count > 0 ">
+                  <div class="card mb-3"  *ngFor = "let order of collection.data | paginate: config">
+                  <div class="bg-light-grey p-3">
+                      <div class="d-flex flex-lg-row flex-md-row flex-sm-column  flex-column justify-content-between align-items-lg-top align-items-md-top align-items-sm-start align-items-start" style="border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;">
+                          <div  class="magic-width d-flex flex-lg-row flex-md-row flex-sm-column flex-column justify-content-start align-items-lg-top align-items-md-top align-items-sm-start align-items-start">
+                              <div class="mini-magic-width-box text-left mb-lg-0 md-md-0 mb-sm-2 mb-2 d-flex flex-lg-column flex-md-column flex-sm-row flex-row justify-content-between align-items-start"><p class="mb-0"><small class="mb-0">NO.</small></p><p class="font-weight-bold mb-0">#{{order.id}}</p></div>
+                              <div class="mini-magic-width-box text-left mb-lg-0 md-md-0 mb-sm-2 mb-2 d-flex flex-lg-column flex-md-column flex-sm-row flex-row justify-content-between align-items-start"><p class="mb-0"><small class="mb-0">ENQUIRY TYPE</small></p><p class="font-weight-bold mb-0"><span [ngClass]="{'p-2 badge badge-pill':true,'badge-success':order.enquiry_type=='price_suggestion'?true:false,'badge-primary':order.enquiry_type=='other'?true:false}">{{order.enquiry_type}}</span></p></div>
+                              <div class="magic-width-box text-left mb-lg-0 md-md-0 mb-sm-2 mb-2  d-flex flex-lg-column flex-md-column flex-sm-row flex-row justify-content-between align-items-start"><p class="mb-0"><small class="mb-0">DATE</small></p><p class="font-weight-bold mb-0">{{order.created_at  | date: 'MM/dd/yyyy HH:mm a'}}</p></div>
+                              <div class="magic-width-box text-left mb-lg-0 md-md-0 mb-sm-2 mb-2 d-flex flex-lg-column flex-md-column flex-sm-row flex-row justify-content-between align-items-start"><p class="mb-0"><small class="mb-0 cursor-pointer">CUSTOMER NAME</small></p><p class="cursor-pointer font-weight-bold mb-0">{{order.first_name+' '+order.last_name}}</p></div>
+                              <div class="text-left mb-lg-0 md-md-0 mb-sm-2 mb-2">
+                                  <p class="mb-0"><small class="mb-0">CONTACT</small></p>
+                                  <p class="font-weight-bold mb-0">EMAIL : {{order.email}}</p>
+                                  <p class="font-weight-bold mb-0">PHONE :{{ order.cell_phone_number }}</p>
+                                  <p class="font-weight-bold mb-0">COUNTRY : {{ order.country }}</p>
+                              </div>
+                          </div>                        
+                      </div>
+                  </div>
+                  <div class="card-body"  *blockUI="'loader'">
+                          <table class="table table-sm table-hover">
+                          <thead>
+                              <tr>
+                                  <th class="border-0 text-left">PRODUCT</th>
+                                  <th class="border-0 text-left">SUBJECT & MESSAGE</th>
+                                  <th class="border-0 text-left">ANSWER</th>
+                                  <th class="border-0 text-right">SELLER/DEALER</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr>
+                                  <td class="align-middle text-left font-weight-normal">
+                                      <div class="d-flex flex-row justify-content-start align-items-center">
+                                        <div *ngIf="order.product_image" class="mr-2">
+                                          <img [src]="api_url+ order.product_image" class="order-product-image"/>
+                                        </div>
+                                        <div>
+                                          {{ order.product_name }}
+                                          <p class="mt-2">Sale Price : {{ order.sale_price | currency:order.currency }}</p>
+                                        </div>
+                                      </div>
+                                  </td>
+                                  <td class="align-middle text-left font-weight-normal">
+                                   <p class="font-weight-bold mb-2">{{order.subject}}</p><br/>
+                                   <p class="mt-2" *ngIf="order.enquiry_type=='price_suggestion'">Suggested Price : {{ order.suggestion_price | currency:order.currency }}</p>
+                                   <p>{{order.message}}</p>
+                                  </td>
+                                  <td class="align-middle text-left">
+                                    <p class="mt-1 mb-0 font-weight-normal">{{ order.answer }}</p>
+                                    <small class="mt-1 mb-0 font-weight-normal" *ngIf="order.answered_at">Answered on : {{order.answered_at | date: 'MM/dd/yyyy HH:mm a' }}</small>
+                                    <small class="mt-1 mb-0 font-weight-normal" *ngIf="order.archived_at">Archived on : {{order.archived_at | date: 'MM/dd/yyyy HH:mm a' }}</small>
+                                  </td>
+                                  <td class="align-middle text-right font-weight-normal">
+                                    {{ order.product_created_by }}
+                                    <span class="ml-2 p-2 badge badge-success badge-pill" *ngIf="order.status=='approved'">Approved</span>
+                                    <span class="ml-2 p-2 badge badge-danger badge-pill" *ngIf="order.status=='rejected'">Rejected</span>
+                                    <span class="ml-2 p-2 badge badge-dark badge-pill" *ngIf="order.status=='none'">None</span>
+                                  </td>
+                              </tr>
+                          </tbody>
+                          </table>
+                  </div>
+              </div>
+              <div class="text-center mt-2">
+                  <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+              </div>
+      </div>
+        <div *ngIf="collection.count == 0 ">
+            <div class="card p-2">
+                <div class="text-center text-muted">
+                    <h2><i class="fa fa-shopping-cart" aria-hidden="true"></i></h2>
+                    <h4 class="font-weight-normal">No Product Enquiry Found </h4>
+                </div>
+            </div>
+        </div>
+  </div>
+</div>

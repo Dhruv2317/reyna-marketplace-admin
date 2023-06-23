@@ -1,0 +1,81 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <div class="w-100 d-flex flex-row justify-content-between align-items-center">
+            <p class="font-weight-bold mb-0">{{ modalEvent =='EDIT' ? 'Edit Shipping Insurance' : 'Add Shipping Insurance' }}</p>
+            <button (click)="closeModal()" type="button" class="close float-right" aria-label="Close"
+                data-dismiss="modal">
+                <span aria-hidden="true">x</span>
+            </button>
+        </div>
+    </div>
+    <div class="modal-body">
+        <form (ngSubmit)="saveInsurance(shippingInsuranceForm.valid)" [formGroup]="shippingInsuranceForm" autocomplete="off">
+
+            <div class="form-group">
+                <label>Name</label><br />
+                <input type="hidden" id="id" formControlName="id" />
+                <select class="form-control"  placeholder="Name"  formControlName="name">
+                    <option value="basicInsurance">basicInsurance</option>
+                    <option value="additionalInsurance">additionalInsurance</option>
+                </select>
+                <div class="invalid-feedback" *ngIf="name?.invalid && (name?.dirty || name?.touched)"
+                    class="text-danger">
+                    <div *ngIf="name?.errors?.required">Name is required.</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>description</label>
+                <input type="text" id="description" formControlName="description"  class="form-control"  placeholder="Enter description" />
+                <div class="invalid-feedback"
+                    *ngIf="description?.invalid && (description?.dirty || description?.touched)" class="text-danger">
+                    <div *ngIf="description?.errors?.required">description is required</div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Home Price</label>
+                        <input type="number" id="home" class="form-control" placeholder="Enter home" formControlName="home" />
+                        <div class="invalid-feedback" *ngIf="home?.invalid && (home?.dirty || home?.touched)"
+                            class="text-danger">
+                            <div *ngIf="home?.errors?.required">home is required.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Parcel Price</label>
+                        <input type="number" id="parcel" class="form-control" placeholder="Enter parcel" formControlName="parcel" />
+                        <div class="invalid-feedback" *ngIf="parcel?.invalid && (parcel?.dirty || parcel?.touched)"
+                            class="text-danger">
+                            <div *ngIf="parcel?.errors?.required">parcel is required.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Currency</label>
+                        <select class="form-control"  placeholder="Currency"  formControlName="currency">
+                            <option *ngFor="let item of countriesList" [value]="item.currency">{{ item.currency_name +'   ('+item.currency_symbol+')'+'   '+item.currency }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Country Code</label>
+                        <select class="form-control"  placeholder="Country"  formControlName="country_code">
+                            <option *ngFor="let item of countriesList" [value]="item.iso2">{{ item.name +'-'+item.iso2 }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+ 
+            <div class="form-group">
+                <button class="btn btn-success btn-block btn-sm mt-2" type="submit">Save</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,114 @@
+<header class="w-100">
+  <!-- Sidebar -->
+  <div  class="sidebar-fixed position-fixed" style="margin-top:-72px;">
+
+      <div class="text-center">
+      <a class="h4 mt-2 mb-0 text-dark text-decoration-none text-uppercase d-none d-lg-inline-block" href="/">
+        <img src="https://reynasolutions.com/wp-content/uploads/2020/07/reyna-wide-logo-white-text.png" height="40" width="120"/>
+        <!--<span class="logo-text-css">Golfed</span>-->
+      </a>
+      </div>
+
+      <div class="mt-3 list-group list-group-flush">
+        <app-menu-list-item *ngFor="let item of navItems" [item]="item"></app-menu-list-item>
+      </div>
+  </div>
+
+  <nav class="navbar navbar-top fixed-top bg-aliceblue navbar-expand-md shadow" id="navbar-main">
+    <div class="container-fluid">
+      <p></p>
+      <div class="d-flex justify-content-end align-items-center">
+      <ul class="navbar-nav align-items-center d-md-flex mr-3">
+          <li *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
+                <a routerLinkActive="active" [routerLink]="[menuItem.path]" class="nav-link text-dark ">
+                    <i class="ni {{menuItem.icon}} mr-2"></i>
+                    {{menuItem.title}}
+                </a>
+          </li>
+      </ul>
+       <!-- User -->
+      <ul class="navbar-nav align-items-center d-none d-md-flex">
+        <!--<li dropdown class="nav-item inline-block">
+            <a dropdownToggle class="nav-link dropdown-toggle text-dark text-decoration-none d-flex align-items-center font-weight-bold" id="navbarDropdownMenuLink">
+                <i class="far fa-bell mr-1 font-weight-bold"></i>
+                <span   [ngClass]="{'badge badge-danger badge-pill':true,'d-none': !hasNewNotifications}">{{newNotificationCount}}</span>
+            </a>
+            <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown-info">
+                <div class="d-flex flex-row bg-primary p-1 text-white justify-content-between align-content-center">
+                          <div class="text-left font-weight-bold ml-2 pt-1">
+                            <span>{{newNotificationCount}}</span>
+                          </div>
+                          <div class="text-center">
+                            <a  class="text-white font-weight-bold" style="font-size: 18px;" routerLink="/admin/notifications">Notifications</a>
+                          </div>
+                          <div class="text-right mr-2 pt-1">
+                            <span (click)="readAllNotification()" style="cursor: pointer;"  *ngIf="notifications.length">
+                            <i class="fas fa-check-circle" aria-hidden="true"></i></span>
+                          </div>
+                  </div>
+                <ng-container *ngIf="notifications.length; else elseNotifications">
+                        <div class="list-group list-group-flush">
+                                <div class="list-group-item p-0" *ngFor="let notification of notifications; let i = index;">
+                                    <a class="notification notification-flush" href='javascript:void(0)' (click)="clickNotification(notification)" routerLinkActive="router-link-active">
+                                    <div class="notification-avatar">
+                                            <i [class]="_notificationHelper.getNotificationIcon(notification.event_type)" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="notification-body w-100">
+                                        <p class="mb-1  font-weight-normal">{{notification.notification_text}}
+                                            <span class="float-right" *ngIf="notification.read_at == null"><i class="fa fa-circle text-success" style="font-size:12px;"></i></span>
+                                        </p>
+                                        <span class="notification-time font-weight-normal">{{getDateForNotification(notification.created_at)}}</span>
+                                    </div>
+                                    </a>
+                                </div>
+                        </div>
+                        <div class="bg-primary p-1 text-center">
+                            <a routerLink="/admin/notifications" class="d-block p-0 text-white text-decoration-none font-weight-bold">View All</a>
+                        </div>
+                </ng-container>
+                <ng-template #elseNotifications>
+                    <div class="text-center bg-white text-muted p-2">
+                        <h3><i class="fa fa-bell"></i></h3>
+                        <h5 class="font-weight-normal">All Caught Up!</h5>
+                    </div>
+                </ng-template>
+            </div>
+        </li>-->
+
+        <li class="nav-item" dropdown placement="bottom right">
+          <a class="nav-link text-dark pr-0" role="button" dropdownToggle>
+            <div class="media align-items-center" style="cursor:pointer">
+              <div class="icon icon-shape bg-warning align-self-end text-white rounded-circle shadow" style="height:24px;width:24px;text-align:center;">
+                <i class="fas fa-user-tie"></i><!-- #32325d1c -->
+              </div>
+              <div class="media-body ml-2 d-none d-lg-block">
+                <span class="mb-0 text-sm  text-dark font-weight-bold">{{userFullName}}</span>
+              </div>
+            </div>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
+            <!--<a routerLinkActive="active" [routerLink]="['/admin/profile']" class="dropdown-item">
+              <i class="fas fa-user mr-2" aria-hidden="true"></i>
+              <span>My profile</span>
+            </a>
+            <a routerLinkActive="active" [routerLink]="['/admin/notifications']" class="dropdown-item">
+              <i class="fas fa-bell mr-2" aria-hidden="true"></i>
+              <span>Notifications</span>
+            </a>
+            <a routerLinkActive="active" [routerLink]="['/admin/changePassword']" class="dropdown-item">
+              <i class="fas fa-lock mr-2" aria-hidden="true"></i>
+              <span>Change Password</span>
+            </a>-->
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item text-danger" href="javascript:void(0);" (click)="logoutUser()">
+              <i class="fas fa-sign-out-alt  mr-2"></i>
+              <span>Logout</span>
+            </a>
+          </div>
+        </li>
+      </ul>
+      </div>
+    </div>
+  </nav>
+
+</header>

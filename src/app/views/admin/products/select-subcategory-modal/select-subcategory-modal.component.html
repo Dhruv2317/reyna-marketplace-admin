@@ -1,0 +1,35 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <h4>Select Category / Subcategory</h4>
+    </div>
+    <div class="modal-body" style="max-height:500px;overflow-y:scroll;">
+        <div *ngFor="let category of allCategories; let catIndex=index">
+          <div [ngClass]="{'row mb-2':true , 'border-bottom': catIndex == allCategories.length-1?false:true }">
+            <div class="col-md-4">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" [id]="'category_'+category.id" [(ngModel)]="category.is_checked" [checked]="category.is_checked">
+                    <label class="custom-control-label" [htmlFor]="'category_'+category.id">{{category.name}}</label>
+                </div>
+            </div>
+            <div class="col-md-8">
+              <div class="row">
+                <div class="col-6"
+                  *ngFor="let subcategory of category.sub_categories;let subcatIndex=index">
+
+                   <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" [id]="'subcategory_'+subcategory.id"  [(ngModel)]="subcategory.is_checked" [checked]="subcategory.is_checked" (change)="handleChangeSubcategory($event,catIndex)">
+                    <label class="custom-control-label" [htmlFor]="'subcategory_'+subcategory.id">{{subcategory.name}}</label>
+                   </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="text-center">
+            <button type="button" class="btn btn-success" (click)="applySelected()">Apply Selected</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,69 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <h4 class="font-weight-bold modal-title w-100" id="ModalTitle">
+            Edit Image
+        </h4>
+        <button (click)="closeModal()" type="button" id="closeModalBtn" class="close float-right" aria-label="Close" data-dismiss="modal">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+            <div class="col-md-6">
+                <h6>Input Image</h6>
+                <div class="form-group">
+                    <input class="form-control" type="file" placeholder="select image to upload" (change)="fileChangeEvent($event)" />
+                </div>
+                <!--<div class="form-group">
+                    <input class="form-control" [(ngModel)]="imageURL" placeholder="URL to load image" type="text" />
+                </div>-->
+
+                <div class="cropper-wrapper">
+                  <image-cropper
+                      [imageChangedEvent]="imageChangedEvent"
+
+                      [imageBase64]="base64Image"
+                      [maintainAspectRatio]="false"
+                      [onlyScaleDown]="true"
+                      [roundCropper]="false"
+                      [canvasRotation]="canvasRotation"
+                      [transform]="transform"
+                      [alignImage]="'center'"
+                      [style.display]="showCropper ? null : 'none'"
+                      format="png"
+                      (imageCropped)="imageCropped($event)"
+                      (imageLoaded)="imageLoaded()"
+                      (cropperReady)="cropperReady($event)"
+                      (loadImageFailed)="loadImageFailed()"
+                      #ImageCropped
+                  ></image-cropper>
+                  <div *ngIf="loading" class="loader">Loading...</div>
+                </div>
+
+                  <div class="form-group">
+                      <label>Rotation Angle</label>
+                      <input class="form-control" [(ngModel)]="rotation" placeholder="Rotation" type="number" (keyup)="updateRotation()" />
+                  </div>
+                  <button class="mr-2 mb-2 btn btn-primary btn-sm" (click)="rotateLeft()"><i class="mr-2 fas fa-undo"></i>Rotate left</button>
+                  <button class="mr-2 mb-2 btn btn-primary btn-sm" (click)="rotateRight()"><i class="mr-2 fas fa-redo"></i>Rotate right</button>
+                  <button class="mr-2 mb-2 btn btn-warning btn-sm" (click)="flipHorizontal()"><i class="mr-2 fas fa-arrows-alt-h"></i>Flip horizontal</button>
+                  <button class="mr-2 mb-2 btn btn-warning btn-sm" (click)="flipVertical()"><i class="mr-2 fas fa-arrows-alt-v"></i>Flip vertical</button>
+                  <button class="mr-2 mb-2 btn btn-danger btn-sm" (click)="resetImage()"><i class="mr-2 fas fa-power-off"></i>Reset image</button>
+                  <button class="mr-2 mb-2 btn btn-info btn-sm" (click)="zoomOut()"><i class="mr-2 fas fa-search-minus"></i>Zoom -</button>
+                  <button class="mr-2 mb-2 btn btn-info btn-sm" (click)="zoomIn()"><i class="mr-2 fas fa-search-plus"></i>Zoom +</button>
+
+            </div>
+            <div class="col-md-6">
+                <h6>Output preview</h6>
+                <div>
+                <img  style="min-height: 300px;max-height:300px;max-width:350px;" [src]="croppedImage" [style.border]="croppedImage ? '1px solid black;' : 'none'" />
+                </div>
+                <button *ngIf="croppedImage" class="mt-4 btn btn-success btn-sm btn-block" (click)="saveCroppedImage()"><i class="mr-2 fas fa-save"></i>Save Updated Image</button>
+                <button class="mt-3 btn btn-dark btn-sm btn-block" (click)="closeModal()">Close</button>
+
+            </div>
+      </div>
+
+
+    </div>
+</div>

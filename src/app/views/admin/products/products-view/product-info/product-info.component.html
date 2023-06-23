@@ -1,0 +1,301 @@
+<div  *blockUI="'product'">
+  <ng-container  *ngIf="product; else noProduct">
+
+    <div class="alert alert-warning" *ngIf="product.seller_dealer.is_verified!=1 || product.seller_dealer.account_verified_by_admin!=1">
+      <span *ngIf="product.seller_dealer.is_verified!=1">User email address is not verified yet .</span> 
+      <span *ngIf="product.seller_dealer.account_verified_by_admin!=1">Please Verify User account to publish this product! </span>
+      <a class="ml-2 btn btn-warning btn-sm" *ngIf="product.seller_dealer.role=='dealer'" [routerLink]="'/admin/dealers/view/'+product.seller_dealer.dealer_id+'/info'">View</a>
+      <a class="ml-2 btn btn-warning btn-sm" *ngIf="product.seller_dealer.role=='seller'" [routerLink]="'/admin/sellers/view/'+product.seller_dealer.id+'/info'">View</a>   
+      <a class="ml-2 btn btn-warning btn-sm" *ngIf="product.seller_dealer.role=='user'" [routerLink]="'/admin/customers/view/'+product.seller_dealer.id+'/info'">View</a>   
+    </div>
+    <div class="row">
+      <button *ngIf="(product.status == 'under_review' || product.status == 'draft') && product.seller_dealer.is_verified==1 && product.seller_dealer.account_verified_by_admin==1" type="button" (click)="updateStatus('published','')" class="btn btn-success mr-2"><i class="fas fa-check-circle mr-2"></i>Publish</button>
+      <button *ngIf="product.status == 'under_review' || product.status == 'draft'" type="button" (click)="openReasonModal('rejected')" class="btn btn-danger mr-2"><i class="fas fa-times mr-2"></i>Reject</button>
+      <button *ngIf="product.status != 'deleted'"  type="button" (click)="updateStatus('deleted','')" class="btn btn-dark mr-2"><i class="fas fa-trash-alt mr-2"></i>Delete</button>
+      <button *ngIf="product.status == 'under_review' || product.status == 'draft'" type="button" (click)="openReasonModal('update_required')" class="btn btn-warning"><i class="fas fa-info-circle mr-2"></i>Update required</button>
+    </div>
+  
+    <h6 class="bg-light text-dark p-2 mt-3">Display Information</h6>
+    
+    <div class="row">
+      <div class="col-md-6">
+          <div class="table-responsive">
+            <table class="table table-hover">
+                  <tr>
+                    <td class="font-weight-bold">Name</td>
+                    <td class="font-weight-normal">{{product.name}}</td>
+                  </tr>
+                  <tr>
+                    <td class="font-weight-bold">Slug</td>
+                    <td class="font-weight-normal">{{product.slug}}</td>
+                  </tr>
+                  <tr>
+                    <td class="font-weight-bold">Model</td>
+                    <td class="font-weight-normal">{{product.model}}</td>
+                  </tr>
+                  <tr>
+                    <td class="font-weight-bold">Status</td>
+                    <td class="font-weight-normal" [innerHtml]="_helper.getProductStatus(product.status)"></td>
+                  </tr>
+                  <tr *ngIf="product && product.comment_from_admin" class="alert alert-danger">
+                    <td class="font-weight-bold">Comment From Admin</td>
+                    <td class="font-weight-normal">{{product.comment_from_admin }}</td>
+                  </tr>
+                  <tr *ngIf="product && product.category">
+                    <td class="font-weight-bold">Category</td>
+                    <td class="font-weight-normal">{{product.category.name }}</td>
+                  </tr>
+                  <tr *ngIf="product && product.brand">
+                    <td class="font-weight-bold">Brand</td>
+                    <td class="font-weight-normal">{{product.brand.name }}</td>
+                  </tr>
+                  <tr *ngIf="product && product.manufacturer">
+                    <td class="font-weight-bold">Manufacturer</td>
+                    <td class="font-weight-normal">{{product.manufacturer.name  }}</td>
+                  </tr>
+                  <tr>
+                    <td  class="font-weight-bold">Active</td>
+                    <td  class="font-weight-normal">
+                      <i class="fa fa-check text-success" *ngIf="product.is_active"></i>
+                      <i class="fa fa-times text-danger" *ngIf="!product.is_active"></i>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="font-weight-bold">Is Featured</td>
+                    <td class="font-weight-normal">
+                      <i class="fa fa-check text-success" *ngIf="product.is_featured"></i>
+                      <i class="fa fa-times text-danger" *ngIf="!product.is_featured"></i>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="font-weight-bold">Description</td>
+                    <td class="font-weight-normal">{{ product.description }}</td>
+                  </tr>
+                  <tr>
+                    <td class="font-weight-bold">Weight (grams)</td>
+                    <td class="font-weight-normal">{{ product.weight }}</td>
+                  </tr>
+            </table>
+          </div>
+      </div>
+      <div class="col-md-6">
+          <div class="table-responsive">
+              <table class="table table-hover">
+                  <tr>
+                    <td class="font-weight-bold">Rating count</td>
+                    <td class="font-weight-bold">{{product.rating_count}}</td>
+                  </tr>
+                  <tr>
+                    <td class="font-weight-bold">Average rating</td>
+                    <td class="font-weight-bold">{{product.average_rating}}</td>
+                  </tr>
+                  <tr>
+                    <td class="font-weight-bold">Sold count</td>
+                    <td class="font-weight-bold">{{product.sold_count}}</td>
+                  </tr>
+                  <tr>
+                    <td class="font-weight-bold">Total sales</td>
+                    <td class="font-weight-bold">{{product.total_sales}}</td>
+                  </tr>
+              </table>
+          </div>
+      </div>
+    </div>
+    
+    <h6 class="bg-light text-dark p-2 mt-3">Pricing</h6>
+    <div class="row">
+      <div class="col-md-6">
+          <div class="table-responsive">
+            <table class="table table-hover">
+                  <tr>
+                    <td class="font-weight-bold">Regular Price</td>
+                    <td class="font-weight-normal"> {{(product.regular_price | currency:product.currency) || '-' }} </td>
+                  </tr>
+                  <tr>
+                    <td class="font-weight-bold">Sale Price</td>
+                    <td class="font-weight-normal"> {{(product.sale_price | currency:product.currency) || '-' }} </td>
+                  </tr>
+            </table>
+          </div>
+      </div>
+      <div class="col-md-6">
+          <div class="table-responsive">
+              
+          </div>
+      </div>
+    </div>
+
+    <h6 class="bg-light text-dark p-2 mt-3">Created By</h6>
+    <div class="row">
+          <div class="table-responsive">
+              <table class="table table-hover">
+                  <tbody>
+                      <tr>
+                         <td>Id</td>
+                         <td>{{ product.seller_dealer.id }}</td>
+                      </tr>
+                      <tr>
+                         <td>Name</td>
+                         <td>{{ product.seller_dealer.first_name +' '+product.seller_dealer.last_name }}</td>
+                      </tr>
+                      <tr>
+                         <td>Email</td>
+                         <td>{{ product.seller_dealer.email }}</td>
+                      </tr>
+                      <tr>
+                         <td>Role</td>
+                         <td>{{ product.seller_dealer.role | titlecase }}</td>
+                      </tr>
+                      <tr><td>Email Verified</td><td><p *ngIf="product.seller_dealer.is_verified" class="badge badge-pill badge-success">Verified</p></td></tr>
+                      <tr>
+                        <td>Account Verified</td>
+                        <td>
+                            <p [ngClass]="{'badge badge-pill':true,'badge-success':product.seller_dealer.account_verified_by_admin==1,'badge-dark':product.seller_dealer.account_verified_by_admin!=1}">{{ product.seller_dealer.account_verified_by_admin==1?'Verified':'Not Verified'}}</p>
+                        </td>
+                      </tr>
+                      <tr>
+                         <td>View Details</td>
+                         <td>
+                          <a class="btn btn-primary btn-sm" *ngIf="product.seller_dealer.role=='dealer'" [routerLink]="'/admin/dealers/view/'+product.seller_dealer.dealer_id+'/info'">View</a>
+                          <a class="btn btn-primary btn-sm" *ngIf="product.seller_dealer.role=='seller'" [routerLink]="'/admin/sellers/view/'+product.seller_dealer.id+'/info'">View</a>   
+                          <a class="btn btn-primary btn-sm" *ngIf="product.seller_dealer.role=='user'" [routerLink]="'/admin/customers/view/'+product.seller_dealer.id+'/info'">View</a>                                                   
+                         </td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+    </div>
+
+    <h6 class="bg-light text-dark p-2 mt-3">Subscription</h6>
+    <div class="row">
+      <div class="table-responsive">
+          <table class="table table-hover">
+              <tbody>
+                  <tr>
+                     <td>Has Subscription</td>
+                     <td>
+                        <i class="fa fa-check text-success" *ngIf="product.has_subscription"></i>
+                        <i class="fa fa-times text-danger" *ngIf="!product.has_subscription"></i>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td>Subscription Plan Name</td>
+                     <td *ngIf="product.subscription_plan">{{ product.subscription_plan.name }}</td>
+                  </tr>
+                  <tr>
+                     <td>Subscription Activated On</td>
+                     <td>{{ product.subscription_activation_date  | date:'dd-MM-yyyy HH:mm' }}</td>
+                  </tr>
+                  <tr>
+                     <td>Subscription Expire On</td>
+                     <td>{{ product.subscription_expiry_date | date:'dd-MM-yyyy HH:mm' }}</td>
+                  </tr>
+                  <tr>
+                     <td>Subscription Status </td>
+                     <td>
+                        <span *ngIf="product.subscription_status == 'active'" class="badge badge-success badge-pill p-2">Active</span>
+                        <span *ngIf="product.subscription_status == 'inactive'" class="badge badge-dark badge-pill p-2">Inactive</span>                    
+                     </td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+    </div>
+
+    <h6 class="bg-light text-dark p-2 mt-3">All Payment Transactions</h6>
+    <div class="table-responsive" *ngIf="product.payment_transactions">
+        <table class="table table-sm">
+            <thead class="thead-light">
+                <tr>
+                    <th>#</th>
+                    <th>Plan Name</th>
+                    <th>Amount Charged</th>
+                    <th>Charge Id</th>
+                    <th>Card Details</th>
+                    <th>Datetime</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr [ngClass]="{'alert-success':transaction.transaction_type=='CHARGE'}"
+                    *ngFor="let transaction of product.payment_transactions;let i=index;">
+                    <td>{{i+1}}</td>
+                    <td>{{transaction.subscription_plan_name}}</td>
+                    <td>{{transaction.charged_amount | currency:transaction.currency}}</td>
+                    <td>
+                        <a  target="_blank"
+                            href="https://dashboard.stripe.com/payments/{{transaction.stripe_charge_id}}">{{transaction.stripe_charge_id}}</a>                      
+                    </td>       
+                    <td>
+                       <div *ngIf="transaction.details">
+                          <b>Card - {{ transaction.details.card.brand | titlecase }}</b>
+                          <p class="mb-0">Ending With {{ transaction.details.card.last4 }}</p>
+                          <p class="mb-0">Expires {{ transaction.details.card.exp_month+' / '+transaction.details.card.exp_year }}</p>
+                       </div>
+                    </td>          
+                    <td>{{transaction.created_at | date:'dd-MM-yyyy HH:mm a'}}</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6"> 
+                        <div class="w-100" *ngIf="product.payment_transactions.length == 0">
+                            <p class="mb-0"><i class="fa fa-info-circle mr-2"></i>No Payment Transactions.</p>
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+  
+    <h6 class="bg-light text-dark p-2 mt-3">
+      Attributes
+    </h6>
+    <div class="row" *ngIf="product.attributes; else noAttributes">
+      <div class="col-md-12">
+        <app-change-sequence [mode]="'ATTRIBUTES'" [data]="product.attributes" (onSequenceChange)="updateSequence($event)"></app-change-sequence>
+        </div>
+    </div>
+    <ng-template #noAttributes>
+      <div class="text-center text-muted">
+        <h2><i class="fa fa-info-circle"></i></h2>
+        <h4>No Attributes!</h4>
+      </div>
+    </ng-template>
+  
+    <!--<h6 class="bg-light text-dark p-2 mt-3">FAQ</h6>
+    <div class="row" *ngIf="product && product.faqs; else noFaqs">
+      <div class="col-md-12">
+        <app-change-sequence [mode]="'FAQS'" [data]="product.faqs" (onSequenceChange)="updateSequence($event)"></app-change-sequence>
+      </div>
+    </div>
+    <ng-template #noFaqs>
+      <div class="text-center text-muted">
+        <h2><i class="fa fa-info-circle"></i></h2>
+        <h4>No FAQs!</h4>
+      </div>
+    </ng-template>-->
+  
+    <h6 class="bg-light text-dark p-2 mt-3">Images</h6>
+    <div class="row" *ngIf="product && product.media; else noImgs">
+      <div class="col-md-12">
+        <app-change-sequence [mode]="'IMAGES'" [data]="product.media" (onSequenceChange)="updateSequence($event)"></app-change-sequence>
+      </div>
+    </div>
+    <ng-template #noImgs>
+      <div class="text-center text-muted">
+        <h2><i class="fa fa-info-circle"></i></h2>
+        <h4>No Images!</h4>
+      </div>
+    </ng-template>
+  
+    
+  </ng-container>
+  <ng-template #noProduct>
+    <div class="card p-2">
+      <div class="text-center text-muted">
+          <h2><i class="fa fa-golf-ball" aria-hidden="true"></i></h2>
+          <h4 class="font-weight-normal">Product Not Found</h4>
+      </div>
+    </div>
+  </ng-template>  
+</div>

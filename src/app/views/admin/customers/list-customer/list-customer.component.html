@@ -1,0 +1,32 @@
+<div class="w-100 p-3 bg-dark-blue d-flex justify-content-between align-items-center">
+    <h4 class="text-white font-weight-bold mb-0"><i class="fas fa-users mr-2"></i>Customers</h4>
+</div>
+ 
+
+<ng-container>
+    <div class="card-body  bg-transparent">
+        <div class="row">
+            <div class="col-md-2">
+                <mat-label>Countries</mat-label>
+                <mat-select placeholder="Select Countries" (selectionChange)="handleChange('COUNTRY', $event.value)" [(ngModel)]="customer_config.filter.COUNTRY">
+                  <mat-option color="primary" *ngFor="let country of countriesList" [value]="country.id">{{country.name}}</mat-option>
+                </mat-select>
+            </div>
+            <div class="col-md-2">
+                <button type="button" (click)="clearFilter()" class="btn btn-danger">Clear</button>
+            </div>
+        </div>
+    </div>
+    <div class="p-3"  *blockUI="'datatable'">
+        <div class="table-responsive">
+            <table  hover="true" id="customersList" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+            </table>
+        </div>
+    </div>
+</ng-container>
+<ng-template #noCustomers>
+    <div class="text-center text-muted">
+        <h2><i class="fa fa-info-circle"></i></h2>
+        <h4>No Customers!</h4>
+    </div>
+</ng-template>

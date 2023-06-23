@@ -1,0 +1,26 @@
+
+<ng-container *ngIf="CategoryDetails; else noCategoryDetails">
+  <div class="p-2">
+        <button class="btn btn-primary float-right" type="button" (click)="openEditModal()">Edit <i class="ml-2 fa fa-pencil" aria-hidden="true"></i></button>
+
+        <table class="table">
+          <tbody>
+            <tr><td class="font-weight-normal border-top-0">Category ID</td><td class="font-weight-normal border-top-0">{{CategoryDetails.id}}</td></tr>
+            <tr><td class="font-weight-normal">Name</td><td class="font-weight-normal">{{CategoryDetails.name || '-'}} <span class="ml-2 badge badge-success badge-pill p-2" *ngIf="CategoryDetails.is_coming_soon==1">Comming Soon</span></td></tr>
+            <tr><td class="font-weight-normal">URL</td><td class="font-weight-normal">{{ CategoryDetails.slug || '-' }}</td></tr>
+            <tr><td class="font-weight-normal">Active</td><td class="font-weight-normal"><h5><i class="fa fa-check text-success" *ngIf="CategoryDetails.is_active"></i><i class="fa fa-times text-danger" *ngIf="!CategoryDetails.is_active"></i></h5></td></tr>
+            <tr><td class="font-weight-normal">Description</td><td class="font-weight-normal">{{CategoryDetails.description}}</td></tr>
+            <tr>
+              <td class="font-weight-normal">Image</td>
+              <td class="font-weight-normal">
+                  <app-image-preview [imgPath]="CategoryDetails.image" height="200" width="200" caption="Image"></app-image-preview>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+ 
+  </div>
+</ng-container>
+<ng-template #noCategoryDetails>
+  No Article Category Details
+</ng-template>

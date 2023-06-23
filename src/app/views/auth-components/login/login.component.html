@@ -1,0 +1,63 @@
+<!-- Page content -->
+<div class="container">
+    <div class="row justify-content-center">
+          <div class="col-lg-5 col-md-7">
+
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="error">
+                Oh Snap! We have encountered some problem at our end. Please try again in some time
+              </div>
+
+              <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="isNotValidCredentials">
+                  Email and password you entered did not match our records. Please double-check and try again
+              </div>
+
+              <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="noAccount">
+                    No such account exist . Please try with other email address .
+              </div>
+
+              <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="isNotActive">
+                  Your account has been disabled by system admin. Please contact support@teledaddy.com for further details
+              </div>
+
+
+
+              <div class="card shadow border-0 mt-5">
+                    <div class="card-header bg-dark-blue text-center">
+                        <h4 class="text-white">Reyna Marketplace Admin Portal</h4>
+                    </div>
+                    <div class="card-body px-lg-5">
+                        <div class="text-center text-muted mb-4">
+                              <small>Sign in to Account</small>
+                        </div>
+                        <form role="form" [formGroup]="loginForm" (submit)="login(loginForm.valid)" novalidate>
+                              <div class="form-group mb-3">
+                                  <div class="input-group input-group-alternative">
+                                  <div class="input-group-prepend">
+                                      <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                  </div>
+                                  <input formControlName="username" name="username"
+                                  class="form-control" placeholder="Email" type="email">
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <div class="input-group input-group-alternative">
+                                  <div class="input-group-prepend">
+                                      <span class="input-group-text"><i class="fas fa-unlock-alt"></i></span>
+                                  </div>
+                                  <input formControlName="password" name="password"
+                                  class="form-control" placeholder="Password" type="password">
+                                  </div>
+                              </div>
+                              <div class="text-center">
+                                  <button class="btn btn-primary btn-block my-4" type="submit" [disabled]="saving">
+                                    <span *ngIf="!saving">Sign in</span>
+                                    <span *ngIf="saving">Signing in ...</span>
+                                  </button>
+                                  <a href="javascript:void(0)" class="btn btn-link btn-block" routerLinkActive="active" routerLink="/account/forgot-password"><small>Forgot password?</small></a>
+                              </div>
+                        </form>
+                    </div>
+              </div>
+          </div>
+    </div>
+</div>

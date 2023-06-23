@@ -1,0 +1,112 @@
+<div class="w-100 p-3 bg-dark-blue d-flex justify-content-between align-items-center">
+      <h4 class="text-white font-weight-bold mb-0">Article Details #{{ArticleId}}</h4>
+      <a routerLink="/admin/articles/edit/{{ArticleId}}" routerLinkActive="active" class="btn btn-primary pull-right">Edit</a>
+</div>
+<div class="p-3">
+  <ng-container *ngIf="ArticleDetails; else noDetails">
+    <div class="container-fluid ArticleDetails">
+      <div class="row">
+       
+        <div class="col-md-2">
+          <span *ngIf="ArticleDetails.status == 'draft'" class="p-2 badge badge-primary">Draft</span>
+          <span *ngIf="ArticleDetails.status == 'published'" class="p-2 badge badge-success">Published</span>
+          <span *ngIf="ArticleDetails.status == 'under_review'" class="p-2 badge badge-info">Under Review</span>
+        </div>
+        <div class="col-md-2">
+          <label>Active</label>
+          <h5>
+            <i class="fa fa-check text-success" *ngIf="ArticleDetails.is_active"></i>
+            <i class="fa fa-times text-danger" *ngIf="!ArticleDetails.is_active"></i>
+          </h5>
+        </div>
+      </div>
+
+      <div class="row mt-5">
+        <div class="col-md-4">
+          <label>Created On</label>
+          <h5>{{_helper.getFormattedDate(ArticleDetails.created_at, 'MM/DD/YYYY hh:mm A')}}</h5>
+        </div>
+        <div class="col-md-4">
+          <label>Updated On</label>
+          <h5>{{_helper.getFormattedDate(ArticleDetails.updated_at, 'MM/DD/YYYY hh:mm A')}}</h5>
+        </div>
+      </div>
+      <hr>
+
+      <div class="alert alert-info">
+         <h4 class="border-bottom">English</h4>
+         <div class="row mt-5">
+          <div class="col-md-12">
+            <h5>{{ArticleDetails.title}}</h5>
+          </div>
+          <div class="col-md-12 mt-2">
+            <div [innerHTML]="ArticleDetails.body"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert alert-info mt-4">
+        <h4  class="border-bottom">Spanish</h4>
+        <div class="row">
+         <div class="col-md-12">
+           <h5>{{ArticleDetails.title_es}}</h5>
+         </div>
+         <div class="col-md-12 mt-2">
+           <div [innerHTML]="ArticleDetails.body_es"></div>
+         </div>
+       </div>
+     </div>
+
+
+     <div class="alert alert-info">
+      <h4  class="border-bottom">French</h4>
+      <div class="row">
+       <div class="col-md-12">
+         <h5>{{ArticleDetails.title_fr}}</h5>
+       </div>
+       <div class="col-md-12 mt-2">
+         <div [innerHTML]="ArticleDetails.body_fr"></div>
+       </div>
+     </div>
+   </div>
+
+      <div class="alert alert-info">
+        <h4  class="border-bottom">Dutch</h4>
+        <div class="row">
+        <div class="col-md-12">
+          <h5>{{ArticleDetails.title_nl}}</h5>
+        </div>
+        <div class="col-md-12 mt-2">
+          <div [innerHTML]="ArticleDetails.body_nl"></div>
+        </div>
+      </div>
+    </div>
+        
+    <div class="alert alert-info">
+      <h4  class="border-bottom">Portuguese</h4>
+      <div class="row">
+      <div class="col-md-12">
+        <h5>{{ArticleDetails.title_pt}}</h5>
+      </div>
+      <div class="col-md-12 mt-2">
+        <div [innerHTML]="ArticleDetails.body_pt"></div>
+      </div>
+    </div>
+    </div>
+   
+     
+      <div class="row">
+        <div class="col-sm-12">
+          <a routerLink="/admin/articles" class="btn btn-primary pull-right">Back</a>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #noDetails>
+    <div class="text-center text-muted">
+      <h2><i class="fa fa-info-circle"></i></h2>
+      <h4>No Details!</h4>
+    </div>
+  </ng-template>
+</div>

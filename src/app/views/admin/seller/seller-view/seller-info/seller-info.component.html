@@ -1,0 +1,136 @@
+<div class="p-3"   *blockUI="'seller'">
+    <ng-container *ngIf="sellerDetails; else noSellerDetails">
+        <div class="row">
+          
+           <div class="col-lg-6 col-md-6 col-12">
+               <table class="table table-sm">
+                   <thead class="thead-light">
+                       <tr>
+                           <th colspan="2">Personal Info</th>
+                       </tr>
+                   </thead>
+                   <tbody>
+                       <tr><td>First Name</td><td>{{ sellerDetails.personal_info.first_name }}</td></tr>
+                       <tr><td>Last Name </td><td>{{ sellerDetails.personal_info.last_name }}</td></tr>
+                       <tr><td>Email </td><td>{{  sellerDetails.personal_info.email}}</td></tr>
+                       <tr><td>Display name</td><td>{{ sellerDetails.personal_info.display_name }}</td></tr>
+                       <tr><td>Phone Number</td><td>{{ sellerDetails.personal_info.cell_phone_number }}</td></tr>
+                       <tr><td>Gender</td><td>{{ sellerDetails.personal_info.gender }}</td></tr>
+                       <tr><td>Role</td><td>{{ sellerDetails.personal_info.role }}</td></tr>
+                       <tr><td>Language</td><td>{{ sellerDetails.personal_info.preferred_language }}</td></tr>
+                       <tr><td>Currency</td><td>{{ sellerDetails.personal_info.preferred_currency }}</td></tr>
+                       <tr><td>Platform</td><td>{{ sellerDetails.personal_info.platform }}</td></tr>
+                       <tr *ngIf="sellerDetails.personal_info.app_version"><td>App Version</td><td>{{ sellerDetails.personal_info.app_version }}</td></tr>
+                       <tr><td>Email Verified</td><td><p *ngIf="sellerDetails.personal_info.is_verified" class="badge badge-pill badge-success">Verified</p></td></tr>
+                       <tr *ngIf="sellerDetails.personal_info.is_verified"><td>Email Verified at</td><td>{{ sellerDetails.personal_info.email_verified_at | date:'dd-MM-yyyy hh:mm:ss a'}}</td></tr>
+
+                       <tr>
+                        <td>Stripe Customer</td>
+                        <td>
+                            <h5>{{sellerDetails.personal_info.stripe_user_id ? sellerDetails.personal_info.stripe_user_id:'Not Found'}}</h5>
+                            <a *ngIf="sellerDetails.personal_info.stripe_user_id" class="btn btn-sm btn-info" target="_blank" [href]="'https://dashboard.stripe.com/customers/'+sellerDetails.personal_info.stripe_user_id">View Details</a>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>Stripe Connect Account</td>
+                            <td>
+                                <h5>{{sellerDetails.personal_info.stripe_account_id ? sellerDetails.personal_info.stripe_account_id:'Not Found'}}</h5>
+                                <a *ngIf="sellerDetails.personal_info.stripe_account_id" class="btn btn-sm btn-info" target="_blank" [href]="'https://dashboard.stripe.com/connect/accounts/'+sellerDetails.personal_info.stripe_account_id+'/activity'">View Details</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Account Verified</td>
+                            <td>
+                                <p [ngClass]="{'badge badge-pill':true,'badge-success':sellerDetails.personal_info.account_verified_by_admin==1,'badge-dark':sellerDetails.personal_info.account_verified_by_admin!=1}">{{ sellerDetails.personal_info.account_verified_by_admin==1?'Verified':'Not Verified'}}</p>
+                                <button *ngIf="sellerDetails.personal_info.account_verification_by_admin_status!='approved'" type="button" (click)="openVerifyModal()" class="btn btn-outline-success btn-block">Verify Now</button>
+                            </td>
+                        </tr>
+
+                   </tbody>
+               </table>
+
+               <table class="table table-sm">
+                   <thead class="thead-light">
+                       <tr>
+                           <th colspan="2">Payout Information</th>
+                       </tr>
+                   </thead>
+                   <tbody>
+                       <tr><td>Account Holder Name</td><td>{{ sellerDetails.payout_information.account_holder_name }}</td></tr>
+                       <tr><td>Account type</td><td>{{ sellerDetails.payout_information.account_type }}</td></tr>
+                       <tr><td>Routing number</td><td>{{ sellerDetails.payout_information.routing_number }}</td></tr>
+                       <tr><td>Account number</td><td>{{ sellerDetails.payout_information.account_number }}</td></tr>
+                       <tr><td>Bank name</td><td>{{ sellerDetails.payout_information.bank_name }}</td></tr>
+                       <tr><td>Bank address</td><td>{{ sellerDetails.payout_information.bank_address }}</td></tr>
+                       <tr><td>Bank iban</td><td>{{ sellerDetails.payout_information.bank_iban }}</td></tr>
+                       <tr><td>Bank swiftcode</td><td>{{ sellerDetails.payout_information.bank_swiftcode }}</td></tr>
+                   </tbody>
+               </table>
+
+           </div>
+
+           <div class="col-lg-6 col-md-6 col-12">
+                <table class="table table-sm" *ngFor="let address of sellerDetails.personal_info.addresses">
+                    <thead class="thead-light">
+                        <tr>
+                            <th colspan="2">{{ address.type | titlecase }} Address</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Address Line 1</td><td>{{ address.address_line_1 }}</td></tr>
+                        <tr><td>Address Line 2</td><td>{{ address.address_line_2 }}</td></tr>
+                        <tr><td>City</td><td>{{ address.city_name }}</td></tr>
+                        <tr><td>State</td><td>{{ address.state }}</td></tr>
+                        <tr><td>Country</td><td>{{ address.country }}</td></tr>
+                        <tr><td>Zip Code</td><td>{{ address.zip_code }}</td></tr>
+                        <tr><td>Address Type</td><td>{{ address.type }}</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-12">
+                <div>
+                    <table class="table table-sm">
+                        <thead class="thead-light">
+                            <tr>
+                                <th class="font-weight-bold">Photo Id Front</th> 
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <app-image-preview [imgPath]="sellerDetails.personal_info.photo_id_front" height="250" width="350" caption="PhotoId Front"></app-image-preview>
+                                </td> 
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+                <div>
+                    <table class="table table-sm">
+                        <thead class="thead-light">
+                            <tr>
+                                <th class="font-weight-bold">Photo Id Back</th> 
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <app-image-preview [imgPath]="sellerDetails.personal_info.photo_id_back" height="250" width="350" caption="PhotoId Back"></app-image-preview>
+                                </td> 
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+   </ng-container>
+    <ng-template #noSellerDetails>
+        <div class="text-center text-muted">
+            <h2><i class="fa fa-info-circle"></i></h2>
+            <h4>No Details!</h4>
+        </div>
+    </ng-template>
+</div>

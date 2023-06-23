@@ -1,0 +1,80 @@
+<div class="p-3">
+    <div> <h5 class="text-dark font-weight-bold">Login History</h5> </div>
+    <ng-container *ngIf="loginHistory.length; else elseEmptyLoginHistory">
+        <table class="my-2 table table-sm">
+            <thead class="thead-light">
+                <tr>
+                    <th>Login At</th> <!-- created -->
+                    <th>Location</th> <!-- city, region_name, country -->
+                    <th>Device</th> <!-- device_os, device_os_version -->
+                    <th>Browser</th> <!-- browser_name, browser_version -->
+                    <th>IP Address</th> <!-- ip_address -->
+                    <th>ISP</th> <!-- ord -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let loginItem of loginHistory">
+                    <td>
+                        <p class="font-weight-normal mb-0">{{ _helper.getFormattedDate(loginItem.created_at,'DD/MM/YYYY hh:mm:ss A') }}</p>
+                    </td>
+                    <td>
+                        <p class="font-weight-normal mb-0">{{loginItem.city}}, {{loginItem.region_name}}, {{loginItem.country}}</p>
+                    </td>
+                    <td>
+                        <p class="font-weight-normal mb-0">{{loginItem.device_os}} - {{loginItem.device_os_version}}</p>
+                    </td>
+                    <td>
+                        <p class="font-weight-normal mb-0">{{loginItem.browser_name}} - {{loginItem.browser_version}}</p>
+                    </td>
+                    <td>
+                        <p class="font-weight-normal mb-0">{{loginItem.ip_address}}</p>
+                    </td>
+                    <td>
+                        <p class="font-weight-normal mb-0">{{loginItem.isp}}</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </ng-container>
+    <ng-template #elseEmptyLoginHistory>
+        <div class="text-center text-muted">
+            <h2><i class="fa fa-info-circle"></i></h2>
+            <h4>No Login History!</h4>
+        </div>
+    </ng-template>
+
+    <hr />
+    <div> <h5 class="text-dark font-weight-bold">Device History</h5> </div>
+    <ng-container *ngIf="deviceList.length; else elseEmptyDevices">
+        <table *ngIf="deviceList.length" class="table table-sm">
+            <thead class="thead-light">
+                <tr>
+                    <th>Date Time</th>
+                    <th>Device Type</th>
+                    <th>Device OS</th>
+                    <th>Os Version</th>
+                    <th>Browser Name</th>
+                    <th>Browser Version</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of deviceList">
+                     <td>
+                        <p class="font-weight-normal mb-0">{{ _helper.getFormattedDate(item.created_at,'DD/MM/YYYY hh:mm:ss A') }}</p>
+                    </td>
+                    <td>{{item.device_type.charAt(0).toUpperCase() + item.device_type.slice(1)}}</td>
+                    <td>{{item.device_os}}</td>
+                    <td>{{item.device_os_version}}</td>
+                    <td>{{item.browser_name}}</td>
+                    <td>{{item.browser_version}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </ng-container>
+    <ng-template #elseEmptyDevices>
+        <div class="text-center text-muted">
+            <h2><i class="fa fa-info-circle"></i></h2>
+            <h4>No Devices Found!</h4>
+        </div>
+    </ng-template>
+</div>

@@ -1,0 +1,53 @@
+<div class="w-100 p-3 bg-dark-blue d-flex justify-content-between align-items-center">
+      <h4 class="text-white font-weight-bold mb-0">Policy Details</h4>
+      <a routerLink="/admin/policy/edit/{{PolicyId}}" routerLinkActive="active" class="btn btn-primary pull-right">Edit</a>
+</div>
+<div class="p-3">
+  <ng-container *ngIf="PolicyDetails; else noDetails">
+    <div class="container-fluid PolicyDetails">
+      <div class="row">
+        <div class="col-md-4">
+          <p>{{ PolicyDetails.title }}</p>
+        </div>
+        <div class="col-md-4">
+          <label>Active</label>
+          <h5>
+            <i class="fa fa-check text-success" *ngIf="PolicyDetails.is_active"></i>
+            <i class="fa fa-times text-danger" *ngIf="!PolicyDetails.is_active"></i>
+          </h5>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col-md-12">
+          <h5>{{PolicyDetails.title}}</h5>
+        </div>
+        <div class="col-md-12 mt-2">
+          <div [innerHTML]="PolicyDetails.policy_text"></div>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col-md-4">
+          <label>Created On</label>
+          <h5>{{_helper.getFormattedDate(PolicyDetails.created_at, 'MM/DD/YYYY hh:mm A')}}</h5>
+        </div>
+        <div class="col-md-4">
+          <label>Updated On</label>
+          <h5>{{_helper.getFormattedDate(PolicyDetails.updated_at, 'MM/DD/YYYY hh:mm A')}}</h5>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-sm-12">
+          <a routerLink="/admin/policy" class="btn btn-primary pull-right">Back</a>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #noDetails>
+    <div class="text-center text-muted">
+      <h2><i class="fa fa-info-circle"></i></h2>
+      <h4>No Details!</h4>
+    </div>
+  </ng-template>
+</div>

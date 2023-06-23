@@ -1,0 +1,43 @@
+<div class="container-fluid tab-pane mt-4">
+    <div class="row mb-2">
+        <div class="col-md-4">
+            <label>User Filter</label>
+            <mat-select [(ngModel)]="userType"  (selectionChange)="getOrderLogs($event.value)" class="form-control" placeholder="SELECT USER TYPE">
+                <mat-option value="admin,seller,dealer,user">ALL</mat-option>
+                <mat-option value="admin">ADMIN</mat-option>
+                <mat-option value="dealer">DEALER</mat-option>
+                <mat-option value="seller">SELLER</mat-option>
+                <mat-option value="user">CUSTOMER</mat-option>
+            </mat-select>
+        </div>
+    </div>
+    <ng-container *ngIf="orderLogs.length>0;else noLogs">
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>EVENT NAME</th>
+                    <th>USER NAME</th>
+                    <th>INFOMATION</th>
+                    <th>CREATED AT</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let log of orderLogs; let idx = index">
+                    <td class="font-weight-normal">{{log.event}}</td>
+                    <td class="font-weight-normal">{{log.first_name+' '+log.last_name}}</td>
+                    <td class="font-weight-normal">
+                        {{log.data}}
+                        <button *ngIf="log.request_input && log.response_output" (click)="showLogDetailsModal(log)" class="btn btn-primary btn-sm float-right">Details</button>
+                    </td>
+                    <td class="font-weight-normal">{{ _helper.getUTCtoLocalDateTime(log.created_at) }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </ng-container>
+    <ng-template #noLogs>
+        <div class="text-center text-muted">
+            <h2><i class="fa fa-info-circle"></i></h2>
+            <h4>No Order Logs Found !</h4>
+        </div>
+    </ng-template>
+</div>

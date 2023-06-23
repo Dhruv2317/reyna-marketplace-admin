@@ -1,0 +1,175 @@
+
+
+<!-- <div class="col-sm-3">
+  <button class="btn btn-primary" (click)="getQuestionsList()">Get Sequence</button>
+</div> -->
+<ng-container *ngIf="data.length; else noData">
+  <div class="pad">
+    <div class="row mb-2">
+      <div class="col-sm-6 text-left">
+        <button class="btn btn-light btn-sm" [disabled]="!isSequenceUpdated" (click)="resetSequence()">Reset Sequence</button>
+      </div>
+      <div class="col-sm-6 text-right">
+        <button class="btn btn-primary btn-sm" [disabled]="!isSequenceUpdated" (click)="saveUpdatedSequence()">Save Sequence</button>
+      </div>
+    </div>
+    <div class="row text-center heading">
+      <div class="col-sm-2">
+        <h6>New Sequence</h6>
+      </div>
+      <div class="col-sm-8">
+        <h6>Item</h6>
+      </div>
+      <div class="col-sm-2">
+        <h6>Previous Sequence</h6>
+      </div>
+    </div>
+    <div cdkDropList class="questions-list" (cdkDropListDropped)="drop($event)">
+      <div class="questions-box" *ngFor="let item of data;let i = index" cdkDrag>
+        <!-- IMAGES -->
+        <div class="row" *ngIf="mode == 'IMAGES'">
+          <div class="col-sm-2 text-center">
+            <p class="font-weight-bold mb-0">{{(i+1)}}</p>
+          </div>
+          <div class="col-sm-8">
+            <div class="row">
+              <div class="col-sm-4">
+                <app-image-preview [imgPath]="item.path" height="150"
+                width="150" caption="Images"></app-image-preview>
+
+              </div>
+
+              <div class="col-sm-4">
+                <p *ngIf="item.caption" class="text-dark font-weight-normal mb-0">{{item.caption}}</p>
+                <span *ngIf="item.is_default" class="badge badge-success p-2 ml-2">Default</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-2 text-center">
+            <p class="font-weight-bold mb-0">{{item.sequence}}</p>
+          </div>
+        </div>
+
+        <!-- FAQs -->
+        <div class="row" *ngIf="mode == 'FAQS'">
+          <div class="col-sm-2 text-center">
+            <p class=" mb-0font-weight-bold">{{(i+1)}}</p>
+          </div>
+          <div class="col-sm-8">
+            <p class="text-dark font-weight-normal mb-0">{{item.question}}</p>
+            <p class="text-secondary font-weight-normal mb-0">{{item.answer}}</p>
+          </div>
+          <div class="col-sm-2 text-center">
+            <p class="font-weight-bold mb-0">{{item.sequence}}</p>
+          </div>
+        </div>
+
+        <!-- ATTRIBUTES -->
+        <div class="row" *ngIf="mode == 'ATTRIBUTES'">
+          <div class="col-sm-2 text-center">
+            <p class="font-weight-bold mb-0">{{(i+1)}}</p>
+          </div>
+          <div class="col-sm-8">
+
+            <ng-container *ngIf="item.type;else noType">
+                   <b class="text-dark mb-0">{{item.key}}</b>
+
+                   <div  *ngIf="item.type == 'DESCRIPTION'">
+                        <p class="text-secondary font-weight-normal mb-0">{{item.value}}</p>
+                   </div>
+                   <div  *ngIf="item.type == 'LIST'">
+                        <ul class="list-group list-group-flush">
+                          <li class="list-group-item text-dark font-weight-normal mb-0" *ngFor="let liItem of item.list">{{liItem.name}}</li>
+                        </ul>
+                   </div>
+                   <div  *ngIf="item.type == 'HTML'">
+                        <p class="text-secondary font-weight-normal mb-0" [innerHTML]="item.value_html"></p>
+                   </div>
+                   <div  *ngIf="item.type == 'TABLE'">
+                        <table class="table table-sm table-bordered">
+                            <tbody>
+                                <tr *ngFor="let trItem of item.table">
+                                    <td>{{trItem.label}}</td>
+                                    <td>{{trItem.value}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                   </div>
+            </ng-container>
+            <ng-template #noType>
+                <p class="text-dark font-weight-normal mb-0">{{item.name}}</p>
+                <!--<p class="text-secondary font-weight-normal mb-0">{{item.value}}</p>-->
+                <p class="mb-0">
+                  <span *ngFor="let val of item.values" class="badge badge-pill badge-primary p-2 mr-2">{{ val.name }}</span>
+                </p>
+            </ng-template>
+          </div>
+          <div class="col-sm-2 text-center">
+            <p class="font-weight-bold mb-0">{{item.sequence}}</p>
+          </div>
+        </div>
+
+        <!-- DOCUMENTS -->
+        <div class="row" *ngIf="mode == 'DOCUMENTS'">
+          <div class="col-sm-2 text-center">
+            <p class="font-weight-bold mb-0">{{(i+1)}}</p>
+          </div>
+          <div class="col-sm-8">
+            <div class="row">
+              <div class="col-sm-4">
+                <a [href]="environmentUrl.api_url + item.url" target="_blank"><img [src]="pdfIcon" height="80" width="70"/></a>
+              </div>
+              <div class="col-sm-4">
+                <label>{{item.caption}}</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-2 text-center">
+            <p class="font-weight-bold mb-0">{{item.sequence}}</p>
+          </div>
+        </div>
+
+        <!-- VIDEOS -->
+        <div class="row" *ngIf="mode == 'VIDEOS'">
+          <div class="col-sm-2 text-center">
+            <p class="font-weight-bold mb-0">{{(i+1)}}</p>
+          </div>
+          <div class="col-sm-8">
+            <div class="row">
+              <div class="col-sm-4">
+                <a [href]="environmentUrl.api_url + item.url" target="_blank"><img [src]="videoIcon" height="80" width="70"/></a>
+              </div>
+              <div class="col-sm-4">
+                <label>{{item.caption}}</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-2 text-center">
+            <p class="font-weight-bold mb-0">{{item.sequence}}</p>
+          </div>
+        </div>
+
+        <!-- QUESTIONS -->
+        <div class="row" *ngIf="mode == 'QUESTIONS'">
+          <div class="col-sm-2 text-center">
+            <p class="font-weight-bold">{{(i+1)}}</p>
+          </div>
+          <div class="col-sm-8">
+            <p class="text-dark font-weight-normal mb-0">{{item.question_id.text}}</p>
+            <p class="text-secondary font-weight-normal mb-0">{{item.value}}</p>
+          </div>
+          <div class="col-sm-2 text-center">
+            <p class="font-weight-bold">{{item.sequence}}</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</ng-container>
+<ng-template #noData>
+  <div class="text-center text-muted">
+    <h2><i class="fa fa-info-circle"></i></h2>
+    <h4>No Data To Change Sequence!</h4>
+  </div>
+</ng-template>

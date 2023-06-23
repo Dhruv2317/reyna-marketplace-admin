@@ -1,0 +1,285 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <div class="w-100 d-flex flex-row justify-content-between align-items-center">
+            <p class="font-weight-bold mb-0">{{ modalEvent =='EDIT' ? 'Edit Subcategory' : 'Add Subcategory' }}</p>
+            <button (click)="closeModal()" type="button"  class="close float-right" aria-label="Close" data-dismiss="modal">
+                <span aria-hidden="true">x</span>
+            </button>
+        </div>
+    </div>
+    <div class="modal-body">
+        <form
+        id="subcategory-form"
+        (ngSubmit)="saveOTCSubcategory(SubcategoryForm.valid)"
+            [formGroup]="SubcategoryForm" autocomplete="off">
+            
+
+                
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label>Name (English)</label><br />
+                        <input type="hidden" id="id" class="form-control" placeholder="" formControlName="id" />
+                        <input type="text" id="name" class="form-control" placeholder="Enter Name"
+                            formControlName="name" />
+                        <div class="invalid-feedback" *ngIf="name?.invalid && (name?.dirty || name?.touched)"
+                            class="text-danger">
+                            <div *ngIf="name?.errors?.required">Name is required.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-7">
+                    <div class="form-group">
+                        <label>Description  (English)</label><br />
+                        <textarea type="text" rows="2" id="description" class="form-control" formControlName="description"></textarea>
+                        <div class="invalid-feedback" *ngIf="description?.invalid && (description?.dirty || description?.touched)"
+                            class="text-danger">
+                            <div *ngIf="description?.errors?.required">Description is required.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label>Name (French)</label><br />
+                        <input type="text" id="name_fr" class="form-control" placeholder="Enter Name"
+                            formControlName="name_fr" />
+                        <div class="invalid-feedback" *ngIf="name_fr?.invalid && (name_fr?.dirty || name_fr?.touched)"
+                            class="text-danger">
+                            <div *ngIf="name_fr?.errors?.required">Name_fr is required.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-7">
+                    <div class="form-group">
+                        <label>Description (French)</label><br />
+                        <textarea type="text" rows="2" id="description_fr" class="form-control" formControlName="description_fr"></textarea>
+                        <div class="invalid-feedback" *ngIf="description_fr?.invalid && (description_fr?.dirty || description_fr?.touched)"
+                            class="text-danger">
+                            <div *ngIf="description_fr?.errors?.required">Description_fr is required.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label>Name (Dutch)</label><br />
+                        <input type="text" id="name_nl" class="form-control" placeholder="Enter Name"
+                            formControlName="name_nl" />
+                        <div class="invalid-feedback" *ngIf="name_nl?.invalid && (name_nl?.dirty || name_nl?.touched)"
+                            class="text-danger">
+                            <div *ngIf="name_nl?.errors?.required">name_nl is required.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-7">
+                    <div class="form-group">
+                        <label>Description (Dutch)</label><br />
+                        <textarea type="text" rows="2" id="description_nl" class="form-control" formControlName="description_nl"></textarea>
+                        <div class="invalid-feedback" *ngIf="description_nl?.invalid && (description_nl?.dirty || description_nl?.touched)"
+                            class="text-danger">
+                            <div *ngIf="description_nl?.errors?.required">Description_nl is required.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label>Name (Spanish)</label><br />
+                        <input type="text" id="name_es" class="form-control" placeholder="Enter Name"
+                            formControlName="name_es" />
+                        <div class="invalid-feedback" *ngIf="name_es?.invalid && (name_es?.dirty || name_es?.touched)"
+                            class="text-danger">
+                            <div *ngIf="name_es?.errors?.required">Name is required.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-7">
+                    <div class="form-group">
+                        <label>Description (Spanish)</label><br />
+                        <textarea type="text" rows="2" id="description_es" class="form-control" formControlName="description_es"></textarea>
+                        <div class="invalid-feedback" *ngIf="description_es?.invalid && (description_es?.dirty || description_es?.touched)"
+                            class="text-danger">
+                            <div *ngIf="description_es?.errors?.required">Description is required.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label>Name (Portuguese)</label><br />
+                        <input type="text" id="name_pt" class="form-control" placeholder="Enter Name"
+                            formControlName="name_pt" />
+                        <div class="invalid-feedback" *ngIf="name_pt?.invalid && (name_pt?.dirty || name_pt?.touched)"
+                            class="text-danger">
+                            <div *ngIf="name_pt?.errors?.required">name_pt is required.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-7">
+                    <div class="form-group">
+                        <label>Description (Portuguese)</label><br />
+                        <textarea type="text" rows="2" id="description_pt" class="form-control" formControlName="description_pt"></textarea>
+                        <div class="invalid-feedback" *ngIf="description_pt?.invalid && (description_pt?.dirty || description_pt?.touched)"
+                            class="text-danger">
+                            <div *ngIf="description_pt?.errors?.required">Description_pt is required.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="float-left">Image Url</label><br>
+                        <div class="float-left w-100">
+                            <img class="rounded shadow" id="blah" [(src)]="imageUrl" alt="your image"
+                                style="max-height: 250px; max-width: 250px; margin-bottom: 10px;" />
+                        </div>
+                        <input type="file" id="image" accept="image/*" (change)="onFileChange($event, 'IMAGE')" class="form-control"
+                            placeholder="Upload Image" formControlimage="image_url" />
+                        <div class="invalid-feedback" *ngIf="image_url?.invalid && (image_url?.dirty || image_url?.touched)"
+                            class="text-danger">
+                            <div *ngIf="image_url?.errors?.required">Image is required.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <mat-checkbox id="is_active" formControlName="is_active" color="primary">Active</mat-checkbox>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Min Shipping Weight</label><br />
+                        <input type="number" min="0" step="1" max="30000" id="min_shipping_weight" class="form-control" placeholder="Enter Min Shipping Weight" formControlName="min_shipping_weight" />
+                        <div class="invalid-feedback" *ngIf="min_shipping_weight?.invalid && (min_shipping_weight?.dirty || min_shipping_weight?.touched)"
+                            class="text-danger">
+                            <div *ngIf="min_shipping_weight?.errors?.required">Min Shipping Weight is required.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Max Shipping Weight</label><br />
+                        <input type="number" min="0" step="1" max="30000" id="max_shipping_weight" class="form-control" placeholder="Enter Max Shipping Weight" formControlName="max_shipping_weight" />
+                        <div class="invalid-feedback" *ngIf="max_shipping_weight?.invalid && (max_shipping_weight?.dirty || max_shipping_weight?.touched)"
+                            class="text-danger">
+                            <div *ngIf="max_shipping_weight?.errors?.required">Max Shipping Weight is required.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-dark my-3">
+                <h5 class="font-weight-bold mb-5">Attributes</h5>
+                <div formArrayName="attributes">
+                    <div *ngFor="let attributeItem of attributes().controls; let attributeIndex=index">
+                      <div class="form-group mt-2" [formGroupName]="attributeIndex">
+                                <div class="form-row">
+                                    <div class="col-2">
+                                        <div class="form-group">
+                                            <mat-select formControlName="attribute_id" placeholder="Attribute" (selectionChange)="attrChange(attributeIndex,$event)">
+                                                <mat-option *ngFor="let attr of attributesData" [value]="attr.id">
+                                                    {{attr.name}}
+                                                </mat-option>
+                                            </mat-select>
+                                       </div>       
+                                    </div>
+                                    <div class="col-8">                                       
+                                        <table class="table table-bordered table-responsive">
+                                            <tr>                                                                                
+                                                    <td>
+                                                        <ul class="list-group-flush">
+                                                            <li class="list-group" *ngFor="let value of getValuesFromAttribute('value',attributeItem.get('attribute_id')?.value);let valIndex=index;">
+                                                                <mat-checkbox  
+                                                                [checked]="getcheckBoxValue(attributeIndex,value.id)"
+                                                                [value]="value.id"
+                                                                (change)="setAttributeValue(attributeIndex,valIndex,value.id,$event.checked)">
+                                                                {{value.name}}
+                                                                </mat-checkbox>
+                                                            </li>
+                                                        </ul>                                                       
+                                                    </td>
+                                                    <td>
+                                                        <div  formArrayName="values">
+                                                            <div *ngFor="let valueItem of valuesInputArray(attributeIndex).controls; let valueIndex=index">
+                                                                <div class="mt-2" [formGroupName]="valueIndex">
+                                                                    <div formArrayName="children">                                                                
+                                                                    <td  *ngIf="childrenArray(attributeIndex,valueIndex) && childrenArray(attributeIndex,valueIndex).controls">                                                                       
+                                                                        <div *ngFor="let childAttributeItem of childrenArray(attributeIndex,valueIndex).controls; let childIndex=index">
+                                                                            <div class="form-group mt-2" [formGroupName]="childIndex">
+                                                                                <div class="form-row">
+                                                                                    <div class="col-2">                                                                   
+                                                                                        <div>                                                               
+                                                                                            <mat-select formControlName="child_attribute_id" placeholder="Child Attribute" (selectionChange)="childAttrChange(attributeIndex,valueIndex,childIndex,$event)">
+                                                                                                <mat-option *ngFor="let attr of attributesData" [value]="attr.id">
+                                                                                                    {{attr.name}}
+                                                                                                </mat-option>
+                                                                                            </mat-select>
+                                                                                        </div>                                                          
+                                                                                    </div>
+                                                                                    <div class="col-5">
+                                                                                        <mat-select formControlName="child_attribute_values" placeholder="Value" (selectionChange)="childAttrValueChange(attributeIndex,valueIndex,childIndex,$event)" multiple>
+                                                                                            <mat-option *ngFor="let value of getValuesFromAttribute('value',childAttributeItem.get('child_attribute_id')?.value)" [value]="value.id">
+                                                                                                {{value.name}}
+                                                                                            </mat-option>
+                                                                                        </mat-select>
+                                                                                    </div>
+                                                                                    <div class="col-2">
+                                                                                        <button  type="button" class="btn btn-sm btn-danger" (click)="removeChildFromAttrChildren(attributeIndex,valueIndex,childIndex)"><i class="fa fa-trash mr-2"></i>Remove</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>                                                                   
+                                                                        </div>
+                                                                        <div class="text-center">
+                                                                            <button type="button"  class="btn btn-sm btn-primary" (click)="addNewChildToAttrChildren(attributeIndex,valueIndex)"><i class="fa fa-plus mr-2"></i>Add More Child Attribute</button>
+                                                                        </div>
+                                                                    </td> 
+                                                                    </div>    
+
+                                                                </div>
+                                                            </div>  
+                                                        </div>                              
+                                                    </td>
+                                            </tr>
+                                        </table>                                                                                 
+                                    </div>
+                                    <div class="col-2">
+                                          <button  type="button" class="btn btn-sm btn-danger" (click)="removeAttributeInput(attributeIndex)"><i class="fa fa-trash mr-2"></i>Remove</button>
+                                    </div>                                  
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                      <button type="button"  class="btn btn-sm btn-primary" (click)="addAttributeInput()"><i class="fa fa-plus mr-2"></i>Add More Attribute</button>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <button class="btn btn-success btn-block btn-sm mt-2" type="submit">Save</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,105 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <h4 class="font-weight-bold modal-title w-100" id="ModalTitle">
+             {{ 'Refund Order #'+selectedOrder.order_number }}
+        </h4>
+        <button (click)="closeModal()" type="button" id="closeModalBtn" class="close float-right"  aria-label="Close" data-dismiss="modal">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+            <div class="alert alert-danger font-weight-bold" *ngIf="selectedOrder.charge_details && selectedOrder.charge_details.status=='refunded'">
+                This Stripe Charge <a target="_blank" href="https://dashboard.stripe.com/{{selectedOrder.charge_details.id}}">{{ selectedOrder.charge_details.id }}</a> is Already Refunded , processing refund will just update order status
+            </div>
+            <h5>Order Summary</h5>
+            <table class="table table-sm">
+                <thead class="thead-light">
+                <tr>
+                  <th>Order Subtotal</th>
+                  <th>Shipping Charge</th>
+                  <th>Discount</th>
+                  <th>Total</th>
+                  <th>Stripe</th>
+                  <th>Wallet</th>
+                </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{(selectedOrder.subtotal_amount?selectedOrder.subtotal_amount:0) |currency:selectedOrder.currency}}</td>
+                    <td>{{(selectedOrder.shipping_charge?selectedOrder.shipping_charge:0) |currency:selectedOrder.currency}}</td>
+                    <td>{{(selectedOrder.coupon_discount+selectedOrder.referral_discount)|currency:selectedOrder.currency}}</td>
+                    <td  class="alert-success">{{selectedOrder.total_amount|currency:selectedOrder.currency}}</td>
+                    <td  class="alert-success">{{selectedOrder.charged_from_stripe|currency:selectedOrder.currency}}</td>
+                    <td  class="alert-success">{{selectedOrder.charged_from_wallet|currency:selectedOrder.currency}}</td>
+                  </tr>
+                </tbody>
+            </table>
+
+
+            <h5>Refund Summary Until Now</h5>
+            <table class="table table-sm">
+                <thead class="thead-light">
+                <tr>
+                  <th>Refunded Shipping Charge</th>
+                  <th>Refunded Discount</th>
+                  <th>Refunded Total</th>
+                  <th>Refunded in Stripe</th>
+                  <!--<th>Refunded in Wallet</th>-->
+                </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{(selectedOrder.refunded_shipping_charge ? selectedOrder.refunded_shipping_charge:0 )|currency:selectedOrder.currency}}</td>
+                    <td>{{(selectedOrder.refunded_discount ? selectedOrder.refunded_discount:0 )|currency:selectedOrder.currency}}</td>
+                    <td>{{(selectedOrder.refunded_total ? selectedOrder.refunded_total:0 )|currency:selectedOrder.currency}}</td>
+                    <td>{{(selectedOrder.refunded_in_stripe ? selectedOrder.refunded_in_stripe:0 )|currency:selectedOrder.currency}}</td>
+                    <!--<td>{{(selectedOrder.refunded_in_wallet  ? selectedOrder.refunded_in_wallet:0 )|currency:selectedOrder.currency}}</td>-->
+                  </tr>
+                </tbody>
+            </table>
+
+            <h5>Refund Summary</h5>
+            <table class="table table-sm" *ngIf="refundObject">
+                <thead class="thead-light">
+                <tr>
+                  <th>Refund Shipping Charge</th>
+                  <th>Refund Discount</th>
+                  <th>Refund Total</th>
+                  <th>Refund To Stripe</th>
+                  <!--<th>Refund To Wallet</th>-->
+                </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="alert-primary font-weight-bold">{{refundObject.amount_to_process_refund_in_shipping_charge|currency:selectedOrder.currency}}</td>
+                    <td class="alert-primary font-weight-bold">{{refundObject.amount_to_process_refund_in_discount|currency:selectedOrder.currency}}</td>
+                    <td class="alert-primary font-weight-bold">{{refundObject.amount_to_precess_refund_total|currency:selectedOrder.currency}}</td>
+                    <td class="alert-primary font-weight-bold">{{refundObject.amount_to_process_refund_in_stripe|currency:selectedOrder.currency}}</td>
+                    <!--<td class="alert-primary font-weight-bold">{{refundObject.amount_to_process_refund_in_wallet|currency:selectedOrder.currency}}</td>-->
+                  </tr>
+                </tbody>
+            </table>
+            <!--<div class="form-group">
+                    <mat-checkbox color="primary"
+                    [(ngModel)]="full_refund_in_wallet"
+                    (change)="recalculateRefund($event)"
+                    [disabled]="selectedOrder.charge_details && selectedOrder.charge_details.refund_status=='full' ?true:false"
+                    >Process all amount to be refunded in Wallet ?</mat-checkbox>
+            </div>-->
+            <div class="text-center" *ngIf="refund_processing">
+                Processing ...
+            </div>
+            <div class="alert alert-success font-weight-bold" role="alert" *ngIf="selectedOrder.result && selectedOrder.result.refunded">
+               Order Refunded Successfully.
+               <p class="mb-0">Refunded To Stripe : {{ selectedOrder.result.stripeRefund ? selectedOrder.result.stripeRefund.id:'N/A' }} </p>
+               <p> Refunded To Wallet : {{ selectedOrder.result.walletRefund ? selectedOrder.result.walletRefund.id :'N/A' }} </p>
+            </div>
+            <div class="alert alert-danger" role="alert" *ngIf="selectedOrder.result && !selectedOrder.result.refunded">
+               Unable to process refund order. Please Check Payment Method!
+            </div>
+            <button *ngIf="!(selectedOrder.result && selectedOrder.result.refunded)" class="btn btn-block btn-success" [disabled]="refund_processing" (click)="refundOrder(selectedOrder.id)">PROCESS REFUND</button>
+            <button *ngIf="selectedOrder.result && selectedOrder.result.refunded" class="btn btn-block btn-dark"  (click)="closeModal()">CLOSE</button>
+
+        </div>
+
+</div>

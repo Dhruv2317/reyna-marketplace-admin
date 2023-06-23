@@ -1,0 +1,60 @@
+<div class="w-100 p-3 bg-dark-blue d-flex justify-content-between align-items-center">
+      <h4 class="text-white font-weight-bold mb-0"><i class="fas fa-cog mr-2"></i>Settings</h4>
+</div>
+<div class="container-fluid py-3">
+      <div class="row">
+            <div class="col-md-12">
+                  <div class="card">
+                  <div class="card-header"><h5>Manage System Settings</h5></div>
+                  <div class="card-body">
+                        <form  [formGroup]="systemSettings">
+
+                               <div formArrayName="entries">
+                                    <div *ngFor="let fi of entries().controls; let fiIndex=index">
+                                    <div class="form-group" [formGroupName]="fiIndex">
+                                          <div class="form-row">
+
+                                          <div class="col-6">
+                                                <input type="hidden" formControlName="id"  />
+                                                <div class="form-group">
+                                                <label>Title</label>
+                                                <input type="text" class="form-control" placeholder="Enter Title" formControlName="title"  />
+                                                <div class="invalid-feedback" *ngIf="fi.get('title')?.invalid && (fi.get('title')?.dirty || fi.get('title')?.touched)" class="text-danger">
+                                                      <div *ngIf="fi.get('title')?.errors?.required">Title is required</div>
+                                                </div>
+                                                </div>
+                                          </div>
+                                          <div class="col-3">
+                                                  <div class="form-group">
+                                                      <label>Value</label>
+                                                      <input type="text" id="value" formControlName="value" class="form-control" />
+                                                      <div class="invalid-feedback" *ngIf="fi.get('value')?.invalid && (fi.get('value')?.dirty || fi.get('value')?.touched)" class="text-danger">
+                                                            <div *ngIf="fi.get('value')?.errors?.required">Value is required</div>
+                                                      </div>
+                                                  </div>
+                                          </div>
+
+                                          <div class="col-3">
+                                                <label>Action</label><br/>
+                                                <button  *ngIf="fi.get('deletable')?.value==1" type="button" class="btn btn-sm btn-danger mr-2" (click)="removeEntry(fiIndex)"><i class="fa fa-trash mr-2"></i>Delete</button>
+                                                <button  *ngIf="fi.get('id')?.value!=null" type="button" class="btn btn-sm btn-success mr-2" (click)="saveSettings(fiIndex,'update')"><i class="fa fa-check-circle mr-2"></i>Save</button>
+                                                <button  *ngIf="fi.get('id')?.value==null" type="button" class="btn btn-sm btn-warning" (click)="saveSettings(fiIndex,'create')"><i class="fa fa-check-circle mr-2"></i>Create</button>
+                                          </div>
+                                          </div>
+                                    </div>
+                                    </div>
+                              </div>
+                              <div class="text-center">
+                                    <button type="button"  class="btn btn-sm btn-primary" (click)="addEntry()"><i class="fa fa-plus mr-2"></i>Add More</button>
+                              </div>
+
+
+                             
+                        </form>
+                  </div>
+                  </div>
+            </div>
+
+
+      </div>
+</div>

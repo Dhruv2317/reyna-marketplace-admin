@@ -1,0 +1,146 @@
+<div class="p-3" *blockUI="'customer'">
+    <ng-container *ngIf="customerDetails; else noCustomerDetails">
+        <div class="row">
+            <div class="col-md-3">
+                <label>Stripe Customer</label>
+                <h5>{{customerDetails.stripe_user_id ? customerDetails.stripe_user_id:'Not Found'}}</h5>
+                <a *ngIf="customerDetails.stripe_user_id" class="btn btn-info" target="_blank"
+                    [href]="'https://dashboard.stripe.com/customers/'+customerDetails.stripe_user_id">View Details</a>
+            </div>
+
+        </div>
+        <hr class="my-2">
+
+        <div class="row">
+            <div class="col-md-12">
+                <label>Account Actions</label><br />
+                <button *ngIf="customerDetails.is_active == true" (click)="manageAccount(false)" type="button"
+                    class="btn btn-danger"><i class="fa fa-ban m-1" aria-hidden="true"></i>Disable Account</button>
+                <button *ngIf="customerDetails.is_active == false" (click)="manageAccount(true)" type="button"
+                    class="btn btn-success"><i class="fa fa-play m-1" aria-hidden="true"></i>Enable Account</button>
+                <a (click)="loginAsUser()" routerLinkActive="active" class="btn d-none btn-warning m-1">Login As
+                    {{customerDetails?.first_name}} {{customerDetails?.last_name || '-' }} <i class="ml-2 fa fa-sign-in"
+                        aria-hidden="true"></i></a>
+                <a (click)="openChangePasswordModal()" class="btn btn-primary m-1">Change Account Password <i class="ml-2 fa fa-key" aria-hidden="true"></i></a>
+            </div>
+        </div>
+
+        <hr class="my-2">
+
+        <div class="row">
+
+            <div class="col-md-6">
+                <table class="table table-sm">
+                    <thead class="thead-light">
+                        <tr>
+                            <th colspan="2">Personal Info</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>First Name</td><td>{{ customerDetails.first_name }}</td></tr>
+                        <tr><td>Last Name </td><td>{{ customerDetails.last_name }}</td></tr>
+                        <tr><td>Email </td><td>{{  customerDetails.email}}</td></tr>
+                        <tr><td>Display name</td><td>{{ customerDetails.display_name }}</td></tr>
+                        <tr><td>Phone Number</td><td>{{  customerDetails.cell_phone_number | mask: '(000) 000-0000' || '-' }}</td></tr>
+                        <tr><td>Gender</td><td>{{ customerDetails.gender }}</td></tr>
+                        <tr><td>Date Of Birth</td><td>{{customerDetails.date_of_birth | date:'dd-MM-yyyy'}}</td></tr>
+                        <tr><td>Role</td><td>{{ customerDetails.role }}</td></tr>
+                        <tr><td>Registration Date</td><td>{{ customerDetails.created_at | date:'dd-MM-yyyy hh:mm:ss a'}}</td></tr>
+                        <tr><td>Last Login At</td><td>{{ customerDetails.last_login | date:'dd-MM-yyyy hh:mm:ss a'}}</td></tr>
+                        <tr><td>Language</td><td>{{ customerDetails.preferred_language }}</td></tr>
+                        <tr><td>Currency</td><td>{{ customerDetails.preferred_currency }}</td></tr>
+                        <tr><td>Platform</td><td>{{ customerDetails.platform }}</td></tr>
+                        <tr *ngIf="customerDetails.app_version"><td>App Version</td><td>{{ customerDetails.app_version }}</td></tr>
+                        <tr><td>Email Verified</td><td><p *ngIf="customerDetails.is_verified" class="badge badge-pill badge-success">Verified</p></td></tr>
+                        <tr *ngIf="customerDetails.is_verified"><td>Email Verified at</td><td>{{ customerDetails.email_verified_at | date:'dd-MM-yyyy hh:mm:ss a'}}</td></tr>
+
+                    </tbody>
+                </table>    
+            </div>
+            
+
+        </div>
+        
+        
+        <div class="row">
+            <div class="col-lg-12 col-12">
+                <table class="table table-sm">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Address Line 1</th>
+                            <th>Address Line 2</th>
+                            <th>City</th>
+                            <th>State</th>
+                            <th>Country</th>
+                            <th>ZipCode</th>
+                            <th>Default</th>
+                            <th>Action
+                                
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let address of addresses">
+                            <td>
+                                <p class="font-weight-normal mb-0">{{address.address_line_1 }}
+                                    <span *ngIf="address.is_default==1" class="badge badge-pill badge-primary p-2 ml-2"><i
+                                            class="fa fa-map-marker" aria-hidden="true"></i></span>
+                                </p>
+                            </td>
+                            <td>
+                                <p class="font-weight-normal mb-0" *ngIf="address.address_line_2">{{address.address_line_2
+                                    }}</p>
+                            </td>
+                            <td>
+                                <p class="font-weight-normal mb-0">{{ address.city }}</p>
+                            </td>
+                            <td>
+                                <p class="font-weight-normal mb-0">{{ address.state }}</p>
+                            </td>
+                            <td>
+                                <p class="font-weight-normal mb-0">{{ address.country }}</p>
+                            </td>
+                            <td>
+                                <p class="font-weight-normal mb-0">{{ address.zip_code }}</p>
+                            </td>
+                            <td>
+                                <i class="fa fa-check text-success" *ngIf="address.is_default"></i>
+                                <i class="fa fa-times text-danger" *ngIf="!address.is_default"></i>
+                            </td>
+                            <td>
+                                
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div>
+            <table class="table table-sm">
+                <thead class="thead-light">
+                    <tr>
+                        <th class="font-weight-bold">Profile Image
+                            <div class="float-right">
+                            </div>
+                        </th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <app-image-preview [imgPath]="customerDetails.profile_picture" height="250" width="350" caption="Profile Image"></app-image-preview>
+                        </td> 
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <hr>
+    </ng-container>
+    <ng-template #noCustomerDetails>
+        <div class="text-center text-muted">
+            <h2><i class="fa fa-info-circle"></i></h2>
+            <h4>No Details!</h4>
+        </div>
+    </ng-template>
+</div>

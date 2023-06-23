@@ -1,0 +1,96 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <div class="w-100 d-flex flex-row justify-content-between align-items-center">
+            <p class="font-weight-bold mb-0">{{ modalEvent =='EDIT' ? 'Edit Shipping Pricing' : 'Add Shipping Pricing' }}</p>
+            <button (click)="closeModal()" type="button" class="close float-right" aria-label="Close"
+                data-dismiss="modal">
+                <span aria-hidden="true">x</span>
+            </button>
+        </div>
+    </div>
+    <div class="modal-body">
+        <form (ngSubmit)="savePricing(shippingPricingForm.valid)" [formGroup]="shippingPricingForm" autocomplete="off">
+
+          
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Home Price</label>
+                        <input type="number" id="home" class="form-control" placeholder="Enter home" formControlName="home" />
+                        <div class="invalid-feedback" *ngIf="home?.invalid && (home?.dirty || home?.touched)"
+                            class="text-danger">
+                            <div *ngIf="home?.errors?.required">home is required.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Parcel Price</label>
+                        <input type="number" id="parcel" class="form-control" placeholder="Enter parcel" formControlName="parcel" />
+                        <div class="invalid-feedback" *ngIf="parcel?.invalid && (parcel?.dirty || parcel?.touched)"
+                            class="text-danger">
+                            <div *ngIf="parcel?.errors?.required">parcel is required.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Retour Price</label>
+                        <input type="number" id="retour" class="form-control" placeholder="Enter retour" formControlName="retour" />
+                        <div class="invalid-feedback" *ngIf="retour?.invalid && (retour?.dirty || retour?.touched)"
+                            class="text-danger">
+                            <div *ngIf="retour?.errors?.required">retour is required.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Currency</label>
+                        <select class="form-control"  placeholder="Currency"  formControlName="currency">
+                            <option *ngFor="let item of countriesList" [value]="item.currency">{{ item.currency_name +'   ('+item.currency_symbol+')'+'   '+item.currency }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Country Code</label>
+                        <input type="hidden" formControlName="country" />
+                        <select class="form-control"  placeholder="Country"  formControlName="country_code" (change)="handleChange($event)">
+                            <option *ngFor="let item of countriesList" [value]="item.iso2">{{ item.name +'-'+item.iso2 }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Min Shipping Weight</label><br />
+                        <input type="number" min="0" step="1" max="30000" id="min_shipping_weight" class="form-control" placeholder="Enter Min Shipping Weight" formControlName="min_shipping_weight" />
+                        <div class="invalid-feedback" *ngIf="min_shipping_weight?.invalid && (min_shipping_weight?.dirty || min_shipping_weight?.touched)"
+                            class="text-danger">
+                            <div *ngIf="min_shipping_weight?.errors?.required">Min Shipping Weight is required.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Max Shipping Weight</label><br />
+                        <input type="number" min="0" step="1" max="30000" id="max_shipping_weight" class="form-control" placeholder="Enter Max Shipping Weight" formControlName="max_shipping_weight" />
+                        <div class="invalid-feedback" *ngIf="max_shipping_weight?.invalid && (max_shipping_weight?.dirty || max_shipping_weight?.touched)"
+                            class="text-danger">
+                            <div *ngIf="max_shipping_weight?.errors?.required">Max Shipping Weight is required.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+ 
+            <div class="form-group">
+                <button class="btn btn-success btn-block btn-sm mt-2" type="submit">Save</button>
+            </div>
+        </form>
+    </div>
+</div>

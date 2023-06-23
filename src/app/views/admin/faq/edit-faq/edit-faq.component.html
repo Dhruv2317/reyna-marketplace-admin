@@ -1,0 +1,232 @@
+<div class="w-100 p-3 bg-dark-blue">
+    <h4 class="text-white font-weight-bold mb-0">Edit FAQ</h4>
+</div>
+
+<div class="p-3">
+    <form (ngSubmit)="saveFAQ()" [formGroup]="FAQForm">
+        <div class="form-group">
+            <div class="form-row">
+                <div class="col-md-6">
+                    <label>Select FAQ Group</label><br>
+                    <mat-select placeholder="Select FAQ Group" class="form-control" formControlName="group_id">
+                        <mat-option *ngFor="let group of FAQgroup;" [value]="group.id">
+                            {{group.name}}
+                        </mat-option>
+                    </mat-select>
+                    <div class="invalid-feedback" *ngIf="group_id?.invalid && (group_id?.dirty || group_id?.touched)" class="text-danger">
+                        <div *ngIf="group_id?.errors?.required">FAQ Group is required</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+        <div class="alert alert-primary mb-3">
+            <h5>English</h5>
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <label class="float-left">Question</label>
+                        <input type="text" id="question" formControlName="question" class="form-control input-lg" placeholder="Enter Question"
+                        />
+                        <div class="invalid-feedback" *ngIf="question?.invalid && (question?.dirty || question?.touched)" class="text-danger">
+                            <div *ngIf="question?.errors?.required">Question is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" formControlName="answer"/>
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <label class="float-left">Answer</label><br><br>
+                        <div class="NgxEditor__Wrapper">
+                            <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
+                            <ngx-editor
+                                [editor]="editor"
+                                [(ngModel)]="answerText"
+                                [ngModelOptions]="{standalone: true}"
+                                [placeholder]="'Enter answer'"
+                                [spellcheck]="true"
+                                (ngModelChange)='patchAnswer()'
+                                minHeight='530px'></ngx-editor>
+                        </div>
+                        <div class="invalid-feedback" *ngIf="answer?.invalid && (answer?.dirty || answer?.touched)" class="text-danger">
+                            <div *ngIf="answer?.errors?.required">Answer is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+        <div class="alert alert-primary mb-3">
+            <h5>French</h5>
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <label class="float-left">Question</label>
+                        <input type="text" id="question_fr" formControlName="question_fr" class="form-control input-lg" placeholder="Enter Question French"
+                        />
+                        <div class="invalid-feedback" *ngIf="question_fr?.invalid && (question_fr?.dirty || question_fr?.touched)" class="text-danger">
+                            <div *ngIf="question_fr?.errors?.required">Question_fr is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" formControlName="answer_fr"/>
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <label class="float-left">Answer</label><br><br>
+                        <div class="NgxEditor__Wrapper">
+                            <ngx-editor-menu [editor]="editor_fr"> </ngx-editor-menu>
+                            <ngx-editor
+                                [editor]="editor_fr"
+                                [(ngModel)]="answerText_fr"
+                                [ngModelOptions]="{standalone: true}"
+                                [placeholder]="'Enter answer'"
+                                [spellcheck]="true"
+                                (ngModelChange)='patchAnswer()'
+                                minHeight='530px'></ngx-editor>
+                        </div>
+                        <div class="invalid-feedback" *ngIf="answer_fr?.invalid && (answer_fr?.dirty || answer_fr?.touched)" class="text-danger">
+                            <div *ngIf="answer_fr?.errors?.required">Answer is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="alert alert-primary mb-3">
+            <h5>Dutch</h5>
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <label class="float-left">Question</label>
+                        <input type="text" id="question_nl" formControlName="question_nl" class="form-control input-lg" placeholder="Enter Question French"
+                        />
+                        <div class="invalid-feedback" *ngIf="question_nl?.invalid && (question_nl?.dirty || question_nl?.touched)" class="text-danger">
+                            <div *ngIf="question_nl?.errors?.required">Question_nl is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" formControlName="answer_nl"/>
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <label class="float-left">Answer</label><br><br>
+                        <div class="NgxEditor__Wrapper">
+                            <ngx-editor-menu [editor]="editor_nl"> </ngx-editor-menu>
+                            <ngx-editor
+                                [editor]="editor_nl"
+                                [(ngModel)]="answerText_nl"
+                                [ngModelOptions]="{standalone: true}"
+                                [placeholder]="'Enter answer'"
+                                [spellcheck]="true"
+                                (ngModelChange)='patchAnswer()'
+                                minHeight='530px'></ngx-editor>
+                        </div>
+                        <div class="invalid-feedback" *ngIf="answer_nl?.invalid && (answer_nl?.dirty || answer_nl?.touched)" class="text-danger">
+                            <div *ngIf="answer_nl?.errors?.required">Answer is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="alert alert-primary mb-3">
+            <h5>Spanish</h5>
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <label class="float-left">Question</label>
+                        <input type="text" id="question_es" formControlName="question_es" class="form-control input-lg" placeholder="Enter Question Spanish"
+                        />
+                        <div class="invalid-feedback" *ngIf="question_es?.invalid && (question_es?.dirty || question_es?.touched)" class="text-danger">
+                            <div *ngIf="question_es?.errors?.required">question_es is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" formControlName="answer_es"/>
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <label class="float-left">Answer</label><br><br>
+                        <div class="NgxEditor__Wrapper">
+                            <ngx-editor-menu [editor]="editor_es"> </ngx-editor-menu>
+                            <ngx-editor
+                                [editor]="editor_es"
+                                [(ngModel)]="answerText_es"
+                                [ngModelOptions]="{standalone: true}"
+                                [placeholder]="'Enter answer'"
+                                [spellcheck]="true"
+                                (ngModelChange)='patchAnswer()'
+                                minHeight='530px'></ngx-editor>
+                        </div>
+                        <div class="invalid-feedback" *ngIf="answer_es?.invalid && (answer_es?.dirty || answer_es?.touched)" class="text-danger">
+                            <div *ngIf="answer_es?.errors?.required">Answer is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="alert alert-primary mb-3">
+            <h5>Portuguese</h5>
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <label class="float-left">Question</label>
+                        <input type="text" id="question_pt" formControlName="question_pt" class="form-control input-lg" placeholder="Enter Question French"
+                        />
+                        <div class="invalid-feedback" *ngIf="question_pt?.invalid && (question_pt?.dirty || question_pt?.touched)" class="text-danger">
+                            <div *ngIf="question_pt?.errors?.required">question_pt is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" formControlName="answer_pt"/>
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <label class="float-left">Answer</label><br><br>
+                        <div class="NgxEditor__Wrapper">
+                            <ngx-editor-menu [editor]="editor_pt"> </ngx-editor-menu>
+                            <ngx-editor
+                                [editor]="editor_pt"
+                                [(ngModel)]="answerText_pt"
+                                [ngModelOptions]="{standalone: true}"
+                                [placeholder]="'Enter answer'"
+                                [spellcheck]="true"
+                                (ngModelChange)='patchAnswer()'
+                                minHeight='530px'></ngx-editor>
+                        </div>
+                        <div class="invalid-feedback" *ngIf="answer_pt?.invalid && (answer_pt?.dirty || answer_pt?.touched)" class="text-danger">
+                            <div *ngIf="answer_pt?.errors?.required">Answer is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="form-group">
+            <div class="form-row">
+                <div class="col-md-6">
+                    <mat-checkbox color="primary" formControlName="is_active">Active</mat-checkbox>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group mt-1">
+            <div class="row">
+                <div class="col">
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-info mr-2">Save</button>
+                        <a routerLink="/admin/faq/list" routerLinkActive="active" class="btn btn-primary">Back</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

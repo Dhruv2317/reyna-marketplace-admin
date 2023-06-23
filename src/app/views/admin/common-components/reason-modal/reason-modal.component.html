@@ -1,0 +1,22 @@
+<div class="modal-content">
+    <form (ngSubmit)="reasonFormSubmit(reasonForm)" [formGroup]="reasonForm" novalidate>
+      <div class="modal-header p-2 pl-3">
+        <h4 class="modal-title">Take Action</h4>
+        <button type="button" class="close"  aria-label="Close" (click)="closeModal()">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <div class="form-group mt-2">
+              <label>Enter Reason</label>
+              <textarea class="form-control" id="reason" rows="3" formControlName="reason"></textarea>
+               <div class="invalid-feedback" *ngIf="reason?.invalid && (reason?.dirty || reason?.touched)" class="text-danger">
+                    <div *ngIf="reason?.errors?.required">Reason is required</div>
+                </div>
+            </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="submit" [disabled]="reasonForm.invalid" class="btn btn-sm btn-success btn-block waves-effect m-0">Submit</button>
+      </div>
+    </form>
+  </div>

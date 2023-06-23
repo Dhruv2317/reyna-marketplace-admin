@@ -1,0 +1,8 @@
+<img class="img-responsive license-image"
+[src]="imageUrl"
+(onError)="handleError($event)"
+(click)="open()"
+[ngStyle]="{'max-width.px':maxWidth,'max-height.px':maxHeight}" />
+<div class="text-center" *ngIf="title">
+    <p class="small">{{title}}</p>
+</div>

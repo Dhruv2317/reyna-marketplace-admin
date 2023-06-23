@@ -1,0 +1,541 @@
+<mat-tab-group   *blockUI="'order'">
+    <mat-tab label="Info">
+        <div class="container-fluid details">
+            <ng-container *ngIf="orderDetails; else noOrderDetails">
+                <div class="row mt-2">
+                    <div class="col-md-4">
+                        <table class="table table-sm table-bordered">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th colspan="2">
+                                        <h5 class="mb-0">Order : #{{orderDetails.order_number}}</h5>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                               
+                                        <tr  *ngIf="orderDetails.order_place_datetime">
+                                            <td>Created Date </td>
+                                            <td>{{ orderDetails.order_place_datetime |date:'dd-MM-yyyy hh:mm:ss a'}}</td>
+                                        </tr>
+                                        <tr  *ngIf="orderDetails.order_payment_datetime">
+                                            <td>Payment Date</td>
+                                            <td>
+                                                {{ orderDetails.order_payment_datetime |date:'dd-MM-yyyy hh:mm:ss a'}}
+                                            </td>
+                                        </tr>
+                                        <tr *ngIf="orderDetails.order_completed_datetime"> 
+                                            <td>Completed Date</td>
+                                            <td>{{ orderDetails.order_completed_datetime|date:'dd-MM-yyyy hh:mm:ss a'}}</td>
+                                        </tr>
+                                        <tr  *ngIf="orderDetails.last_refund_requested_on">
+                                            <td>Refund Requested Date</td>
+                                            <td>{{ orderDetails.last_refund_requested_on|date:'dd-MM-yyyy hh:mm:ss a'}}</td>
+                                        </tr>
+                                        <tr  *ngIf="orderDetails.last_refund_processed_on">
+                                            <td>Refund Processed Date</td>
+                                            <td> {{ orderDetails.last_refund_processed_on|date:'dd-MM-yyyy hh:mm:ss a'}}</td>
+                                        </tr>
+            
+                                        <tr>
+                                            <td>System Status</td>
+                                            <td>
+                                                <p> 
+                                                     <span class="m-0" [innerHTML]="_orderHelper.getSystemStatus(orderDetails.system_status)"></span>
+                                                </p>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Shipping Type</td>
+                                            <td>{{ orderDetails.shipping_type }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Shipping Method</td>
+                                            <td>{{ orderDetails.shipping_method }}</td>
+                                        </tr>
+                                        
+                            </tbody>
+                        </table>
+                       
+                        <table class="mt-3 table table-sm table-bordered">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th colspan="2">
+                                        Customer Details
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Id</td><td>{{orderDetails.user.id}}</td></tr>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>
+                                        <h6 class="mb-2 text-primary cursor-pointer" (click)="goToUserDetails()">{{orderDetails.user.first_name}} {{orderDetails.user.last_name}}</h6>                             
+                                    </td>
+                                </tr>
+                                <tr><td>Email</td><td>{{orderDetails.user.email}}</td></tr>
+                                <tr><td>Phone</td><td>{{orderDetails.user.cell_phone_number }}</td></tr>
+                                <tr><td>Role</td><td>{{orderDetails.user.role}}</td></tr>
+                                
+                            </tbody>
+                        </table>
+
+                        <table class="mt-3 table table-sm table-bordered">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th colspan="2">
+                                        {{orderDetails.seller_dealer_address.role | titlecase }} Details
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Id</td><td>{{orderDetails.seller_dealer_address.user_id}}</td></tr>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>
+                                        <h6 class="mb-2 text-primary cursor-pointer" (click)="goToDetails(orderDetails.seller_dealer_address.role)">{{orderDetails.seller_dealer_address.first_name}} {{orderDetails.seller_dealer_address.last_name}}</h6>                             
+                                    </td>
+                                </tr>
+                                <tr><td>Email</td><td>{{orderDetails.seller_dealer_address.email}}</td></tr>
+                                <tr><td>Phone</td><td>{{orderDetails.seller_dealer_address.cell_phone_number }}</td></tr>
+                                <tr><td>Role</td><td>{{orderDetails.seller_dealer_address.role}}</td></tr>
+                                <tr><td>Address</td><td>{{orderDetails.seller_dealer_address.city_name +' '+orderDetails.seller_dealer_address.state+' '+orderDetails.seller_dealer_address.country}}</td></tr>
+                                
+                            </tbody>
+                        </table>
+
+                        <div class="mt-3">
+                            <!--<button type="button" class="btn btn-sm btn-block btn-success mb-2"
+                                (click)="downloadReceipt('billing_statement')"><i
+                                    class="mr-2 fas fa-download"></i>Billing Statement</button>
+                            <button type="button" *ngIf="anyproductRefunded" class="btn btn-sm btn-block btn-primary mb-2"
+                                (click)="downloadReceipt('refund_receipt')"><i class="mr-2 fas fa-download"></i>Refund
+                                Receipt</button>-->
+                            <button type="button" class="btn btn-sm btn-block btn-danger mb-2" (click)="openRefundModal()" *ngIf="!(orderDetails.system_status == 'REFUND_PROCESSED' || orderDetails.system_status == 'REFUND_REQUESTED')"><i class="fas fa-sync-alt mr-2"></i>Refund Request</button>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                         
+                        <div class="card classic-admin-card green-base">
+                            <div class="card-body">
+                              <div class="float-right">
+                                <i class="fa fa-3x fa-percentage" style="opacity:0.5;"></i>
+                              </div>
+                              <p>PLATFORM COMMISSION EARNING</p>
+                              <h4>
+                                <strong>{{orderDetails.platform_commission | currency:orderDetails.currency }}</strong>
+                              </h4>
+                            </div>
+                        </div>
+
+                        <div class="mt-3">
+                            <table class="table table-sm table-bordered">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>
+                                            Billing Address
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div *ngIf="orderDetails.billing_address">
+                                                <p class="mb-0">{{orderDetails.billing_address.first_name+'
+                                                    '+orderDetails.billing_address.last_name}}</p>
+                                                <p class="mb-2">{{orderDetails.billing_address.email}}</p>
+                                                <p class="mb-2">{{orderDetails.billing_address.mobile}}</p>
+                                                <p class="mb-0">
+                                                    {{ orderDetails.billing_address.address_line_1 ?
+                                                    orderDetails.billing_address.address_line_1:''}}
+                                                    {{ orderDetails.billing_address.address_line_2 ? ', ':''
+                                                    }}<br />{{orderDetails.billing_address?.address_line_2}}
+                                                    {{ orderDetails.billing_address.address_line_3 ? ', ':''
+                                                    }}<br />{{orderDetails.billing_address?.address_line_3}}
+                                                </p>
+                
+                                                <p class="mb-0">{{orderDetails.billing_address.city_name +',
+                                                    '+orderDetails.billing_address.state +' - '+orderDetails.billing_address.zip_code}}
+                                                </p>
+                                                <p class="mb-2">{{orderDetails.billing_address.country+' - '+
+                                                    orderDetails.billing_address.country_code}}</p>
+                
+                                            </div>
+                                            <div *ngIf="!orderDetails.shipping_address">
+                                                <p class="mb-0"><i class="fa fa-info-circle mr-2"></i>Billing Address not added yet.</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <div class="card classic-admin-card  blue-grey-darken-1">
+                            <div class="card-body">
+                              <div class="float-right">
+                                <i class="fa fa-3x fa-money" style="opacity:0.5;"></i>
+                              </div>
+                              <p>SELLER/DEALER EARNING</p>
+                              <h4>
+                                <strong>{{orderDetails.seller_dealer_earning | currency:orderDetails.currency }}</strong>
+                              </h4>
+                            </div>
+                        </div>
+
+                        <div class="mt-3">
+                            <table class="table table-sm table-bordered">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>
+                                            Shipping Address
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div *ngIf="orderDetails.shipping_address">
+                                                <p class="mb-0">{{orderDetails.shipping_address.first_name+'
+                                                    '+orderDetails.shipping_address.last_name}}</p>
+                                                <p class="mb-2">{{orderDetails.shipping_address.email}}</p>
+                                                <p class="mb-2">{{orderDetails.shipping_address.mobile}}</p>
+                                                <p class="mb-0">
+                                                    {{ orderDetails.shipping_address.address_line_1 ?
+                                                    orderDetails.shipping_address.address_line_1:''}}
+                                                    {{ orderDetails.shipping_address.address_line_2 ? ', ':''
+                                                    }}<br />{{orderDetails.shipping_address?.address_line_2}}
+                                                    {{ orderDetails.shipping_address.address_line_3 ? ', ':''
+                                                    }}<br />{{orderDetails.shipping_address?.address_line_3}}
+                                                </p>
+                    
+                                                <p class="mb-0">{{orderDetails.shipping_address.city_name +',
+                                                    '+orderDetails.shipping_address.state +' - '+orderDetails.shipping_address.zip_code}}
+                                                </p>
+                                                <p class="mb-2">{{orderDetails.shipping_address.country+' - '+
+                                                    orderDetails.shipping_address.country_code}}</p>
+                    
+                                            </div>
+                                            <div *ngIf="!orderDetails.shipping_address">
+                                                <p class="mb-0"><i class="fa fa-info-circle mr-2"></i>Shipping Address not added yet.</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="mt-3">
+                            <table class="table table-sm table-bordered">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>
+                                            Place Address
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div *ngIf="orderDetails.place_address">
+                                               
+                                                <p class="mb-0">
+                                                    {{ orderDetails.place_address.address_line_1 ?
+                                                    orderDetails.place_address.address_line_1:''}}
+                                                    {{ orderDetails.place_address.address_line_2 ? ', ':''
+                                                    }}<br />{{orderDetails.place_address?.address_line_2}}
+                                                    
+                                                </p>
+                    
+                                                <p class="mb-0">{{orderDetails.place_address.city_name+' - '+orderDetails.place_address.zip_code}}
+                                                </p>
+                                                <p class="mb-2">{{orderDetails.place_address.country+' - '+orderDetails.place_address.country_code}}</p>
+                    
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                      
+
+                    </div>
+
+
+
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table border-bottom table-sm table-borderless">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th class="border-0">Products</th>
+                                        <th class="border-0 text-center">Status</th>
+                                        <th class="border-0 text-center">Quantity</th>
+                                        <th class="border-0 text-right">Tax</th>
+                                        <th class="border-0 text-right">Commission</th>
+                                        <th class="border-0 text-right">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let product of orderDetails.order_products">
+                                        <td class="align-middle">
+                                            
+
+                                            <div class="d-flex flex-row justify-content-start align-items-center">
+                                                <div *ngIf="product.product.image" class="mr-2">
+                                                  <img [src]="api_url+ product.product.image" class="order-product-image"/>
+                                                </div>
+                                                <div>
+                                                    <h6 class="mb-0 text-nowrap font-weight-bold">{{product.product_name }}</h6>
+                                                </div>
+                                              </div>
+                                        </td>
+
+                                        <td class="align-middle text-center">
+
+                                            <p class="mt-1 mb-0 font-weight-normal text-success" *ngIf="product.is_shipped==1">Shipped on : {{product.shipped_on | date: 'dd-MM-yyyy HH:mm a' }}</p>
+
+                                            <p class="mt-1 mb-0 font-weight-normal text-success" *ngIf="product.is_shipped==1">Tracking Id : <a target="_blank" class="text-primary" [href]="product.tracking_url">{{ product.tracking_id }}</a></p>
+                                                    
+                                            <app-image-preview *ngIf="product.is_shipped==1 && product.label_url" [isBase64]="1" [imgPath]="'data:image/png;base64,'+product.label_url" height="300" width="300" caption="Shipping label"></app-image-preview>
+                            
+                                            <p class="mt-1 mb-0 font-weight-normal text-success" *ngIf="orderDetails.system_status=='PICKED_UP'">Pickedup on : {{product.pickedup_on | date: 'dd-MM-yyyy HH:mm a' }}</p>
+                                            <p class="mt-1 mb-0 font-weight-normal text-danger" *ngIf="orderDetails.system_status=='REFUND_REQUESTED'">Date time : {{product.refund_requested_on | date: 'dd-MM-yyyy HH:mm a' }}</p>
+                                            <p class="mt-1 mb-0 font-weight-normal text-danger" *ngIf="orderDetails.system_status=='REFUND_PROCESSED'">Date time : {{product.refund_processed_on | date: 'dd-MM-yyyy HH:mm a' }}</p>
+                                            <p class="mb-0 font-weight-normal text-danger" *ngIf="orderDetails.system_status=='REFUND_REQUESTED' || product.system_status=='REFUND_PROCESSED'"> Reason : {{product.refund_reason}}</p>
+
+                                        </td>
+                                        <td class="align-middle text-center">{{product.quantity}}</td>
+
+                                        <td class="align-middle text-right">{{ product.total_tax_amount | currency:orderDetails.currency}}</td>
+                                        <td class="align-middle text-right">{{ product.commission_amount | currency:orderDetails.currency}} {{ '   ('+product.commission_percentage+'%)' }}</td>
+                                        
+                                        <td class="align-middle text-right">
+                                            <p class="mb-0 font-weight-bold">{{ product.price | currency:orderDetails.currency}}</p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="row no-gutters justify-content-end">
+                            <div class="col-auto">
+                                <table class="table table-sm table-borderless text-right">
+                                    <tbody>
+                                        <tr>
+                                            <th class="text-900">Tax</th>
+                                            <td class="font-weight-semi-bold text-right">{{(orderDetails.tax_amount||0) | currency:orderDetails.currency}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th [ngClass]="{'text-900':true,'text-danger':orderDetails.discount>0?true:false}">Discount</th>
+                                            <td [ngClass]="{'font-weight-semi-bold text-right':true,'text-danger':orderDetails.discount>0?true:false}"> {{(orderDetails.discount||0) | currency:orderDetails.currency}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th [ngClass]="{'text-900':true,'text-danger':orderDetails.shipping_charge>0?true:false}">Shipping Charges</th>
+                                            <td [ngClass]="{'font-weight-semi-bold text-right':true,'text-danger':orderDetails.shipping_charge>0?true:false}">{{(orderDetails.shipping_charge || 0) | currency:orderDetails.currency }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th [ngClass]="{'text-900':true,'text-danger':orderDetails.shipping_insurance_charge>0?true:false}">Shipping Insurance Charges</th>
+                                            <td [ngClass]="{'font-weight-semi-bold text-right':true,'text-danger':orderDetails.shipping_insurance_charge>0?true:false}">{{(orderDetails.shipping_insurance_charge || 0) | currency:orderDetails.currency }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th [ngClass]="{'text-900':true,'text-danger':orderDetails.transaction_charge>0?true:false}">Trasanction Charge</th>
+                                            <td [ngClass]="{'font-weight-semi-bold text-right':true,'text-danger':orderDetails.transaction_charge>0?true:false}">{{(orderDetails.transaction_charge || 0) | currency:orderDetails.currency }}</td>
+                                        </tr>
+                                        <tr class="border-top">
+                                            <th class="font-weight-bold">Total</th>
+                                            <td class="font-weight-bold text-right">{{orderDetails.total_amount | currency:orderDetails.currency }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table border-bottom table-borderless table-sm">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>Charged From Stripe</th>
+                                        <th class="text-right">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <p class="font-weight-bold">{{orderDetails.charged_from_stripe |
+                                                currency:orderDetails.currency }}</p>
+                                            <div
+                                                *ngIf="orderDetails.payment_transactions && orderDetails.payment_transactions[0]">
+                                                <div class="media">
+                                                    <div class="media-body"
+                                                        *ngIf="orderDetails.payment_transactions[0].payment_source == 'STRIPE'">
+                                                        <p class="mb-0"><strong>Payment Method : </strong>{{
+                                                            orderDetails.payment_transactions[0].details.method |
+                                                            titlecase }}</p>
+                                                       
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="font-weight-bold text-right">{{orderDetails.total_amount |
+                                            currency:orderDetails.currency}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="table-responsive" *ngIf="orderDetails.refunded_total > 0">
+                            <table class="table border-bottom table-borderless table-sm">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>Refunded to Payment Gateway</th>
+                                        <th>Refunded to Wallet</th>
+                                        <th class="text-right">Refunded Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="font-weight-bold">{{orderDetails.refunded_in_stripe | currency:orderDetails.currency
+                                            }}</td>
+                                        <td class="font-weight-bold">{{orderDetails.refunded_in_wallet | currency:orderDetails.currency
+                                            }}</td>
+                                        <td class="font-weight-bold text-right">{{orderDetails.refunded_total |
+                                            currency:orderDetails.currency}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h5 class="mt-3">All Payment Transactions</h5>
+                        <div class="table-responsive" *ngIf="orderDetails.all_payment_transactions">
+                            <table class="table table-sm">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Transaction Type</th>
+                                        <th>Payment Source</th>
+                                        <th>Amount Charged</th>
+                                        <th>Charge Id</th>
+                                        <th>Card Details</th>
+                                        <th>Amount Refund</th>
+                                        <th>Refund Id</th>
+                                        <th>Datetime</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr [ngClass]="{'alert-success':transaction.transaction_type=='CHARGE','alert-warning':transaction.transaction_type=='TRANSFER','alert-danger':transaction.transaction_type=='REFUND'}"
+                                        *ngFor="let transaction of orderDetails.all_payment_transactions;let i=index;">
+                                        <td>{{i+1}}</td>
+                                        <td>{{transaction.transaction_type}}</td>
+                                        <td>{{transaction.payment_source}}</td>
+                                        <td>
+                                            <span *ngIf="transaction.payment_source=='STRIPE' && transaction.transaction_type=='CHARGE'">{{transaction.charged_amount | currency:orderDetails.currency}}</span>
+                                            <span *ngIf="transaction.payment_source=='STRIPE' && transaction.transaction_type=='TRANSFER'">{{ transaction.transfer_amount | currency:orderDetails.currency }}</span>
+                                        </td>
+                                        <td>
+                                            <a *ngIf="transaction.payment_source=='STRIPE' && transaction.transaction_type=='CHARGE'" target="_blank"
+                                                href="https://dashboard.stripe.com/payments/{{transaction.charge_id}}">{{transaction.charge_id}}</a>
+
+                                            
+                                            <a *ngIf="transaction.payment_source=='STRIPE' && transaction.transaction_type=='TRANSFER'" target="_blank"
+                                                href="https://dashboard.stripe.com/connect/transfers/{{transaction.transfer_id}}">{{transaction.transfer_id}}</a>
+                                                
+                                            <span *ngIf="transaction.payment_source=='WALLET'">{{'Wallet Transaction #'+transaction.charge_id}}</span>
+                                        </td>
+                                        <td>
+                                            <div *ngIf="transaction.details">
+                                               <b>Card - {{ transaction.details.card.brand | titlecase }}</b>
+                                               <p class="mb-0">Ending With {{ transaction.details.card.last4 }}</p>
+                                               <p class="mb-0">Expires {{ transaction.details.card.exp_month+' / '+transaction.details.card.exp_year }}</p>
+                                            </div>
+                                         </td>    
+                                        <td>
+                                            <span *ngIf="transaction.transaction_type=='REFUND'">{{transaction.refunded_amount | currency:orderDetails.currency}}</span>
+                                            <span *ngIf="transaction.transaction_type=='TRANSFER_REVERSED'">{{transaction.transfer_reversal_amount | currency:orderDetails.currency}}</span>
+                                        </td>
+                                        <td>
+                                            <span
+                                                *ngIf="transaction.refund_id && transaction.payment_source=='STRIPE'">{{transaction.refund_id}}</span>
+                                            <span
+                                                *ngIf="transaction.refund_id && transaction.payment_source=='WALLET'">{{'Wallet
+                                                Transaction #'+transaction.refund_id}}</span>
+                                        </td>
+                                        <td>{{transaction.created_at | date:'dd-MM-yyyy HH:mm a'}}</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="8"> 
+                                            <div class="w-100" *ngIf="orderDetails.all_payment_transactions.length == 0">
+                                                <p class="mb-0"><i class="fa fa-info-circle mr-2"></i>No Payment Transactions.</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>Customer Status</th>
+                                        <th>Seller/Dealer Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <p class="m-0"
+                                                [innerHTML]="_orderHelper.getCustomerStatus(orderDetails.customer_status)">
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p class="m-0"
+                                                [innerHTML]="_orderHelper.getSellerDealerStatus(orderDetails.seller_dealer_status)">
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p class="mb-1"><strong class="mr-2">Created Date :
+                                                </strong>{{orderDetails.order_place_datetime | date:'dd/MM/yyyy'}}</p>
+                                        </td>
+
+                                        <td>
+                                            <p class="mb-1"><strong class="mr-2">Completed Date :
+                                                </strong>{{orderDetails.order_completed_datetime | date:'dd/MM/yyyy'}}
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-template #noOrderDetails>
+                <div class="text-center text-muted">
+                    <h2><i class="fa fa-info-circle"></i></h2>
+                    <h4>No Order Details!</h4>
+                </div>
+            </ng-template>
+        </div>
+    </mat-tab>
+    <mat-tab label="Logs">
+        <app-order-logs></app-order-logs>
+    </mat-tab>
+</mat-tab-group>
+<div class="form-group mt-1">
+    <div class="text-center">
+        <a routerLink="/admin/orders/list" routerLinkActive="active" class="btn btn-primary"><i class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Back To Orders</a>
+    </div>
+</div>

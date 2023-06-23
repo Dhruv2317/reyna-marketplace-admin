@@ -1,0 +1,53 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <div class="w-100 d-flex flex-row justify-content-between align-items-center">
+            <p class="font-weight-bold mb-0">{{ modalEvent =='EDIT' ? 'Edit Manufacturer' : 'Add Manufacturer' }}</p>
+            <button (click)="closeModal()" type="button" class="close float-right" aria-label="Close"
+                data-dismiss="modal">
+                <span aria-hidden="true">x</span>
+            </button>
+        </div>
+    </div>
+    <div class="modal-body">
+        <form (ngSubmit)="saveManufacturer(manufacturerForm.valid)" [formGroup]="manufacturerForm" autocomplete="off">
+
+            <div class="form-group">
+                <label>Name</label><br />
+                <input type="hidden" id="id" formControlName="id" />
+                <input type="text" id="name" class="form-control" placeholder="Enter  Name"
+                    formControlName="name" />
+                <div class="invalid-feedback" *ngIf="name?.invalid && (name?.dirty || name?.touched)"
+                    class="text-danger">
+                    <div *ngIf="name?.errors?.required">Name is required.</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Address</label>
+                <input type="text" id="address" formControlName="address"  class="form-control"  placeholder="Enter address" />
+                <div class="invalid-feedback"
+                    *ngIf="address?.invalid && (address?.dirty || address?.touched)" class="text-danger">
+                    <div *ngIf="address?.errors?.required">address is required</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Contact Number</label>
+                <input type="text" id="contact_number" formControlName="contact_number"  class="form-control"  placeholder="Enter contact number" />
+                <div class="invalid-feedback"
+                    *ngIf="contact_number?.invalid && (contact_number?.dirty || contact_number?.touched)" class="text-danger">
+                    <div *ngIf="contact_number?.errors?.required">contact number is required</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <mat-checkbox id="is_active" formControlName="is_active" color="primary">Active</mat-checkbox>
+            </div>
+
+
+            <div class="form-group">
+                <button class="btn btn-success btn-block btn-sm mt-2" type="submit">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
