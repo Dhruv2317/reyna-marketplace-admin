@@ -1,0 +1,15 @@
+<div class="w-100 p-3 bg-dark-blue d-flex justify-content-between align-items-center">
+      <h4 class="text-white font-weight-bold mb-0">
+        <i class="fas fa-question-circle mr-2"></i>FAQ
+      </h4>
+      <div>
+        <a routerLink="/admin/faq/create" routerLinkActive="active" class="btn btn-primary mr-2"><i class="fa fa-plus"></i> Add FAQ</a>
+        <a routerLink="/admin/faq/change-sequence" routerLinkActive="active" class="btn btn-warning">Change Sequence</a>
+      </div>
+</div>
+
+<div class="p-3"  *blockUI="'datatable'">
+    <div class="table-responsive">
+      <table  hover="true" id="faqList" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"></table>
+    </div>
+</div>

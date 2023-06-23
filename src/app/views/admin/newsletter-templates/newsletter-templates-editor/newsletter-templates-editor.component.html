@@ -1,0 +1,88 @@
+<div class="w-100 p-2 bg-dark-blue d-flex justify-content-between align-items-center">
+    <h4 class="text-white font-weight-bold mb-0"><i class="fas fa-bars mr-2"></i>Newsletter Templates Editor</h4>
+</div>
+<div class="p-3">
+    <form (ngSubmit)="saveTemplate()" [formGroup]="emailTemplateForm">
+        <div class="form-group">
+            <div class="form-row">
+                <div class="col-md-12">
+                    <label class="float-left">Template Name</label>
+                    <input type="text" id="template_name" formControlName="template_name" class="form-control input-lg" placeholder="Enter template name" />
+                    <div class="invalid-feedback" *ngIf="template_name?.invalid && (template_name?.dirty || template_name?.touched)" class="text-danger">
+                        <div *ngIf="template_name?.errors?.required">Template name is required</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-row">
+                <div class="col-md-12">
+                    <label class="float-left">Email Subject</label>
+                    <input type="text" id="email_subject" formControlName="email_subject" class="form-control input-lg" placeholder="Enter email subject"
+                    />
+                    <div class="invalid-feedback" *ngIf="email_subject?.invalid && (email_subject?.dirty || email_subject?.touched)" class="text-danger">
+                        <div *ngIf="email_subject?.errors?.required">Email Subject is required</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-12">
+                    <label class="float-left">Status</label>
+                    <select class="form-control" formControlName="status" placeholder="Status">
+                        <option value="in_progress">In Progress</option>
+                        <option value="published">Published</option>
+                    </select>
+                    <div class="invalid-feedback" *ngIf="status?.invalid && (status?.dirty || status?.touched)" class="text-danger">
+                        <div *ngIf="status?.errors?.required">Status is required</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <label class="float-left">Email Content</label>
+                        <textarea type="textarea" class="form-control" formControlName="email_content" rows="50" (change)="handleChange($event)"></textarea>
+                    </div>
+                </div>
+            </div> 
+        </div>
+
+        <!--<div class="form-group">
+            <div class="form-row">
+                <div class="col-md-12">
+                    <label class="float-left">HTML Content</label><br><br>
+                    <div class="NgxEditor__Wrapper">
+                        <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
+                        <ngx-editor
+                            [editor]="editor"
+                            [(ngModel)]="contentText"
+                            [ngModelOptions]="{standalone: true}"
+                            [placeholder]="'Enter HTML content'"
+                            [spellcheck]="true"
+                            (ngModelChange)='patchAnswer()'
+                            minHeight='530px'></ngx-editor>
+                    </div>
+                    <div class="invalid-feedback" *ngIf="email_content?.invalid && (email_content?.dirty || email_content?.touched)" class="text-danger">
+                        <div *ngIf="email_content?.errors?.required">email content is required</div>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+
+        <div class="form-group mt-1">
+            <div class="row">
+                <div class="col-12">
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-success mr-2">Save & Preview</button>
+                        <a routerLink="/admin/newsletter-templates/list" routerLinkActive="active" class="btn btn-primary">Back</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+
+</div>

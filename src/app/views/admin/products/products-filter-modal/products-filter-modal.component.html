@@ -1,0 +1,51 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <div class="w-100 d-flex flex-row justify-content-between align-items-center">
+            <p class="font-weight-bold mb-0">More Product Attributes</p>
+            <button (click)="closeModal()" type="button"  class="close float-right" aria-label="Close" data-dismiss="modal">
+                <span aria-hidden="true">x</span>
+            </button>
+        </div>
+    </div>
+    <div class="modal-body">
+        <form (ngSubmit)="saveTreatmentCondition(treatmentConditionForm.valid)"
+            [formGroup]="treatmentConditionForm" autocomplete="off">
+            <div class="alert alert-dark my-3">
+                <h5 class="font-weight-bold mb-5">Attributes</h5>
+                <div formArrayName="attributes">
+                    <div *ngFor="let attributeItem of attributes().controls; let attributeIndex=index">
+                      <div class="form-group mt-2" [formGroupName]="attributeIndex">
+                                <div class="form-row">
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <mat-select formControlName="attribute_id" placeholder="Attribute" (selectionChange)="attrChange(attributeIndex,$event)">
+                                                <mat-option *ngFor="let attr of attributesData" [value]="attr.id">
+                                                    {{attr.name}}
+                                                </mat-option>
+                                            </mat-select>
+                                       </div>       
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <mat-select formControlName="values" placeholder="Value" multiple>
+                                                <mat-option *ngFor="let value of getValuesFromAttribute('value',attributeItem.get('attribute_id')?.value)" [value]="value.id">
+                                                    {{value.name}}
+                                                </mat-option>
+                                            </mat-select>
+                                       </div>   
+                                    </div>
+                                    <div class="col-2">
+                                          <button  type="button" class="btn btn-sm btn-danger" (click)="clearAttributeInput(attributeIndex)"><i class="fa fa-trash mr-2"></i>Clear</button>
+                                    </div>
+                                   
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-success btn-block btn-sm mt-2" type="submit">Apply Filter</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="w-100 p-2 bg-dark-blue d-flex justify-content-between align-items-center">
+      <h4 class="text-white font-weight-bold mb-0">Attribute Details</h4>
+</div>
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" routerLinkActive="active" routerLink="/admin/attributes/view/{{attributeId}}/info">view</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" routerLinkActive="active" routerLink="/admin/attributes/view/{{attributeId}}/values">Values</a>
+    </li>
+</ul>
+<div class="tab-content">
+    <router-outlet></router-outlet>
+</div>
+<div class="text-center">
+    <a routerLink="/admin/attributes"  [replaceUrl]="true"   routerLinkActive="active" class="btn btn-primary">Back</a>
+</div>

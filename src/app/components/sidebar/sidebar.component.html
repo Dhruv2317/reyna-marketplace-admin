@@ -1,0 +1,53 @@
+<nav class="navbar navbar-vertical navbar-expand-md navbar-light bg-white" id="sidenav-main">
+    <div class="container-fluid">
+      <!-- Toggler -->
+      <button class="navbar-toggler" type="button" (click)="isCollapsed=!isCollapsed"
+         aria-controls="sidenav-collapse-main">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <!-- Brand -->
+      <a class="navbar-brand pt-0 d-none" routerLinkActive="active" [routerLink]="['/pharmacist/dashboard']">
+      </a>
+
+      <!-- Collapse -->
+      <div class="collapse navbar-collapse" [attr.collapse]="isCollapsed" id="sidenav-collapse-main">
+        <!-- Collapse header -->
+        <div class="navbar-collapse-header d-md-none">
+          <div class="row">
+            <div class="col-6 collapse-brand">
+              <a  routerLinkActive="active" [routerLink]="['/pharmacist/dashboard']">
+                <img src="./assets/img/brand/blue.png">
+              </a>
+            </div>
+            <div class="col-6 collapse-close">
+              <button type="button" class="navbar-toggler" (click)="isCollapsed=!isCollapsed">
+                <span></span>
+                <span></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Navigation -->
+        <ul class="navbar-nav">
+            <li *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
+                <a routerLinkActive="active" [routerLink]="[menuItem.path]" class="nav-link">
+                    <i class="ni {{menuItem.icon}}"></i>
+                    {{menuItem.title}}
+                </a>
+            </li>
+        </ul>
+        <!-- Divider -->
+        <hr class="my-3">
+        <!-- Heading -->
+        <!-- <h6 class="navbar-heading text-muted">Documentation</h6> -->
+        <!-- Navigation -->
+        <ul class="navbar-nav mb-md-3">
+          <li class="nav-item">
+            <a class="nav-link text-danger" href="javascript:void(0);" (click)="logoutUser()">
+              <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>

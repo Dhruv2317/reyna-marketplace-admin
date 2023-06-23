@@ -1,0 +1,98 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <div class="w-100 d-flex flex-row justify-content-between align-items-center">
+            <p class="font-weight-bold mb-0">{{ modalEvent =='EDIT' ? 'Edit Values' : 'Add Values' }}</p>
+            <button (click)="closeModal()" type="button"  class="close float-right" aria-label="Close" data-dismiss="modal">
+                <span aria-hidden="true">x</span>
+            </button>
+        </div>
+    </div>
+    <div class="modal-body">
+        <form
+        id="subcategory-form"
+        (ngSubmit)="saveAttributeValue(AttributesForm.valid)"
+            [formGroup]="AttributesForm" autocomplete="off">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Name</label><br />
+                        <input type="hidden" id="id" formControlName="id" />
+                        <input type="text" id="name" class="form-control" placeholder="Enter Name" formControlName="name" />
+                        <div class="invalid-feedback" *ngIf="name?.invalid && (name?.dirty || name?.touched)"
+                            class="text-danger">
+                            <div *ngIf="name?.errors?.required">Name is required.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Attribute Name (French)</label><br />
+                        <input type="text" id="name_fr" class="form-control" placeholder="Enter Attribute name_fr" formControlName="name_fr" />
+                        <div class="invalid-feedback" *ngIf="name_fr?.invalid && (name_fr?.dirty || name_fr?.touched)"
+                            class="text-danger">
+                            <div *ngIf="name_fr?.errors?.required">name_fr is required.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Attribute Name (Dutch)</label><br />
+                        <input type="text" id="name_nl" class="form-control" placeholder="Enter Attribute name_nl" formControlName="name_nl" />
+                        <div class="invalid-feedback" *ngIf="name_nl?.invalid && (name_nl?.dirty || name_nl?.touched)"
+                            class="text-danger">
+                            <div *ngIf="name_nl?.errors?.required">name_nl is required.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Attribute Name (Spanish)</label><br />
+                        <input type="text" id="name_es" class="form-control" placeholder="Enter Attribute name_es" formControlName="name_es" />
+                        <div class="invalid-feedback" *ngIf="name_es?.invalid && (name_es?.dirty || name_es?.touched)"
+                            class="text-danger">
+                            <div *ngIf="name_es?.errors?.required">name_es is required.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Attribute Name (Portuguese)</label><br />
+                        <input type="text" id="name_pt" class="form-control" placeholder="Enter Attribute name_pt" formControlName="name_pt" />
+                        <div class="invalid-feedback" *ngIf="name_pt?.invalid && (name_pt?.dirty || name_pt?.touched)"
+                            class="text-danger">
+                            <div *ngIf="name_pt?.errors?.required">name_pt is required.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="float-left">Image Url</label><br>
+                        <div class="float-left w-100">
+                            <img class="rounded shadow" id="blah" [(src)]="imageUrl" alt="your image"
+                                style="max-height: 250px; max-width: 250px; margin-bottom: 10px;" />
+                        </div>
+                        <input type="file" id="image" accept="image/*" (change)="onFileChange($event, 'IMAGE')" class="form-control"
+                            placeholder="Upload Image" formControlimage="image_url" />
+                        <div class="invalid-feedback" *ngIf="image_url?.invalid && (image_url?.dirty || image_url?.touched)"
+                            class="text-danger">
+                            <div *ngIf="image_url?.errors?.required">Image is required.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <mat-checkbox id="is_active" formControlName="is_active" color="primary">Active</mat-checkbox>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-success btn-block btn-sm mt-2" type="submit">Save</button>
+            </div>
+        </form>
+    </div>
+</div>

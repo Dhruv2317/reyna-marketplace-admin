@@ -1,0 +1,75 @@
+<div class="p-3">
+     
+    <!--<div class="row bg-light py-2">
+        <div class="col-md-2">
+            <mat-select placeholder="Select Report Type" [(ngModel)]="selectedReportType" (selectionChange)="onReportTypeChanged($event.value)">
+                <mat-option *ngFor="let item of reportConfig" [value]="item.reportType">
+                    {{item.reportLabel}}
+                </mat-option>
+            </mat-select>
+        </div>
+        <div class="col-md-2">
+            <mat-select placeholder="Select Time Unit" [(ngModel)]="selectedTimeUnit" (selectionChange)="onTimeUnitChange($event.value)">
+                <mat-option *ngFor="let item of availableTimeUnits" [value]="item">
+                    {{item}}
+                </mat-option>
+            </mat-select>
+        </div>
+        <div [ngClass]="{'col-md-4':selectedTimeUnit === 'CUSTOM_RANGE','col-md-2': selectedTimeUnit === 'CUSTOM_DATE'}" *ngIf="selectedTimeUnit === 'CUSTOM_DATE' ||  selectedTimeUnit === 'CUSTOM_RANGE'">
+            <input *ngIf="selectedTimeUnit === 'CUSTOM_DATE'" matInput [matDatepicker]="picker" placeholder="Select Date" autocomplete="off" name="reportDate" class="form-control input-sm h-75" [(ngModel)]="selectedCustomDate" (click)="picker.open()">
+            <mat-datepicker #picker></mat-datepicker>
+            <input *ngIf="selectedTimeUnit === 'CUSTOM_RANGE'" class="form-control input-sm h-75" placeholder="Select Date Range" autocomplete="off" type="text" matInput ngxDaterangepickerMd [locale]="{applyLabel: 'ok', format: 'MM-DD-YYYY', clearLabel: 'Clear', customRangeLabel: 'Custom range'}" startKey="start" endKey="end" [(ngModel)]="selectedDateRange" name="daterange"/>
+        </div>
+        <div class="col-md-2">
+            <mat-select placeholder="Records Per Page" [(ngModel)]="selectedLimit">
+                <mat-option *ngFor="let item of availableLimits" [value]="item">
+                    {{item}}
+                </mat-option>
+            </mat-select>
+        </div>
+        <div class="col-md-1">
+            <button mat-raised-button color="accent" (click)="getReport()">Generate Report</button>
+        </div>
+    </div>
+    <div class="card my-3" *ngIf="reportData && reportData.data && reportData.data.length>0 && selectedTimeUnit && selectedTimeUnit !== 'YESTERDAY' && selectedTimeUnit !== 'TODAY' && selectedTimeUnit !== 'CUSTOM_DATE' && selectedTimeUnit !== 'MAP_VIEW'">
+        <div class="card-header bg-dark-blue">
+            <h6 class="text-white"> Graph View For {{selectedReportType}} : {{selectedTimeUnit}}</h6>
+        </div>
+        <div class="card-body">
+            <highcharts-chart style="max-height:500px;width:100%;display:block;" [Highcharts]="Highcharts" [constructorType]="chartConstructor" [options]="chartOptions" [callbackFunction]="chartCallback" [(update)]="updateFlag" [oneToOne]="oneToOneFlag"></highcharts-chart>
+        </div>
+    </div>
+    <div class="card mt-5 shadow-none"  *blockUI="'reportLoader'">
+        <div class="card-header bg-dark-blue">
+            <h6 class="text-white">Report Data <span class="ml-2 badge badge-success" *ngIf="reportData && reportData.total">{{reportData.total}}</span></h6>
+        </div>
+        <div class="card-body" *ngIf="reportData && selectedTimeUnit !== 'MAP_VIEW'">
+            <div class="table-responsive" *ngIf="collection.data.length > 0 ;else noData">
+                <table class="table table-hover">
+                    <thead class="thead-light">
+                        <tr>
+                            <th *ngFor="let tableheader of reportData.header" class="font-weight-bold">{{tableheader.label}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of collection.data| paginate: config">
+                            <td *ngFor="let header of reportData.header">
+                                <p [innerHTML]="data[header.key]" *ngIf="header.isHtml"></p>
+                                <p *ngIf="!header.isHtml">{{data[header.key]}}</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="text-center mt-2">
+                    <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+                </div>
+            </div>
+            <ng-template #noData>
+                <div class="text-center text-muted">
+                    <h2><i class="fas fa-info-circle" aria-hidden="true"></i></h2>
+                    <h4 class="font-weight-normal">No Report Data Available</h4>
+                </div>
+            </ng-template>
+        </div>
+    </div>-->
+</div>

@@ -1,0 +1,209 @@
+<div class="p-3"   *blockUI="'dealer'">
+    <ng-container *ngIf="dealerDetails; else noDealerDetails">
+         <div class="row">
+            <div class="col-lg-6 col-md-6 col-12">
+                <table class="table table-sm">
+                    <thead class="thead-light">
+                        <tr>
+                            <th colspan="2">Dealer Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Id</td><td>{{ dealerDetails.dealer.id }}</td></tr>
+                        <tr><td>Company Name</td><td>{{ dealerDetails.dealer.company_name }}</td></tr>
+                        <tr><td>Business type</td><td>{{ dealerDetails.dealer.business_type }}</td></tr>
+                        <tr><td>Phone number</td><td>{{ dealerDetails.dealer.phone_number }}</td></tr>
+                        <tr><td>Vat number</td><td>{{ dealerDetails.dealer.vat_number }}</td></tr>
+                        <tr><td>Website</td><td>{{ dealerDetails.dealer.website }}</td></tr>
+                        <tr><td>Created at</td><td>{{ dealerDetails.dealer.created_at | date:'dd-MM-yyyy hh:mm:ss a'}}</td></tr>
+                        <tr><td>Updated at</td><td>{{ dealerDetails.dealer.updated_at  | date:'dd-MM-yyyy hh:mm:ss a'}}</td></tr>
+                        
+                        <tr>
+                            <td>Business Legal Representative</td>
+                            <td>
+                                <p>
+                                    Name : {{ dealerDetails.dealer.first_name +' '+dealerDetails.dealer.last_name}}
+                                </p>
+                                <p>
+                                   DOB : {{ dealerDetails.dealer.date_of_birth }}
+                                </p>
+                                <p>
+                                    Nationality : {{ dealerDetails.dealer.nationality }}
+                                </p>
+                                <p>
+                                    Country of Residence : {{ dealerDetails.dealer.country_of_residence }}
+                                </p>
+                            </td>
+                    </tr>
+                      
+                    </tbody>
+                </table>
+
+
+
+              
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+                <table class="table table-sm">
+                    <thead class="thead-light">
+                        <tr>
+                            <th colspan="2">Personal Info</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>First Name</td><td>{{ dealerDetails.personal_info.first_name }}</td></tr>
+                        <tr><td>Last Name </td><td>{{ dealerDetails.personal_info.last_name }}</td></tr>
+                        <tr><td>Email </td><td>{{  dealerDetails.personal_info.email}}</td></tr>
+                        <tr><td>Display name</td><td>{{ dealerDetails.personal_info.display_name }}</td></tr>
+                        <tr><td>Phone Number</td><td>{{ dealerDetails.personal_info.cell_phone_number }}</td></tr>
+                        <tr><td>Gender</td><td>{{ dealerDetails.personal_info.gender }}</td></tr>
+                        <tr><td>Role</td><td>{{ dealerDetails.personal_info.role }}</td></tr>
+                        <tr><td>Language</td><td>{{ dealerDetails.personal_info.preferred_language }}</td></tr>
+                        <tr><td>Currency</td><td>{{ dealerDetails.personal_info.preferred_currency }}</td></tr>
+                        <tr><td>Platform</td><td>{{ dealerDetails.personal_info.platform }}</td></tr>
+                        <tr *ngIf="dealerDetails.personal_info.app_version"><td>App Version</td><td>{{ dealerDetails.personal_info.app_version }}</td></tr>
+                        <tr><td>Email Verified</td><td><p *ngIf="dealerDetails.personal_info.is_verified" class="badge badge-pill badge-success">Verified</p></td></tr>
+                        <tr *ngIf="dealerDetails.personal_info.is_verified"><td>Email Verified at</td><td>{{ dealerDetails.personal_info.email_verified_at | date:'dd-MM-yyyy hh:mm:ss a'}}</td></tr>
+
+                        <tr><td>Subscription Activated On</td><td>{{ dealerDetails.personal_info.subscription_activated_on  | date:'dd-MM-yyyy hh:mm:ss a'}}</td></tr>
+                        <tr><td>Subscription Expire On</td><td>{{ dealerDetails.personal_info.subscription_expire_on  | date:'dd-MM-yyyy hh:mm:ss a'}}</td></tr>
+                        <tr><td>Subscription Status</td><td><p>{{ dealerDetails.personal_info.subscription_status }}</p></td></tr>
+
+                        <tr>
+                            <td colspan="2">
+                                <button class="btn btn-block btn-outline-warning" (click)="openEditSubscriptionPlanModal()">Edit Subscription Plan</button>
+                            </td>
+                        </tr>
+
+                        <tr><td>Account Type</td><td><p [ngClass]="{'badge badge-pill':true,'badge-success':dealerDetails.personal_info.account_type=='premium','badge-primary':dealerDetails.personal_info.account_type=='free'}">{{ dealerDetails.personal_info.account_type }}</p></td></tr>
+                    
+                        <tr>
+                            <td>Stripe Customer</td>
+                            <td>
+                                <h5>{{dealerDetails.personal_info.stripe_user_id ? dealerDetails.personal_info.stripe_user_id:'Not Found'}}</h5>
+                                <a *ngIf="dealerDetails.personal_info.stripe_user_id" class="btn btn-sm btn-info" target="_blank" [href]="'https://dashboard.stripe.com/customers/'+dealerDetails.personal_info.stripe_user_id">View Details</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Stripe Connect Account</td>
+                            <td>
+                                <h5>{{dealerDetails.personal_info.stripe_account_id ? dealerDetails.personal_info.stripe_account_id:'Not Found'}}</h5>
+                                <a *ngIf="dealerDetails.personal_info.stripe_account_id" class="btn btn-sm btn-info" target="_blank" [href]="'https://dashboard.stripe.com/connect/accounts/'+dealerDetails.personal_info.stripe_account_id+'/activity'">View Details</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Account Verified</td>
+                            <td>
+                                <p [ngClass]="{'badge badge-pill':true,'badge-success':dealerDetails.personal_info.account_verified_by_admin==1,'badge-dark':dealerDetails.personal_info.account_verified_by_admin!=1}">{{ dealerDetails.personal_info.account_verified_by_admin==1?'Verified':'Not Verified'}}</p>
+                                <button  *ngIf="dealerDetails.personal_info.account_verification_by_admin_status!='approved'"  type="button" (click)="openVerifyModal()" class="btn btn-outline-success btn-block">Verify Now</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table class="table table-sm">
+                    <thead class="thead-light">
+                        <tr>
+                            <th colspan="2">Payout Information</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Account Holder Name</td><td>{{ dealerDetails.payout_information.account_holder_name }}</td></tr>
+                        <tr><td>Account type</td><td>{{ dealerDetails.payout_information.account_type }}</td></tr>
+                        <tr><td>Routing number</td><td>{{ dealerDetails.payout_information.routing_number }}</td></tr>
+                        <tr><td>Account number</td><td>{{ dealerDetails.payout_information.account_number }}</td></tr>
+                        <tr><td>Bank name</td><td>{{ dealerDetails.payout_information.bank_name }}</td></tr>
+                        <tr><td>Bank address</td><td>{{ dealerDetails.payout_information.bank_address }}</td></tr>
+                        <tr><td>Bank iban</td><td>{{ dealerDetails.payout_information.bank_iban }}</td></tr>
+                        <tr><td>Bank swiftcode</td><td>{{ dealerDetails.payout_information.bank_swiftcode }}</td></tr>
+                    </tbody>
+                </table>
+
+            </div>
+         </div>
+
+         <div class="row">
+            <div class="col-lg-6 col-md-6 col-12">
+                <table class="table table-sm">
+                    <thead class="thead-light">
+                        <tr>
+                            <th colspan="2">Company Address</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Address Line 1</td><td>{{ dealerDetails.dealer.company_address.address_line_1 }}</td></tr>
+                        <tr><td>Address Line 2</td><td>{{ dealerDetails.dealer.company_address.address_line_2 }}</td></tr>
+                        <tr><td>City</td><td>{{ dealerDetails.dealer.company_address.city_name }}</td></tr>
+                        <tr><td>State</td><td>{{ dealerDetails.dealer.company_address.state }}</td></tr>
+                        <tr><td>Country</td><td>{{ dealerDetails.dealer.company_address.country }}</td></tr>
+                        <tr><td>Zip Code</td><td>{{ dealerDetails.dealer.company_address.zip_code }}</td></tr>
+                        <tr><td>Address Type</td><td>{{ dealerDetails.dealer.company_address.type }}</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+                <table class="table table-sm" *ngIf="dealerDetails.dealer.return_address">
+                    <thead class="thead-light">
+                        <tr>
+                            <th colspan="2">Return Address</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Address Line 1</td><td>{{ dealerDetails.dealer.return_address.address_line_1 }}</td></tr>
+                        <tr><td>Address Line 2</td><td>{{ dealerDetails.dealer.return_address.address_line_2 }}</td></tr>
+                        <tr><td>City</td><td>{{ dealerDetails.dealer.return_address.city_name }}</td></tr>
+                        <tr><td>State</td><td>{{ dealerDetails.dealer.return_address.state }}</td></tr>
+                        <tr><td>Country</td><td>{{ dealerDetails.dealer.return_address.country }}</td></tr>
+                        <tr><td>Zip Code</td><td>{{ dealerDetails.dealer.return_address.zip_code }}</td></tr>
+                        <tr><td>Address Type</td><td>{{ dealerDetails.dealer.return_address.type }}</td></tr>
+                    </tbody>
+                </table>
+
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-lg-6 col-md-6 col-12">
+                <div>
+                    <table class="table table-sm">
+                        <thead class="thead-light">
+                            <tr>
+                                <th class="font-weight-bold">Photo Id Front</th> 
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <app-image-preview [imgPath]="dealerDetails.personal_info.photo_id_front" height="250" width="350" caption="PhotoId Front"></app-image-preview>
+                                </td> 
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+                <div>
+                    <table class="table table-sm">
+                        <thead class="thead-light">
+                            <tr>
+                                <th class="font-weight-bold">Photo Id Back</th> 
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <app-image-preview [imgPath]="dealerDetails.personal_info.photo_id_back" height="250" width="350" caption="PhotoId Back"></app-image-preview>
+                                </td> 
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <ng-template #noDealerDetails>
+        <div class="text-center text-muted">
+            <h2><i class="fa fa-info-circle"></i></h2>
+            <h4>No Details!</h4>
+        </div>
+    </ng-template>
+</div>

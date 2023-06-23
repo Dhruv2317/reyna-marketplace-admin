@@ -1,0 +1,45 @@
+<div class="modal-content">
+    <form (ngSubmit)="refundOrderFormSubmit(refundOrderForm)" [formGroup]="refundOrderForm" novalidate>
+      <div class="modal-header p-2 pl-3">
+        <h4 class="modal-title">Request for Refund Order</h4>
+        <button type="button" class="close"  aria-label="Close" (click)="closeModal()">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body" *ngIf="order">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="custom-control-input" id="refund_all_checkbox"
+                       [checked]="checkSelectAllOptionForEvent('REFUND')"
+                       (change)="handleSelectAllProducts('REFUND',$event)"/>
+                      <label class="custom-control-label" for="refund_all_checkbox">Select All</label>
+                  </div>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let product of order.order_products">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="checkbox_{{product.id}}"
+                            (change)="selectProduct(product,$event)"
+                            [checked]="checkProductSelectedForRefund(product)"
+                            [disabled]="checkProductDisabledForRefund(product)" />
+                        <label class="custom-control-label " for="checkbox_{{product.id}}">
+                        {{product.product_name }}
+                        <span class="ml-2">- {{ product.price | currency:product.currency }} </span>
+                        <span *ngIf="product.tax_amount > 0" > + Tax {{ product.tax_amount | currency:product.currency }} </span>
+                        </label>
+                    </div>
+                </li>
+            </ul>
+            <div class="form-group mt-2">
+              <label>Enter Reason For Refund Order</label>
+              <textarea class="form-control" id="refund_reason" rows="3" formControlName="refund_reason"></textarea>
+               <div class="invalid-feedback" *ngIf="refund_reason?.invalid && (refund_reason?.dirty || refund_reason?.touched)" class="text-danger">
+                    <div *ngIf="refund_reason?.errors?.required">Reason is required</div>
+                </div>
+            </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="submit" [disabled]="refundOrderForm.invalid" class="btn btn-sm btn-success btn-block waves-effect m-0">Request Refund</button>
+      </div>
+    </form>
+  </div>

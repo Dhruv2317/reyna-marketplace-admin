@@ -1,0 +1,34 @@
+<div class="w-100 p-2 bg-dark-blue">
+    <div class="d-flex justify-content-between align-items-center">
+        <h4 class="text-white font-weight-bold mb-0">View Brand</h4>
+        <!-- <a routerLink="/admin/brand/edit/{{selectedBrandId}}" routerLinkActive="active" class="btn btn-primary float-right">Edit</a> -->
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-12">
+            <mat-label class="text-white font-weight-bold"><small>Brands</small></mat-label>
+            <mat-select class="form-control" placeholder="Select Brand" (selectionChange)="onBrandChange($event.value)" [(ngModel)]="selectedBrandId">
+                <mat-option *ngFor="let brand of brandsList" [value]="brand.id">
+                    {{brand.name}}
+                </mat-option>
+            </mat-select>
+        </div>
+    </div>
+</div>
+
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold text-muted"routerLinkActive="active" routerLink="./info">Info</a>
+    </li>
+</ul>
+
+<div class="tab-content p-3">
+    <router-outlet></router-outlet>
+</div>
+
+<div class="view-question-footer">
+    <div class="row">
+        <div class="col-sm-12 text-center">
+            <a routerLink="/admin/brands/list" [replaceUrl]="true" routerLinkActive="active" class="btn btn-primary">Back</a>
+        </div>
+    </div>
+</div>

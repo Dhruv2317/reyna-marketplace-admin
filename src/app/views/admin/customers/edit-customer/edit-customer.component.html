@@ -1,0 +1,79 @@
+<div class="w-100 p-3 bg-dark-blue">
+      <h4 class="text-white font-weight-bold mb-0">Edit Patient</h4>
+</div>
+<div class="p-3">
+  <form *ngIf="customerLoaded" (ngSubmit)="savePatient()" [formGroup]="editPatient">
+    <div class="form-group">
+      <div class="form-row">
+        <div class="col-md-6">
+          <label class="float-left">First Name</label>
+          <input type="text" id="first_name" class="form-control" placeholder="Enter First Name" formControlName="first_name" />
+          <div class="invalid-feedback" *ngIf="first_name?.invalid && (first_name?.dirty || first_name?.touched)" class="text-danger">
+            <div *ngIf="first_name?.errors?.required">Frist Name is required</div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label class="float-left">Last Name</label>
+          <input type="text" id="last_name" formControlName="last_name" class="form-control input-lg" placeholder="Enter Last Name" />
+          <div class="invalid-feedback" *ngIf="last_name?.invalid && (last_name?.dirty || last_name?.touched)" class="text-danger">
+            <div *ngIf="last_name?.errors?.required">Last Name is required</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="form-row">
+        <div class="col-md-6">
+          <label class="d-block">Gender</label>
+          <mat-radio-group formControlName="gender">
+            <mat-radio-button value="male" color='primary'>Male</mat-radio-button> &nbsp;&nbsp;
+            <mat-radio-button value="female" color='primary'>Female</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div class="col-md-6">
+          <label class="float-left">Date Of Birth</label>
+          <input matInput [matDatepicker]="picker" placeholder="Enter date of birth" formControlName="date_of_birth" class="form-control input-lg" (click)="picker.open()" (dateChange)="dateChange($event)">
+          <mat-datepicker #picker></mat-datepicker>
+          <div class="invalid-feedback" *ngIf="date_of_birth?.invalid && (date_of_birth?.dirty || date_of_birth?.touched)" class="text-danger">
+            <div *ngIf="date_of_birth?.errors?.required">Date of birth is required</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="form-row">
+        <div class="col-md-6">
+          <label class="float-left">Email</label>
+          <input type="email" id="email" formControlName="email" class="form-control input-lg" placeholder="Enter Email" />
+          <div class="invalid-feedback" *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="text-danger">
+            <div *ngIf="email?.errors?.required">Email is required</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="form-row">
+        <div class="col-md-6">
+          <label class="float-left">Cell Phone Number</label>
+          <input type="text" id="cell_phone_number" formControlName="cell_phone_number" class="form-control input-lg" placeholder="Enter Cell Phone Number" />
+          <div class="invalid-feedback" *ngIf="cell_phone_number?.invalid && (cell_phone_number?.dirty || cell_phone_number?.touched)" class="text-danger">
+            <div *ngIf="cell_phone_number?.errors?.required">Cell Phone Number is required</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-group mt-1">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="text-center">
+            <button type="submit" class="btn btn-info">Submit</button>
+            <a routerLink="/admin/customers/" class="btn btn-primary">Back</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

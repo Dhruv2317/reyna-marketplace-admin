@@ -1,0 +1,44 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <div class="w-100 d-flex flex-row justify-content-between align-items-center">
+            <p class="font-weight-bold mb-0">Verify Account</p>
+            <button (click)="closeModal()" type="button"  class="close float-right" aria-label="Close" data-dismiss="modal">
+                <span aria-hidden="true">x</span>
+            </button>
+        </div>
+    </div>
+    <div class="modal-body">
+        <form (ngSubmit)="saveForm(accountVerifyForm.valid)"
+            [formGroup]="accountVerifyForm" autocomplete="off">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Status</label><br />
+                        <select class="form-control" aria-placeholder="Select Status" formControlName="status" id="status">
+                            <option value="pending">Pending</option>
+                            <option value="approved">Approved</option>
+                            <option value="rejected">Rejected</option>
+                        </select>
+                        <div class="invalid-feedback" *ngIf="status?.invalid && (status?.dirty || status?.touched)"
+                            class="text-danger">
+                            <div *ngIf="status?.errors?.required">status is required.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Comment</label><br />
+                        <textarea type="text" rows="2" id="comment" class="form-control" formControlName="comment"></textarea>
+                        <div class="invalid-feedback" *ngIf="comment?.invalid && (comment?.dirty || comment?.touched)"
+                            class="text-danger">
+                            <div *ngIf="comment?.errors?.required">comment is required.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-success btn-block btn-sm mt-2" type="submit">Save</button>
+            </div>
+        </form>
+    </div>
+</div>

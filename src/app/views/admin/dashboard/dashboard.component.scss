@@ -1,0 +1,72 @@
+input[type=radio] {
+    transform: scale(1.5);
+}
+
+// Extra small devices (portrait phones, less than 576px)
+@media (max-width: 575px) {
+    .magic-width,
+    .mini-magic-width-box,
+    .magic-width-box {
+        width: 100%;
+    }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767px) {
+    .magic-width,
+    .mini-magic-width-box,
+    .magic-width-box {
+        width: 100%;
+    }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991px) {
+    .magic-width {
+        width: auto;
+    }
+    .mini-magic-width-box {
+        width: 90px;
+        min-width: 90px;
+        max-width: 90px;
+    }
+    .magic-width-box {
+        width: 100px;
+        min-width: 100px;
+        max-width: 100px;
+    }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199px) {
+    .magic-width {
+        width: auto;
+    }
+    .mini-magic-width-box {
+        width: 110px;
+        min-width: 110px;
+        max-width: 110px;
+    }
+    .magic-width-box {
+        width: 150px;
+        min-width: 150px;
+        max-width: 150px;
+    }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+    .magic-width {
+        width: auto;
+    }
+    .mini-magic-width-box {
+        width: 110px;
+        min-width: 110px;
+        max-width: 110px;
+    }
+    .magic-width-box {
+        width: 150px;
+        min-width: 150px;
+        max-width: 150px;
+    }
+}

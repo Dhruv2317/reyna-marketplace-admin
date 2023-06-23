@@ -1,0 +1,24 @@
+<span *ngIf="data?.devices.length > 0; else elseBlock">
+  <h2 mat-dialog-title>Devices used by {{data.fullname}}</h2>
+</span>
+<ng-template #elseBlock><h2 mat-dialog-title>Sorry, No Device Found.</h2></ng-template>
+
+<mat-dialog-content class="mat-typography">
+  <table *ngIf="data?.devices.length > 0" class="table">
+    <thead>
+      <tr> <th *ngFor="let item of deviceTableColumns" scope="col">{{item}}</th> </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of data?.devices">
+        <td>{{item.device_type.charAt(0).toUpperCase() + item.device_type.slice(1)}}</td>
+        <td>{{item.device_os}}</td>
+        <td>{{item.device_os_version}}</td>
+        <td>{{item.browser_name}}</td>
+        <td>{{item.browser_version}}</td>
+      </tr>
+    </tbody>
+  </table>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button [mat-dialog-close]="true">Close</button>
+</mat-dialog-actions>

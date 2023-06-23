@@ -1,0 +1,31 @@
+
+<ng-container *ngIf="AttributeDetails; else noAttributeDetails">
+  <div class="p-2">
+        <button class="btn btn-primary float-right" type="button" (click)="openEditModal()">Edit <i class="ml-2 fa fa-pencil" aria-hidden="true"></i></button>
+        <table class="table">
+          <tbody>
+            <tr><td class="font-weight-normal">Name (English)</td><td class="font-weight-normal">{{AttributeDetails.name || '-'}}</tr>
+            <tr><td class="font-weight-normal">Name (French)</td><td class="font-weight-normal">{{AttributeDetails.name_fr || '-'}}</tr>
+            <tr><td class="font-weight-normal">Name (Dutch)</td><td class="font-weight-normal">{{AttributeDetails.name_nl || '-'}}</tr>
+            <tr><td class="font-weight-normal">Name (Spanish)</td><td class="font-weight-normal">{{AttributeDetails.name_es || '-'}}</tr>
+            <tr><td class="font-weight-normal">Name (Portuguese)</td><td class="font-weight-normal">{{AttributeDetails.name_pt || '-'}}</tr>
+            <tr><td class="font-weight-normal">Active</td><td class="font-weight-normal"><h5><i class="fa fa-check text-success" *ngIf="AttributeDetails.is_active"></i><i class="fa fa-times text-danger" *ngIf="!AttributeDetails.is_active"></i></h5></td></tr>
+          </tbody>
+        </table>
+        <table class="table table-sm">
+           <thead class="bg-light">
+              <tr>
+                <th colspan="2">Values</th>
+              </tr>
+           </thead>
+           <tbody>
+              <tr *ngFor="let val of AttributeDetails.values">
+                  <td>{{ val.name }}</td>
+              </tr>
+           </tbody>
+        </table>
+  </div>
+</ng-container>
+<ng-template #noAttributeDetails>
+  No Attribute Details
+</ng-template>

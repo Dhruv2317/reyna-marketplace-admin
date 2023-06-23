@@ -1,0 +1,209 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <div class="w-100 d-flex flex-row justify-content-between align-items-center">
+            <p class="font-weight-bold mb-0">{{ modalEvent =='EDIT' ? 'Edit Brand' : 'Add Brand' }}</p>
+            <button (click)="closeModal()" type="button"  class="close float-right" aria-label="Close" data-dismiss="modal">
+                <span aria-hidden="true">x</span>
+            </button>
+        </div>
+    </div>
+    <div class="modal-body">
+        <form (ngSubmit)="saveBrand(brandForm.valid)"
+            [formGroup]="brandForm" autocomplete="off">
+            <div class="row">
+                <div class="col-md-12">
+                   <mat-form-field class="w-100">
+                      <mat-select [formControl]="manufacturerCtrl" placeholder="Manufacturer">
+                        <mat-option>
+                          <ngx-mat-select-search
+                          [formControl]="manufacturerFilteringCtrl"
+                           [searching]="searching"
+                          placeholderLabel="Find Manufacturer..."
+                          noEntriesFoundLabel="'no matching manufacturer found'"
+                           ></ngx-mat-select-search>
+                        </mat-option>
+                        <mat-option *ngFor="let manufaturer of filteredManufacturers | async" [value]="manufaturer.id">
+                          {{manufaturer.name}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <mat-select formControlName="categories" placeholder="Categories" multiple>
+                            <mat-option *ngFor="let cat of categoriesDetails" [value]="cat.id">
+                                {{cat.name}}
+                            </mat-option>
+                        </mat-select>
+                   </div>           
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label>Name (English)</label><br />
+                        <input type="hidden" id="id" class="form-control" placeholder="" formControlName="id" />
+                        <input type="text" id="name" class="form-control" placeholder="Enter Brand Name"
+                            formControlName="name" />
+                        <div class="invalid-feedback" *ngIf="name?.invalid && (name?.dirty || name?.touched)"
+                            class="text-danger">
+                            <div *ngIf="name?.errors?.required">Name is required.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-7">
+                    <div class="form-group">
+                        <label>Description  (English)</label><br />
+                        <textarea type="text" rows="2" id="description" class="form-control" formControlName="description"></textarea>
+                        <div class="invalid-feedback" *ngIf="description?.invalid && (description?.dirty || description?.touched)"
+                            class="text-danger">
+                            <div *ngIf="description?.errors?.required">Description is required.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label>Name (French)</label><br />
+                        <input type="text" id="name_fr" class="form-control" placeholder="Enter Brand Name"
+                            formControlName="name_fr" />
+                        <div class="invalid-feedback" *ngIf="name_fr?.invalid && (name_fr?.dirty || name_fr?.touched)"
+                            class="text-danger">
+                            <div *ngIf="name_fr?.errors?.required">Name_fr is required.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-7">
+                    <div class="form-group">
+                        <label>Description (French)</label><br />
+                        <textarea type="text" rows="2" id="description_fr" class="form-control" formControlName="description_fr"></textarea>
+                        <div class="invalid-feedback" *ngIf="description_fr?.invalid && (description_fr?.dirty || description_fr?.touched)"
+                            class="text-danger">
+                            <div *ngIf="description_fr?.errors?.required">Description_fr is required.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label>Name (Dutch)</label><br />
+                        <input type="text" id="name_nl" class="form-control" placeholder="Enter Brand Name"
+                            formControlName="name_nl" />
+                        <div class="invalid-feedback" *ngIf="name_nl?.invalid && (name_nl?.dirty || name_nl?.touched)"
+                            class="text-danger">
+                            <div *ngIf="name_nl?.errors?.required">name_nl is required.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-7">
+                    <div class="form-group">
+                        <label>Description (Dutch)</label><br />
+                        <textarea type="text" rows="2" id="description_nl" class="form-control" formControlName="description_nl"></textarea>
+                        <div class="invalid-feedback" *ngIf="description_nl?.invalid && (description_nl?.dirty || description_nl?.touched)"
+                            class="text-danger">
+                            <div *ngIf="description_nl?.errors?.required">Description_nl is required.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label>Name (Spanish)</label><br />
+                        <input type="text" id="name_es" class="form-control" placeholder="Enter Brand Name"
+                            formControlName="name_es" />
+                        <div class="invalid-feedback" *ngIf="name_es?.invalid && (name_es?.dirty || name_es?.touched)"
+                            class="text-danger">
+                            <div *ngIf="name_es?.errors?.required">Name is required.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-7">
+                    <div class="form-group">
+                        <label>Description (Spanish)</label><br />
+                        <textarea type="text" rows="2" id="description_es" class="form-control" formControlName="description_es"></textarea>
+                        <div class="invalid-feedback" *ngIf="description_es?.invalid && (description_es?.dirty || description_es?.touched)"
+                            class="text-danger">
+                            <div *ngIf="description_es?.errors?.required">Description is required.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label>Name (Portuguese)</label><br />
+                        <input type="text" id="name_pt" class="form-control" placeholder="Enter Brand Name"
+                            formControlName="name_pt" />
+                        <div class="invalid-feedback" *ngIf="name_pt?.invalid && (name_pt?.dirty || name_pt?.touched)"
+                            class="text-danger">
+                            <div *ngIf="name_pt?.errors?.required">name_pt is required.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-7">
+                    <div class="form-group">
+                        <label>Description (Portuguese)</label><br />
+                        <textarea type="text" rows="2" id="description_pt" class="form-control" formControlName="description_pt"></textarea>
+                        <div class="invalid-feedback" *ngIf="description_pt?.invalid && (description_pt?.dirty || description_pt?.touched)"
+                            class="text-danger">
+                            <div *ngIf="description_pt?.errors?.required">Description_pt is required.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="float-left">Logo</label><br>
+                        <div class="float-left w-100">
+                            <img class="rounded shadow" id="blah" [(src)]="imageUrl" alt="your image"
+                                style="max-height: 250px; max-width: 250px; margin-bottom: 10px;" />
+                        </div>
+                        <input type="file"  accept="image/*" id="logo-image" (change)="onFileChange($event, 'IMAGE')" class="form-control"
+                            placeholder="Upload Logo Image" formControlimage="image_url" />
+                        <div class="invalid-feedback" *ngIf="image_url?.invalid && (image_url?.dirty || image_url?.touched)"
+                            class="text-danger">
+                            <div *ngIf="image_url?.errors?.required">Image is required.</div>
+                        </div>
+                    </div>
+                </div>
+                
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <mat-checkbox id="is_active" formControlName="is_active" color="primary">Active</mat-checkbox>
+                    </div>
+                </div>
+               
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <mat-checkbox id="is_featured" formControlName="is_featured" color="primary">Is Featured Brand ?</mat-checkbox>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-success btn-block btn-sm mt-2" type="submit">Save</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <div class="w-100 d-flex flex-row justify-content-between align-items-center">
+            <p class="font-weight-bold mb-0">Edit Subscription Plan</p>
+            <button (click)="closeModal()" type="button"  class="close float-right" aria-label="Close" data-dismiss="modal">
+                <span aria-hidden="true">x</span>
+            </button>
+        </div>
+    </div>
+    <div class="modal-body">
+        <form (ngSubmit)="saveSubscriptionPlan(editSubscriptionPlanForm.valid)"
+            [formGroup]="editSubscriptionPlanForm" autocomplete="off">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Subscription Activated On</label><br />
+                        <input formControlName="subscription_activated_on" #dp="bsDatepicker" bsDatepicker  placeholder="Datepicker" class="form-control input-lg" [bsConfig]="{dateInputFormat: 'YYYY-MM-DD' ,containerClass: 'theme-dark-blue'}">
+                        <div class="invalid-feedback" *ngIf="subscription_activated_on?.invalid && (subscription_activated_on?.dirty || subscription_activated_on?.touched)"
+                            class="text-danger">
+                            <div *ngIf="subscription_activated_on?.errors?.required">Subscription Activated On is required.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Subscription Expired On</label><br />
+                        <input formControlName="subscription_expire_on" #dp="bsDatepicker" bsDatepicker  placeholder="Datepicker" class="form-control input-lg" [bsConfig]="{dateInputFormat: 'YYYY-MM-DD' ,containerClass: 'theme-dark-blue'}">
+                        <div class="invalid-feedback" *ngIf="subscription_expire_on?.invalid && (subscription_expire_on?.dirty || subscription_expire_on?.touched)"
+                            class="text-danger">
+                            <div *ngIf="subscription_expire_on?.errors?.required">Subscription Expired On is required.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Subscription Status</label><br />
+                        <select class="form-control" formControlName="subscription_status">
+                            <option value="active">Active</option>
+                            <option value="inactive">InActive</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-block btn-success" type="submit">Submit</button>
+        </form>
+    </div>
+</div>

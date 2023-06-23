@@ -1,0 +1,118 @@
+<ul class="nav nav-tabs mb-3">
+  <li class="nav-item">
+    <a class="nav-link active" routerLink="/admin/orders/refund_requested">Refund Requested Orders</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" routerLink="/admin/orders/refund_processed">Refund Processed Orders</a>
+  </li>
+</ul>
+
+    <div class="card mb-3">
+      <div class="card-header bg-dark-blue">
+          <div class="row">
+            <div class="col-md-5 col-12">
+              <div class="form-group">
+                  <label class="text-white">Search Order</label>
+                  <input type="text" class="form-control"  (keyup)="handleChange('SEARCH',$event)" [(ngModel)]="orders_search" placeholder="Search By OrderNumber, CustomerName" />
+              </div>
+            </div>
+
+            <div class="col-md-4 col-12">
+              <div class="form-group">
+              <label class="text-white">Sorting</label>
+              <select class="form-control" (change)="handleChange('SORT',$event)" [(ngModel)]="orders_sort_selected_option">
+                    <option *ngFor="let option of orders_sort_options" [value]="option.id">{{option.title}}</option>
+              </select>
+              </div>
+            </div>
+
+            <div class="col-md-2 col-12">
+              <div class="form-group">
+                <label class="text-white">Limit</label>
+                <select class="form-control" (change)="handleChange('LIMIT',$event)" [(ngModel)]="orders_limit">
+                    <option *ngFor="let option of orders_limit_options" [value]="option">{{option}}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-md-1 col-12">
+              <div class="form-group">
+                <label class="text-white">Records</label>
+                <p class="mb-0"><span class="badge badge-success p-2">{{orders_collection.count}}</span></p>
+              </div>
+            </div>
+
+          </div>
+      </div>
+    </div>
+
+    <div class="row" *blockUI="'datatable'">
+        <div class="col-12">
+            <div *ngIf="orders_collection.count > 0 ">
+                        <div class="card mb-3"  *ngFor = "let order of orders_collection.data | paginate: orders_config">
+                        <div class="bg-light-grey p-3">
+                                <div class="d-flex flex-lg-row flex-md-row flex-sm-column  flex-column justify-content-between align-items-lg-top align-items-md-top align-items-sm-start align-items-start" style="border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;">
+                                  <div  class="magic-width d-flex flex-lg-row flex-md-row flex-sm-column flex-column justify-content-start align-items-lg-top align-items-md-top align-items-sm-start align-items-start">
+                                    <div class="mini-magic-width-box text-left mb-lg-0 md-md-0 mb-sm-2 mb-2 d-flex flex-lg-column flex-md-column flex-sm-row flex-row justify-content-between align-items-start"><p class="mb-0"><small class="mb-0">ORDER NO.</small></p><p class="font-weight-bold mb-0">#{{order.order_number}}</p></div>
+                                    <div class="mini-magic-width-box text-left mb-lg-0 md-md-0 mb-sm-2 mb-2  d-flex flex-lg-column flex-md-column flex-sm-row flex-row justify-content-between align-items-start"><p class="mb-0"><small class="mb-0">ORDER DATE</small></p><p class="font-weight-bold mb-0">{{ order.order_place_datetime |date:'dd/MM/yyyy'}}</p></div>
+                                    <div class="mini-magic-width-box text-left mb-lg-0 md-md-0 mb-sm-2 mb-2  d-flex flex-lg-column flex-md-column flex-sm-row flex-row justify-content-between align-items-start"><p class="mb-0"><small class="mb-0">TOTAL</small></p><p class="font-weight-bold mb-0">{{order.total_amount | currency:order.currency}}</p></div>
+                                    <div class="magic-width-box text-center mb-lg-0 md-md-0 mb-sm-2 mb-2  d-flex flex-lg-column flex-md-column flex-sm-row flex-row justify-content-between align-items-start">
+                                        <p class="mb-0"><small class="mb-0">ORDER STATUS</small></p>
+                                        <p class="mb-0">
+                                            <span [innerHtml]="_orderHelper.getSystemStatus(order.system_status)"></span>
+                                        </p>
+                                    </div>
+                                    <div class="magic-width-box text-left mb-lg-0 md-md-0 mb-sm-2 mb-2 d-flex flex-lg-column flex-md-column flex-sm-row flex-row justify-content-between align-items-start" (click)="goToUserDetails(order.user_id)"><p class="mb-0"><small class="mb-0 cursor-pointer">CUSTOMER NAME</small></p><p class="cursor-pointer font-weight-bold mb-0">{{order.customer_name}}</p></div>
+                                </div>
+                                <div>
+                                    <div class="text-right">
+                                        <button type="button" class="btn btn-sm btn-outline-primary" (click)="goToOrderDetails(order.id)">View</button>
+                                        <button type="button" class="btn btn-outline-warning btn-sm" (click)="calculateRefundForOrder(order,'FULL')">Refund Order</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                          <table class="table table-sm table-hover">
+                            <thead>
+                              <tr>
+                                <th class="border-0 text-left">PRODUCTS</th>
+                                <th class="border-0 text-left">REFUND REASON</th>
+                                <th class="border-0 text-left">QUANTITY</th>
+                                <th class="border-0 text-right">PRICE</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <div class="d-flex flex-row justify-content-start align-items-center">
+                                    <div *ngIf="order.product_image" class="mr-2">
+                                      <img [src]="api_url+ order.product_image" class="order-product-image" />
+                                    </div>
+                                    <div class="align-middle text-left font-weight-bold">
+                                      {{ order.product_name }}
+                                    </div>
+                                  </div>
+                                </td>
+                                <td class="align-middle text-left font-weight-bold">{{ order.refund_reason }}</td>
+                                <td class="align-middle text-left font-weight-bold">{{order.quantity}}</td>
+                                <td class="align-middle text-right font-weight-bold">{{ order.price | currency:order.currency}}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                    </div>
+                    <div class="text-center mt-2">
+                        <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+                    </div>
+            </div>
+            <div *ngIf="orders_collection.count == 0 ">
+                <div class="card p-2">
+                    <div class="text-center text-muted">
+                        <h2><i class="fa fa-shopping-cart" aria-hidden="true"></i></h2>
+                        <h4 class="font-weight-normal">No Orders Available</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,48 @@
+<div class="w-100 p-2 bg-dark-blue d-flex justify-content-between align-items-center">
+    <h4 class="text-white font-weight-bold mb-0"><i class="fas fa-bars mr-2"></i>Newsletter Templates</h4>
+    <a class="btn btn-primary" type="button" routerLink="/admin/newsletter-templates/editor">Add <i class="ml-2 fa fa-plus" aria-hidden="true"></i></a>
+</div>
+<div class="p-3">
+  <div class="row" *ngIf="orders_collection.count > 0 ">
+     <div class="col-md-4"  *ngFor = "let order of orders_collection.data | paginate: orders_config">
+           <div class="card">
+             <iframe 
+             [src]="api_url+'storage/newsletter_templates/template_'+order.id+'.html'  | safe:'resourceUrl'"
+             frameBorder="0"
+                title=""
+                scrolling="yes" 
+                seamless="seamless" 
+                allow="autoplay"
+                allowtransparency="true" 
+                width="300"
+                height="300"
+                [ngStyle]="{display: 'block',marginLeft: 'auto', marginRight: 'auto', pointerEvents: 'none'}"
+             ></iframe>
+             <div class="card-footer">
+               <span *ngIf="order.status == 'in_progress'" class="badge badge-primary badge-pill p-2">In progress</span>
+               <span *ngIf="order.status == 'published'" class="badge badge-success badge-pill p-2">Published</span>
+                <p *ngIf="order.sent_at">Sent At : {{ order.sent_at | date:'dd-MM-yyyy hh:mm a' }}</p>
+                <a class="btn btn-primary btn-block" type="button" [routerLink]="'/admin/newsletter-templates/editor/'+order.id"><i class="fas fa-pencil-alt mr-2"></i>Edit</a>
+                <button class="btn btn-danger btn-block mt-2" type="button" (click)="deleteTemplate(order.id)"><i class="fas fa-trash-alt mr-2"></i>Delete</button>   
+             </div>
+           </div>
+     </div>
+  </div>
+  <div class="row" *ngIf="orders_collection.count > 0 ">
+      <div class="col-md-12 text-center mt-2">
+         <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+      </div>
+  </div>
+  
+   <div class="row">
+         <div class="col-md-12" *ngIf="orders_collection.count == 0 ">
+               <div class="card p-2">
+                  <div class="text-center text-muted">
+                     <h2><i class="fa fa-shopping-cart" aria-hidden="true"></i></h2>
+                     <h4 class="font-weight-normal">No Templates </h4>
+                  </div>
+               </div>
+         </div>
+   </div>
+
+</div>
