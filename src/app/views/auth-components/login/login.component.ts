@@ -5,6 +5,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { Toastr } from 'src/app/services/toastr.service';
 import { cryptoHelperService } from 'src/app/services/cryptoHelper.service';
+import { HttpClient } from '@angular/common/http';
+import { MarketplaceApiEndpoints } from 'src/app/constants/MarketplaceApiEndpoints';
 
 
 @Component({
@@ -33,6 +35,7 @@ export class LoginComponent implements OnInit {
 		private _loginService: LoginService,
 		private _authService: AuthService,
 		private _cryptoHelperService: cryptoHelperService,
+		private _http: HttpClient
 	) { }
 
 	ngOnInit() {
@@ -54,18 +57,30 @@ export class LoginComponent implements OnInit {
 		if (isvalid) {
 			this.saving = true;
 			let formVal = this.loginForm.value;
-			let encryptedBody = this._cryptoHelperService.encryptJSON({
-				username: formVal.username,
+			// let encryptedBody = this._cryptoHelperService.encryptJSON({
+			// 	username: formVal.username,
+			// 	password: formVal.password,
+			// 	grant_type: 'password'
+			// });
+
+			// let body = "data=" + encodeURIComponent(encryptedBody);
+
+			let body = {
+				id: formVal.username,
 				password: formVal.password,
-				grant_type: 'password'
-			});
+			}
 
-			let body = "data=" + encodeURIComponent(encryptedBody);
+			// this._http.post(MarketplaceApiEndpoints.LOGIN,body)
+			// .subscribe(x=>{
+			// 	console.log("Login result : ",x);
+				
+			// })
 
-			this._loginService.login(body).then(async (result)=>{
-				this._authService.setAuthorizationToken(result.access_token);
+			this._loginService.login(body).then(async (result) => {
+				// this._authService.setAuthorizationToken(result.access_token);
 				this._authService.changeIsLogoutClicked(false);
-				let data = await this._loginService.getLoggedInUser();
+				// let data = await this._loginService.getLoggedInUser();
+				let data:any;
 				if (data && !data.error) {
 					this.saving = false;
 					this.validate = false;
@@ -82,10 +97,10 @@ export class LoginComponent implements OnInit {
 					this.validate = false;
 					this._toastr.showError('Unable to fetch user details');
 				}
-			}).catch(error=>{
+			}).catch(error => {
 				this.saving = false;
 				this.validate = false;
-				console.log('errror-',error);
+				console.log('errror-', error);
 				if (error.error.message == 'INVALID_CREDENTIALS') {
 					this.isNotValidCredentials = true;
 				} else if (error.error.message == 'ACCOUNT_INACTIVE') {
@@ -98,7 +113,7 @@ export class LoginComponent implements OnInit {
 					this._toastr.showError('Unable to login');
 				}
 			});
-			
+
 		}
 	}
 

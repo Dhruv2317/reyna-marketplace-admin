@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Toastr } from 'src/app/services/toastr.service';
 import { HttpClient } from '@angular/common/http';
-import {GolfedApiEndpoints} from 'src/app/constants/GolfedApiEndpoints';
+import {MarketplaceApiEndpoints} from 'src/app/constants/MarketplaceApiEndpoints';
 
 @Component({
   selector: 'app-forgot-password',
@@ -45,7 +45,7 @@ export class ForgotPasswordComponent implements OnInit {
 
   async forgotPassword(username: string) {
     var result = await this._http
-      .post<any>(GolfedApiEndpoints.FORGOT_PASSWORD, { email: username })
+      .post<any>(MarketplaceApiEndpoints.FORGOT_PASSWORD, { email: username })
       .toPromise();
     return result;
   }
