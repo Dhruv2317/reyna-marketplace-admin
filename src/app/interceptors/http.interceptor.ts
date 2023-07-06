@@ -21,27 +21,41 @@ export class InterceptedHttp implements HttpInterceptor {
 
     }
     static requestCount: number = 0;
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        // let url = req.url;
-        // let _req: HttpRequest<any>;
+    // intercept1(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    //     // let url = req.url;
+    //     // let _req: HttpRequest<any>;
 
-        req = req.clone({
-            withCredentials: false,
+    //     req = req.clone({
+    //         withCredentials: false,
+    //     });
+
+    //     return next.handle(req).pipe(
+    //         catchError((error) => {
+    //             if (
+    //                 error instanceof HttpErrorResponse &&
+    //                 !req.url.includes('api/Auth/LoginAsync') &&
+    //                 error.status === 401
+    //             ) {
+    //                 return this.handle401Error(req, next);
+    //             }
+
+    //             return throwError(() => error);
+    //         })
+    //     );
+    // }
+
+    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        // Modify the request here, add headers, handle authentication, etc.
+        var ACCESS_TOKEN = localStorage.getItem('access_token');
+        // For example, adding an Authorization header
+        const modifiedRequest = request.clone({
+            setHeaders: {
+                Authorization: 'Bearer '+ACCESS_TOKEN,
+            },
         });
 
-        return next.handle(req).pipe(
-            catchError((error) => {
-                if (
-                    error instanceof HttpErrorResponse &&
-                    !req.url.includes('api/Auth/LoginAsync') &&
-                    error.status === 401
-                ) {
-                    return this.handle401Error(req, next);
-                }
-
-                return throwError(() => error);
-            })
-        );
+        // Pass the modified request to the next interceptor or the HTTP handler
+        return next.handle(modifiedRequest);
     }
     private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
         // if (!this.isRefreshing) {

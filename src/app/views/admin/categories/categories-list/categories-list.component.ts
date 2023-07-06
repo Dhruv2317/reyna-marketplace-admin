@@ -92,7 +92,7 @@ export class CategoriesListComponent implements OnInit, AfterViewInit, OnDestroy
   getDTOptions() {
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 10,
+      pageLength: 2,
       paging: true,
       serverSide: true,
       search: true,
@@ -104,7 +104,7 @@ export class CategoriesListComponent implements OnInit, AfterViewInit, OnDestroy
         this.blockDataTable.start();
         this._http
           .post<any>(
-            'api/admin/categories/list',
+            environment.api_url+ 'api/Category',
             dataTablesParameters,
             {}
           )
@@ -151,30 +151,30 @@ export class CategoriesListComponent implements OnInit, AfterViewInit, OnDestroy
             }
           }
         },
-        {
-          data:'min_shipping_weight',
-          title: 'Min Shipping Weight',
-          className: 'text-left  font-weight-normal',
-          render: (data: any) => {
-            if (data) {
-              return data+' grams'
-            } else {
-              return `-`;
-            }
-          }
-        },
-        {
-          data:'max_shipping_weight',
-          title: 'Max Shipping Weight',
-          className: 'text-left  font-weight-normal',
-          render: (data: any) => {
-            if (data) {
-              return data+' grams'
-            } else {
-              return `-`;
-            }
-          }
-        },
+        // {
+        //   data:'min_shipping_weight',
+        //   title: 'Min Shipping Weight',
+        //   className: 'text-left  font-weight-normal',
+        //   render: (data: any) => {
+        //     if (data) {
+        //       return data+' grams'
+        //     } else {
+        //       return `-`;
+        //     }
+        //   }
+        // },
+        // {
+        //   data:'max_shipping_weight',
+        //   title: 'Max Shipping Weight',
+        //   className: 'text-left  font-weight-normal',
+        //   render: (data: any) => {
+        //     if (data) {
+        //       return data+' grams'
+        //     } else {
+        //       return `-`;
+        //     }
+        //   }
+        // },
         {
           data: 'created_at',
           title: 'Created At',
@@ -199,15 +199,15 @@ export class CategoriesListComponent implements OnInit, AfterViewInit, OnDestroy
             }
           }
         },
-        {
-          title: 'Action',
-          className: 'text-center  font-weight-normal',
-          render: function (data: any, type: any, full: any) {
-            return `<button type="button" class="btn btn-sm btn-primary"  hcEditId="${full.id}">Edit</button>
-            <button type="button" class="ml-2 btn btn-sm btn-primary"  hcViewId="${full.id}">View</button>`;
-          },
-          orderable: false
-        }
+        // {
+        //   title: 'Action',
+        //   className: 'text-center  font-weight-normal',
+        //   render: function (data: any, type: any, full: any) {
+        //     return `<button type="button" class="btn btn-sm btn-primary"  hcEditId="${full.id}">Edit</button>
+        //     <button type="button" class="ml-2 btn btn-sm btn-primary"  hcViewId="${full.id}">View</button>`;
+        //   },
+        //   orderable: false
+        // }
       ]
     };
 

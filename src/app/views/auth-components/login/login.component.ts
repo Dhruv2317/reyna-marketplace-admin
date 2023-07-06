@@ -66,8 +66,8 @@ export class LoginComponent implements OnInit {
 			// let body = "data=" + encodeURIComponent(encryptedBody);
 
 			let body = {
-				id: formVal.username,
-				password: formVal.password,
+				Id: formVal.username,
+				Password: formVal.password,
 			}
 
 			// this._http.post(MarketplaceApiEndpoints.LOGIN,body)
@@ -77,15 +77,15 @@ export class LoginComponent implements OnInit {
 			// })
 
 			this._loginService.login(body).then(async (result) => {
-				// this._authService.setAuthorizationToken(result.access_token);
+				this._authService.setAuthorizationToken(result.data.token);
 				this._authService.changeIsLogoutClicked(false);
 				// let data = await this._loginService.getLoggedInUser();
-				let data:any;
-				if (data && !data.error) {
+				let data = result.data.userDetail
+				if (data) {
 					this.saving = false;
 					this.validate = false;
 					if (data.role == 'admin') {
-						this._authService.saveUser(data);
+						// this._authService.saveUser(data);
 						this._router.navigate(['admin', 'dashboard']);
 					} else {
 						this._authService.removeAuthorizationToken();
@@ -116,5 +116,4 @@ export class LoginComponent implements OnInit {
 
 		}
 	}
-
 }
