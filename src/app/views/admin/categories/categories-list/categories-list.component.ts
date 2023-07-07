@@ -140,7 +140,7 @@ export class CategoriesListComponent implements OnInit, AfterViewInit, OnDestroy
           className: 'text-left  font-weight-normal'
         },
         {
-          data: 'is_active',
+          data: 'isActive',
           title: 'Active',
           className: 'text-center  font-weight-normal',
           render: (data: any) => {
@@ -176,7 +176,7 @@ export class CategoriesListComponent implements OnInit, AfterViewInit, OnDestroy
         //   }
         // },
         {
-          data: 'created_at',
+          data: 'createdAt',
           title: 'Created At',
           className: 'text-center  font-weight-normal',
           render: (data) => {
@@ -188,7 +188,7 @@ export class CategoriesListComponent implements OnInit, AfterViewInit, OnDestroy
           }
         },
         {
-          data: 'updated_at',
+          data: 'updatedAt',
           title: 'Updated At',
           className: 'text-center  font-weight-normal',
           render: (data) => {
@@ -199,15 +199,16 @@ export class CategoriesListComponent implements OnInit, AfterViewInit, OnDestroy
             }
           }
         },
-        // {
-        //   title: 'Action',
-        //   className: 'text-center  font-weight-normal',
-        //   render: function (data: any, type: any, full: any) {
-        //     return `<button type="button" class="btn btn-sm btn-primary"  hcEditId="${full.id}">Edit</button>
-        //     <button type="button" class="ml-2 btn btn-sm btn-primary"  hcViewId="${full.id}">View</button>`;
-        //   },
-        //   orderable: false
-        // }
+        {
+          data:'',
+          title: 'Action',
+          className: 'text-center  font-weight-normal',
+          render: function (data: any, type: any, full: any) {
+            return `<button type="button" class="btn btn-sm btn-primary"  hcEditId="${full.id}">Edit</button>
+            <button type="button" class="ml-2 btn btn-sm btn-primary"  hcViewId="${full.id}">View</button>`;
+          },
+          orderable: false
+        }
       ]
     };
 

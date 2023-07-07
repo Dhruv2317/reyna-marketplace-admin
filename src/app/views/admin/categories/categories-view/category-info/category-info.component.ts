@@ -6,6 +6,7 @@ import { Toastr } from 'src/app/services/toastr.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CategoriesAddEditModalService } from '../../categories-add-edit-modal/categories-add-edit-modal.service';
 import { CategoriesAddEditModalComponent } from '../../categories-add-edit-modal/categories-add-edit-modal.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-category-info',
@@ -35,9 +36,9 @@ export class CategoryInfoComponent implements OnInit {
   }
 
   getCategoryDetails(){
-    const url = 'api/admin/categories/view/' + this.categoryId;
+    const url = environment.api_url+'api/Category/GetCategoryById?id=' + this.categoryId;
     this.http.get(url).subscribe((res: any) => {
-         this.CategoryDetails = res;
+         this.CategoryDetails = res.data;
         this._changeDetectorRef.detectChanges();
       }, (err:any) => {
 
