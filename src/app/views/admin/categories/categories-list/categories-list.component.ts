@@ -92,7 +92,7 @@ export class CategoriesListComponent implements OnInit, AfterViewInit, OnDestroy
   getDTOptions() {
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 2,
+      pageLength: 10,
       paging: true,
       serverSide: true,
       search: true,
@@ -113,9 +113,9 @@ export class CategoriesListComponent implements OnInit, AfterViewInit, OnDestroy
 
             this.blockDataTable.stop();
             callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsFiltered,
-              data: resp.data
+              recordsTotal: resp.data.recordsTotal,
+              recordsFiltered: resp.data.recordsFiltered,
+              data: resp.data.data
             });
           });
       },

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from '../models/User';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
 	providedIn: 'root'
@@ -107,7 +108,7 @@ export class AuthService {
 
 	async logout(): Promise<any> {
 		if (this.checkIfLoggedIn()) {
-			return this._http.post('api/auth/logout', {}).toPromise();
+			return this._http.post(environment.api_url+'api/Auth/Logout', {}).toPromise();
 		} else {
 			return new Promise((res: any, rej: any) => {
 				rej({});
