@@ -89,22 +89,22 @@ export class CategorySubcategoriesComponent implements OnInit,AfterViewInit,OnDe
         this.blockDataTable.start();
         this._http
           .post<any>(
-            'api/admin/subcategories/list/'+this.categoryId,
+            environment.api_url+'api/SubCategory/GetSubCategoriesByCategoryId?id='+this.categoryId,
             dataTablesParameters,
             {})
           .subscribe((resp) => {
-            this.CategoryTableData = resp.data;
+            this.CategoryTableData = resp.data.data;
             this.blockDataTable.stop();
             callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsFiltered,
-              data: resp.data
+              recordsTotal: resp.data.recordsTotal,
+              recordsFiltered: resp.data.recordsFiltered,
+              data: resp.data.data
             });
           });
       },
       columns: [
         {
-          data:'image_url',
+          data:'image',
           title: 'Image',
           orderable: false,
           className: 'text-center  font-weight-normal',
@@ -123,7 +123,7 @@ export class CategorySubcategoriesComponent implements OnInit,AfterViewInit,OnDe
           className: 'text-center  font-weight-normal'
         },
         {
-          data: 'is_active',
+          data: 'isActive',
           title: 'Active',
           className: 'text-center  font-weight-normal',
           render: (data) => {
@@ -134,32 +134,32 @@ export class CategorySubcategoriesComponent implements OnInit,AfterViewInit,OnDe
             }
           }
         },
+        // {
+        //   data:'min_shipping_weight',
+        //   title: 'Min Shipping Weight',
+        //   className: 'text-left  font-weight-normal',
+        //   render: (data: any) => {
+        //     if (data) {
+        //       return data+' grams'
+        //     } else {
+        //       return `-`;
+        //     }
+        //   }
+        // },
+        // {
+        //   data:'max_shipping_weight',
+        //   title: 'Max Shipping Weight',
+        //   className: 'text-left  font-weight-normal',
+        //   render: (data: any) => {
+        //     if (data) {
+        //       return data+' grams'
+        //     } else {
+        //       return `-`;
+        //     }
+        //   }
+        // },
         {
-          data:'min_shipping_weight',
-          title: 'Min Shipping Weight',
-          className: 'text-left  font-weight-normal',
-          render: (data: any) => {
-            if (data) {
-              return data+' grams'
-            } else {
-              return `-`;
-            }
-          }
-        },
-        {
-          data:'max_shipping_weight',
-          title: 'Max Shipping Weight',
-          className: 'text-left  font-weight-normal',
-          render: (data: any) => {
-            if (data) {
-              return data+' grams'
-            } else {
-              return `-`;
-            }
-          }
-        },
-        {
-          data: 'created_at',
+          data: 'createdAt',
           title: 'Created At',
           className: 'text-center  font-weight-normal',
           render: (data) => {
@@ -171,7 +171,7 @@ export class CategorySubcategoriesComponent implements OnInit,AfterViewInit,OnDe
           }
         },
         {
-          data: 'updated_at',
+          data: 'updatedAt',
           title: 'Updated At',
           className: 'text-center  font-weight-normal',
           render: (data) => {
@@ -183,6 +183,7 @@ export class CategorySubcategoriesComponent implements OnInit,AfterViewInit,OnDe
           }
         },
         {
+          data: '',
           title: 'Action',
           className: 'text-center  font-weight-normal',
           render: function (data: any, type: any, full: any) {

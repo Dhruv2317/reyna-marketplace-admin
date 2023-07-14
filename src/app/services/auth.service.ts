@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { User } from '../models/User';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { catchError, tap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
@@ -108,11 +110,28 @@ export class AuthService {
 
 	async logout(): Promise<any> {
 		if (this.checkIfLoggedIn()) {
-			return this._http.post(environment.api_url+'api/Auth/Logout', {}).toPromise();
+			return this._http.post(environment.api_url + 'api/Auth/Logout', {}).toPromise();
 		} else {
 			return new Promise((res: any, rej: any) => {
 				rej({});
 			});
 		}
 	}
+
+	refreshToken() {
+		return this._http
+			.post<any>(`${environment.api_url}Auth/GetRefreshToken`, {
+				refreshToken: this.getAuthorizationToken(), token: this.getAuthorizationToken()
+			})
+			.pipe(
+				tap((tokens) => {
+					this.setAuthorizationToken(tokens);
+				}),
+				catchError((error) => {
+					this.clearLoggedInUser();
+					return of(false);
+				})
+			);
+	}
+
 }

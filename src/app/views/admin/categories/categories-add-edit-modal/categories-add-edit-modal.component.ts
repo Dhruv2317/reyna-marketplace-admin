@@ -78,7 +78,7 @@ export class CategoriesAddEditModalComponent implements OnInit {
   }
 
   getCategoryDetails(id: number) {
-    const url = environment.api_url+'api/Category/GetCategoryById?id=' + id;
+    const url = environment.api_url + 'api/Category/GetCategoryById?id=' + id;
     this._http.get(url).subscribe((res: any) => {
       this.categoryDetails = res.data;
       this.patchFormValue();
@@ -192,23 +192,27 @@ export class CategoriesAddEditModalComponent implements OnInit {
   }
 
   async saveTreatmentCondition(formValid: boolean) {
+
     if (formValid) {
-      // const formData: FormData = new FormData();
+      const formData: FormData = new FormData();
 
       // formData.append('category', JSON.stringify(this.treatmentConditionForm.value));
-      // formData.append('image_url', this.selectedImageFile);
+      // formData.append('imageFile', JSON.stringify(this.selectedImageFile));
       var formResult = this.treatmentConditionForm.value;
       let obj: any = {};
       obj.name = formResult.name;
       obj.description = formResult.description;
-      obj.image = formResult.image_url;
-      obj.isActive= formResult.is_active;
+      obj.image = this.imageUrl;
+      obj.isActive = formResult.is_active;
+      obj.imageFile = JSON.stringify(this.selectedImageFile);
+      console.log("Object : ", obj);
+
       if (this.modalEvent == 'ADD') {
         obj.id = 0;
         let create = await this._tcAddEditModalService.addNewCategories(obj);
       } else if (this.modalEvent == 'EDIT') {
         obj.id = this.treatmentConditionForm.value.id;
-        let update = await this._tcAddEditModalService.editCategories(this.treatmentConditionForm.value.id,obj);
+        let update = await this._tcAddEditModalService.editCategories(this.treatmentConditionForm.value.id, obj);
       }
 
       this.onEventCompleted.emit(true);
@@ -228,6 +232,8 @@ export class CategoriesAddEditModalComponent implements OnInit {
         if (type == 'IMAGE') {
           this.imageUrl = reader.result;
           this.selectedImageFile = file;
+          console.log("this.selectedImageFile", this.selectedImageFile);
+
         }
         this._changeDetectorRef.markForCheck();
       }

@@ -109,7 +109,7 @@ export class CategoriesListComponent implements OnInit, AfterViewInit, OnDestroy
             {}
           )
           .subscribe((resp:any) => {
-            this.healthConditionList = resp.data;
+            this.healthConditionList = resp.data.data;
 
             this.blockDataTable.stop();
             callback({
@@ -127,7 +127,7 @@ export class CategoriesListComponent implements OnInit, AfterViewInit, OnDestroy
           className: 'text-left  font-weight-normal',
           render: (data: any) => {
             if (data) {
-              let url = environment.api_url + data;
+              let url = data;
               return `<img src=${url} height="80" width="80" />`;
             } else {
               return `-`;
