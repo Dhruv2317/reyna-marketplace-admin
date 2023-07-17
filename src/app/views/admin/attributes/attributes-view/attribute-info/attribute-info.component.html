@@ -5,10 +5,10 @@
         <table class="table">
           <tbody>
             <tr><td class="font-weight-normal">Name (English)</td><td class="font-weight-normal">{{AttributeDetails.name || '-'}}</tr>
-            <tr><td class="font-weight-normal">Name (French)</td><td class="font-weight-normal">{{AttributeDetails.name_fr || '-'}}</tr>
+            <!-- <tr><td class="font-weight-normal">Name (French)</td><td class="font-weight-normal">{{AttributeDetails.name_fr || '-'}}</tr>
             <tr><td class="font-weight-normal">Name (Dutch)</td><td class="font-weight-normal">{{AttributeDetails.name_nl || '-'}}</tr>
             <tr><td class="font-weight-normal">Name (Spanish)</td><td class="font-weight-normal">{{AttributeDetails.name_es || '-'}}</tr>
-            <tr><td class="font-weight-normal">Name (Portuguese)</td><td class="font-weight-normal">{{AttributeDetails.name_pt || '-'}}</tr>
+            <tr><td class="font-weight-normal">Name (Portuguese)</td><td class="font-weight-normal">{{AttributeDetails.name_pt || '-'}}</tr> -->
             <tr><td class="font-weight-normal">Active</td><td class="font-weight-normal"><h5><i class="fa fa-check text-success" *ngIf="AttributeDetails.is_active"></i><i class="fa fa-times text-danger" *ngIf="!AttributeDetails.is_active"></i></h5></td></tr>
           </tbody>
         </table>
@@ -19,7 +19,7 @@
               </tr>
            </thead>
            <tbody>
-              <tr *ngFor="let val of AttributeDetails.values">
+              <tr *ngFor="let val of AttributeDetails.attributeValues">
                   <td>{{ val.name }}</td>
               </tr>
            </tbody>

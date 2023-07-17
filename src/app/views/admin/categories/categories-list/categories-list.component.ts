@@ -92,7 +92,7 @@ export class CategoriesListComponent implements OnInit, AfterViewInit, OnDestroy
   getDTOptions() {
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 2,
+      pageLength: 10,
       paging: true,
       serverSide: true,
       search: true,
@@ -109,13 +109,13 @@ export class CategoriesListComponent implements OnInit, AfterViewInit, OnDestroy
             {}
           )
           .subscribe((resp:any) => {
-            this.healthConditionList = resp.data;
+            this.healthConditionList = resp.data.data;
 
             this.blockDataTable.stop();
             callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsFiltered,
-              data: resp.data
+              recordsTotal: resp.data.recordsTotal,
+              recordsFiltered: resp.data.recordsFiltered,
+              data: resp.data.data
             });
           });
       },
@@ -127,7 +127,7 @@ export class CategoriesListComponent implements OnInit, AfterViewInit, OnDestroy
           className: 'text-left  font-weight-normal',
           render: (data: any) => {
             if (data) {
-              let url = environment.api_url + data;
+              let url = data;
               return `<img src=${url} height="80" width="80" />`;
             } else {
               return `-`;
@@ -140,7 +140,7 @@ export class CategoriesListComponent implements OnInit, AfterViewInit, OnDestroy
           className: 'text-left  font-weight-normal'
         },
         {
-          data: 'is_active',
+          data: 'isActive',
           title: 'Active',
           className: 'text-center  font-weight-normal',
           render: (data: any) => {
@@ -176,7 +176,7 @@ export class CategoriesListComponent implements OnInit, AfterViewInit, OnDestroy
         //   }
         // },
         {
-          data: 'created_at',
+          data: 'createdAt',
           title: 'Created At',
           className: 'text-center  font-weight-normal',
           render: (data) => {
@@ -188,7 +188,7 @@ export class CategoriesListComponent implements OnInit, AfterViewInit, OnDestroy
           }
         },
         {
-          data: 'updated_at',
+          data: 'updatedAt',
           title: 'Updated At',
           className: 'text-center  font-weight-normal',
           render: (data) => {
@@ -199,15 +199,16 @@ export class CategoriesListComponent implements OnInit, AfterViewInit, OnDestroy
             }
           }
         },
-        // {
-        //   title: 'Action',
-        //   className: 'text-center  font-weight-normal',
-        //   render: function (data: any, type: any, full: any) {
-        //     return `<button type="button" class="btn btn-sm btn-primary"  hcEditId="${full.id}">Edit</button>
-        //     <button type="button" class="ml-2 btn btn-sm btn-primary"  hcViewId="${full.id}">View</button>`;
-        //   },
-        //   orderable: false
-        // }
+        {
+          data:'',
+          title: 'Action',
+          className: 'text-center  font-weight-normal',
+          render: function (data: any, type: any, full: any) {
+            return `<button type="button" class="btn btn-sm btn-primary"  hcEditId="${full.id}">Edit</button>
+            <button type="button" class="ml-2 btn btn-sm btn-primary"  hcViewId="${full.id}">View</button>`;
+          },
+          orderable: false
+        }
       ]
     };
 
