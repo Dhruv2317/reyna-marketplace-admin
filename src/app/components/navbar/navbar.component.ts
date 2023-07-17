@@ -55,15 +55,15 @@ export class NavbarComponent implements OnInit, OnDestroy {
 			{ route: '/admin/dashboard', iconName: 'fa-tachometer-alt', displayName: 'Dashboard' },
 			{ route: '/admin/customers', iconName: 'fa-users', displayName: 'Customers' },
 			{ route: '/admin/sellers', iconName: 'fa-users', displayName: 'Sellers' },
-			{ route: '/admin/dealers', iconName: 'fa-users', displayName: 'Dealers' },
-			{
-						displayName: 'Manufacturers & Brands',
-						iconName: 'fa-id-badge',
-						children: [
-					{ route: '/admin/manufacturers', iconName: 'fa-list', displayName: 'Manufacturers' },
-					{ route: '/admin/brands', iconName: 'fa-list', displayName: 'Brands' }
-				]
-			},
+			// { route: '/admin/dealers', iconName: 'fa-users', displayName: 'Dealers' },
+			// {
+			// 			displayName: 'Manufacturers & Brands',
+			// 			iconName: 'fa-id-badge',
+			// 			children: [
+			// 		{ route: '/admin/manufacturers', iconName: 'fa-list', displayName: 'Manufacturers' },
+			// 		{ route: '/admin/brands', iconName: 'fa-list', displayName: 'Brands' }
+			// 	]
+			// },
 			// { route: '/admin/sponsor', iconName: 'fa-list', displayName: 'Sponsors' },
 			// { route: '/admin/orders', iconName: 'fa-shopping-cart', displayName: 'Orders' },
 			{ route: '/admin/products', iconName: 'fa-golf-ball', displayName: 'Products' },
