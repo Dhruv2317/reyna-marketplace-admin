@@ -195,9 +195,6 @@ export class CategoriesAddEditModalComponent implements OnInit {
 
     if (formValid) {
       const formData: FormData = new FormData();
-
-      // formData.append('category', JSON.stringify(this.treatmentConditionForm.value));
-      // formData.append('imageFile', JSON.stringify(this.selectedImageFile));
       var formResult = this.treatmentConditionForm.value;
       let obj: any = {};
       obj.name = formResult.name;
