@@ -6,6 +6,7 @@ import { Toastr } from 'src/app/services/toastr.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { AttributesAddEditModalService } from '../../attributes-add-edit-modal/attributes-add-edit-modal.service';
 import { AttributesAddEditModalComponent } from '../../attributes-add-edit-modal/attributes-add-edit-modal.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-attribute-info',
@@ -35,9 +36,9 @@ export class AttributeInfoComponent implements OnInit {
   }
 
   getAttributeDetails(){
-    const url = 'api/admin/attributes/view/' + this.attributeId;
+    const url = environment.api_url+'api/Attribute/GetAttributeById?id=' + this.attributeId;
     this.http.get(url).subscribe((res: any) => {
-      this.AttributeDetails = res;
+      this.AttributeDetails = res.data;
       this._changeDetectorRef.detectChanges();
     }, (err:any) => {
 

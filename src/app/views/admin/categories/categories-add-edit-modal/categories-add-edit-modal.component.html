@@ -38,7 +38,7 @@
             </div>
 
 
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-md-5">
                     <div class="form-group">
                         <label>Name (French)</label><br />
@@ -61,86 +61,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-
-            <div class="row">
-                <div class="col-md-5">
-                    <div class="form-group">
-                        <label>Name (Dutch)</label><br />
-                        <input type="text" id="name_nl" class="form-control" placeholder="Enter Name"
-                            formControlName="name_nl" />
-                        <div class="invalid-feedback" *ngIf="name_nl?.invalid && (name_nl?.dirty || name_nl?.touched)"
-                            class="text-danger">
-                            <div *ngIf="name_nl?.errors?.required">name_nl is required.</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-7">
-                    <div class="form-group">
-                        <label>Description (Dutch)</label><br />
-                        <textarea type="text" rows="2" id="description_nl" class="form-control" formControlName="description_nl"></textarea>
-                        <div class="invalid-feedback" *ngIf="description_nl?.invalid && (description_nl?.dirty || description_nl?.touched)"
-                            class="text-danger">
-                            <div *ngIf="description_nl?.errors?.required">Description_nl is required.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="row">
-                <div class="col-md-5">
-                    <div class="form-group">
-                        <label>Name (Spanish)</label><br />
-                        <input type="text" id="name_es" class="form-control" placeholder="Enter Name"
-                            formControlName="name_es" />
-                        <div class="invalid-feedback" *ngIf="name_es?.invalid && (name_es?.dirty || name_es?.touched)"
-                            class="text-danger">
-                            <div *ngIf="name_es?.errors?.required">Name is required.</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-7">
-                    <div class="form-group">
-                        <label>Description (Spanish)</label><br />
-                        <textarea type="text" rows="2" id="description_es" class="form-control" formControlName="description_es"></textarea>
-                        <div class="invalid-feedback" *ngIf="description_es?.invalid && (description_es?.dirty || description_es?.touched)"
-                            class="text-danger">
-                            <div *ngIf="description_es?.errors?.required">Description is required.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-5">
-                    <div class="form-group">
-                        <label>Name (Portuguese)</label><br />
-                        <input type="text" id="name_pt" class="form-control" placeholder="Enter Name"
-                            formControlName="name_pt" />
-                        <div class="invalid-feedback" *ngIf="name_pt?.invalid && (name_pt?.dirty || name_pt?.touched)"
-                            class="text-danger">
-                            <div *ngIf="name_pt?.errors?.required">name_pt is required.</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-7">
-                    <div class="form-group">
-                        <label>Description (Portuguese)</label><br />
-                        <textarea type="text" rows="2" id="description_pt" class="form-control" formControlName="description_pt"></textarea>
-                        <div class="invalid-feedback" *ngIf="description_pt?.invalid && (description_pt?.dirty || description_pt?.touched)"
-                            class="text-danger">
-                            <div *ngIf="description_pt?.errors?.required">Description_pt is required.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
+            </div> -->
+        
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -164,31 +86,7 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Min Shipping Weight</label><br />
-                        <input type="number" min="0" step="1" max="30000" id="min_shipping_weight" class="form-control" placeholder="Enter Min Shipping Weight" formControlName="min_shipping_weight" />
-                        <div class="invalid-feedback" *ngIf="min_shipping_weight?.invalid && (min_shipping_weight?.dirty || min_shipping_weight?.touched)"
-                            class="text-danger">
-                            <div *ngIf="min_shipping_weight?.errors?.required">Min Shipping Weight is required.</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Max Shipping Weight</label><br />
-                        <input type="number" min="0" step="1" max="30000" id="max_shipping_weight" class="form-control" placeholder="Enter Max Shipping Weight" formControlName="max_shipping_weight" />
-                        <div class="invalid-feedback" *ngIf="max_shipping_weight?.invalid && (max_shipping_weight?.dirty || max_shipping_weight?.touched)"
-                            class="text-danger">
-                            <div *ngIf="max_shipping_weight?.errors?.required">Max Shipping Weight is required.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="alert alert-dark my-3">
+            <!-- <div class="alert alert-dark my-3">
                 <h5 class="font-weight-bold mb-5">Attributes</h5>
                 <div formArrayName="attributes">
                     <div *ngFor="let attributeItem of attributes().controls; let attributeIndex=index">
@@ -272,7 +170,7 @@
                 <div class="text-center">
                       <button type="button"  class="btn btn-sm btn-primary" (click)="addAttributeInput()"><i class="fa fa-plus mr-2"></i>Add More Attribute</button>
                 </div>
-            </div>
+            </div> -->
       
             <div class="form-group">
                 <button class="btn btn-success btn-block btn-sm mt-2" type="submit">Save</button>

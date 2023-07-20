@@ -104,18 +104,18 @@ export class CategoriesListComponent implements OnInit, AfterViewInit, OnDestroy
         this.blockDataTable.start();
         this._http
           .post<any>(
-            'api/admin/categories/list',
+            environment.api_url+ 'api/Category/GetAllCategories',
             dataTablesParameters,
             {}
           )
           .subscribe((resp:any) => {
-            this.healthConditionList = resp.data;
+            this.healthConditionList = resp.data.data;
 
             this.blockDataTable.stop();
             callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsFiltered,
-              data: resp.data
+              recordsTotal: resp.data.recordsTotal,
+              recordsFiltered: resp.data.recordsFiltered,
+              data: resp.data.data
             });
           });
       },
@@ -127,7 +127,7 @@ export class CategoriesListComponent implements OnInit, AfterViewInit, OnDestroy
           className: 'text-left  font-weight-normal',
           render: (data: any) => {
             if (data) {
-              let url = environment.api_url + data;
+              let url = data;
               return `<img src=${url} height="80" width="80" />`;
             } else {
               return `-`;
@@ -140,7 +140,7 @@ export class CategoriesListComponent implements OnInit, AfterViewInit, OnDestroy
           className: 'text-left  font-weight-normal'
         },
         {
-          data: 'is_active',
+          data: 'isActive',
           title: 'Active',
           className: 'text-center  font-weight-normal',
           render: (data: any) => {
@@ -151,32 +151,32 @@ export class CategoriesListComponent implements OnInit, AfterViewInit, OnDestroy
             }
           }
         },
+        // {
+        //   data:'min_shipping_weight',
+        //   title: 'Min Shipping Weight',
+        //   className: 'text-left  font-weight-normal',
+        //   render: (data: any) => {
+        //     if (data) {
+        //       return data+' grams'
+        //     } else {
+        //       return `-`;
+        //     }
+        //   }
+        // },
+        // {
+        //   data:'max_shipping_weight',
+        //   title: 'Max Shipping Weight',
+        //   className: 'text-left  font-weight-normal',
+        //   render: (data: any) => {
+        //     if (data) {
+        //       return data+' grams'
+        //     } else {
+        //       return `-`;
+        //     }
+        //   }
+        // },
         {
-          data:'min_shipping_weight',
-          title: 'Min Shipping Weight',
-          className: 'text-left  font-weight-normal',
-          render: (data: any) => {
-            if (data) {
-              return data+' grams'
-            } else {
-              return `-`;
-            }
-          }
-        },
-        {
-          data:'max_shipping_weight',
-          title: 'Max Shipping Weight',
-          className: 'text-left  font-weight-normal',
-          render: (data: any) => {
-            if (data) {
-              return data+' grams'
-            } else {
-              return `-`;
-            }
-          }
-        },
-        {
-          data: 'created_at',
+          data: 'createdAt',
           title: 'Created At',
           className: 'text-center  font-weight-normal',
           render: (data) => {
@@ -188,7 +188,7 @@ export class CategoriesListComponent implements OnInit, AfterViewInit, OnDestroy
           }
         },
         {
-          data: 'updated_at',
+          data: 'updatedAt',
           title: 'Updated At',
           className: 'text-center  font-weight-normal',
           render: (data) => {
@@ -200,6 +200,7 @@ export class CategoriesListComponent implements OnInit, AfterViewInit, OnDestroy
           }
         },
         {
+          data:'',
           title: 'Action',
           className: 'text-center  font-weight-normal',
           render: function (data: any, type: any, full: any) {

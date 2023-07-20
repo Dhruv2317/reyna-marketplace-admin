@@ -1,77 +1,125 @@
 import { Injectable } from '@angular/core';
-import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse, HttpErrorResponse, HttpHeaders, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { Observable, of, throwError } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
+import { map, catchError, switchMap, filter, take } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 import { AuthService } from 'src/app/services/auth.service';
 import { Toastr } from 'src/app/services/toastr.service';
-import {cryptoHelperService} from 'src/app/services/cryptoHelper.service';
+import { cryptoHelperService } from 'src/app/services/cryptoHelper.service';
 
 @Injectable()
 export class InterceptedHttp implements HttpInterceptor {
+    private isRefreshing = false;
+    private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(
+        null
+    );
     constructor(
         private _router: Router,
         private _auth: AuthService,
         private _toastr: Toastr,
-        private _cryptoHelperService:cryptoHelperService
-    ){
+        private _cryptoHelperService: cryptoHelperService
+    ) {
 
     }
     static requestCount: number = 0;
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        let url = req.url;
-        let _req: HttpRequest<any>;
+    // intercept1(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    //     // let url = req.url;
+    //     // let _req: HttpRequest<any>;
 
-        if (req.url.indexOf('is_third_party_api') == -1){
-          _req = req.clone({ url: environment.api_url + url });
-        }else{
-            url = url.replace('&is_third_party_api','');
-            url = url.replace('?is_third_party_api','');
-            _req = req.clone({ url:url});
-        }
+    //     req = req.clone({
+    //         withCredentials: false,
+    //     });
 
-        if (req.url.indexOf('api/auth/login') == -1 && req.url.indexOf('is_third_party_api') == -1){
-            // Get the auth token from the service.
-            const authToken = this._auth.getAuthorizationToken();
+    //     return next.handle(req).pipe(
+    //         catchError((error) => {
+    //             if (
+    //                 error instanceof HttpErrorResponse &&
+    //                 !req.url.includes('api/Auth/LoginAsync') &&
+    //                 error.status === 401
+    //             ) {
+    //                 return this.handle401Error(req, next);
+    //             }
 
-            // Clone the request and set the new header in one step.
-            let  authReq = _req.clone({withCredentials:true,setHeaders:  {Authorization:'Bearer ' + authToken} });
-            // _req.clone({headers: req.headers.append('Authorization', 'Bearer ' + authToken) });
+    //             return throwError(() => error);
+    //         })
+    //     );
+    // }
 
-            InterceptedHttp.requestCount++;
-            // send cloned request with header to the next handler.
-            return next.handle(authReq)
-                .pipe(
-                    map((event: HttpEvent<any>) => {
-                        if (event instanceof HttpResponse) {
+    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        // Modify the request here, add headers, handle authentication, etc.
+        var ACCESS_TOKEN = localStorage.getItem('access_token');
+        // For example, adding an Authorization header
+        const modifiedRequest = request.clone({
+            setHeaders: {
+                Authorization: 'Bearer ' + ACCESS_TOKEN,
+            },
+        });
 
-                        }
-                        return event;
-                    }),
-                    catchError((error: HttpErrorResponse) => {
-                        if (error.status == 200) {
-                            //if(EncryptedRoutes.ENCRYPTED_ROUTE_LIST.indexOf(req.url)!=-1){
-                                return of(new HttpResponse({ status: 200, body: this._cryptoHelperService.decryptJSON(error.error.text)}));
-                            //}
-                        }
+        // Pass the modified request to the next interceptor or the HTTP handler
+        return next.handle(modifiedRequest);
+    }
+    // private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
+    // if (!this.isRefreshing) {
+    //     this.isRefreshing = true;
 
-                        if (error.status == 401) {
-                            this._toastr.showError('Your Session has expired. Please sign in');
-                            this._auth.clearStorage();
-                            this._auth.changeIsLogoutClicked(true);
-                            this._router.navigate(['account','login']);
-                        }
-                        return throwError(error);
-                    }));
+    //     if (this.storageService.isLoggedIn()) {
+    //         return this.authService.refreshToken().pipe(
+    //             switchMap(() => {
+    //                 this.isRefreshing = false;
+
+    //                 return next.handle(request);
+    //             }),
+    //             catchError((error) => {
+    //                 this.isRefreshing = false;
+
+    //                 if (error.status == '403') {
+    //                     this.eventBusService.emit(new EventData('logout', null));
+    //                 }
+
+    //                 return throwError(() => error);
+    //             })
+    //         );
+    //     }
+    // }
+
+    //     return next.handle(request);
+    // }
+    private addToken(request: HttpRequest<any>, token: string) {
+        return request.clone({
+            setHeaders: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+    }
+
+    private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
+        if (!this.isRefreshing) {
+            this.isRefreshing = true;
+            this.refreshTokenSubject.next(null);
+
+            return this._auth.refreshToken().pipe(
+                switchMap((token: any) => {
+                    this.isRefreshing = false;
+                    this.refreshTokenSubject.next(token['result'].accessToken);
+                    return next.handle(this.addToken(request, token['result'].accessToken));
+                })
+            );
         } else {
-            const req = _req.clone({ setHeaders: { 'Content-Type': 'application/x-www-form-urlencoded' } });
-            return next.handle(req);
+            return this.refreshTokenSubject.pipe(
+                filter((token) => token != null),
+                take(1),
+                switchMap((jwt) => {
+                    return next.handle(this.addToken(request, jwt));
+                })
+            );
         }
     }
 
-
-
 }
+
+export const httpInterceptorProviders = [
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptedHttp, multi: true },
+];

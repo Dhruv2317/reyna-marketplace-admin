@@ -86,16 +86,16 @@ export class AttributeValuesComponent implements OnInit,AfterViewInit,OnDestroy 
         this.blockDataTable.start();
         this._http
           .post<any>(
-            'api/admin/attributes_values/list/'+this.attributeId,
+            environment.api_url+'api/AttributeValues/GetAttributeValuesByAttributeId?id='+this.attributeId,
             dataTablesParameters,
             {})
           .subscribe((resp) => {
-            this.TableData = resp.data;
+            this.TableData = resp.data.data;
             this.blockDataTable.stop();
             callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsFiltered,
-              data: resp.data
+              recordsTotal: resp.data.recordsTotal,
+              recordsFiltered: resp.data.recordsFiltered,
+              data: resp.data.data
             });
           });
       },
@@ -107,8 +107,8 @@ export class AttributeValuesComponent implements OnInit,AfterViewInit,OnDestroy 
           className: 'text-center  font-weight-normal',
           render: (data) => {
             if (data) {
-              let url = environment.api_url + data;
-              return `<img src=${url} height="80" width="80" />`;
+              // let url = environment.api_url + data;
+              return `<img src=${data} height="80" width="80" />`;
             } else {
               return `-`;
             }
@@ -120,7 +120,7 @@ export class AttributeValuesComponent implements OnInit,AfterViewInit,OnDestroy 
           className: 'text-center  font-weight-normal'
         },
         {
-          data: 'created_at',
+          data: 'createdAt',
           title: 'Created At',
           className: 'text-center  font-weight-normal',
           render: (data) => {
@@ -132,7 +132,7 @@ export class AttributeValuesComponent implements OnInit,AfterViewInit,OnDestroy 
           }
         },
         {
-          data: 'updated_at',
+          data: 'updatedAt',
           title: 'Updated At',
           className: 'text-center  font-weight-normal',
           render: (data) => {
@@ -144,7 +144,7 @@ export class AttributeValuesComponent implements OnInit,AfterViewInit,OnDestroy 
           }
         },
         {
-          data: 'is_active',
+          data: 'isActive',
           title: 'Active',
           className: 'text-center  font-weight-normal',
           render: (data) => {
@@ -156,6 +156,7 @@ export class AttributeValuesComponent implements OnInit,AfterViewInit,OnDestroy 
           }
         },
         {
+          data:'',
           title: 'Action',
           className: 'text-center  font-weight-normal',
           render: function (data: any, type: any, full: any) {

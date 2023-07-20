@@ -6,21 +6,21 @@
           <tbody>
             <tr><td class="font-weight-normal border-top-0">Category ID</td><td class="font-weight-normal border-top-0">{{CategoryDetails.id}}</td></tr>
             <tr><td class="font-weight-normal">Name (English)</td><td class="font-weight-normal">{{CategoryDetails.name || '-'}} <span class="ml-2 badge badge-success badge-pill p-2" *ngIf="CategoryDetails.is_coming_soon==1">Comming Soon</span></td></tr>
-            <tr><td class="font-weight-normal">Name (French)</td><td class="font-weight-normal">{{CategoryDetails.name_fr || '-'}} <span class="ml-2 badge badge-success badge-pill p-2" *ngIf="CategoryDetails.is_coming_soon==1">Comming Soon</span></td></tr>
+            <!-- <tr><td class="font-weight-normal">Name (French)</td><td class="font-weight-normal">{{CategoryDetails.name_fr || '-'}} <span class="ml-2 badge badge-success badge-pill p-2" *ngIf="CategoryDetails.is_coming_soon==1">Comming Soon</span></td></tr>
             <tr><td class="font-weight-normal">Name (Dutch)</td><td class="font-weight-normal">{{CategoryDetails.name_nl || '-'}} <span class="ml-2 badge badge-success badge-pill p-2" *ngIf="CategoryDetails.is_coming_soon==1">Comming Soon</span></td></tr>
             <tr><td class="font-weight-normal">Name (Spanish)</td><td class="font-weight-normal">{{CategoryDetails.name_es || '-'}} <span class="ml-2 badge badge-success badge-pill p-2" *ngIf="CategoryDetails.is_coming_soon==1">Comming Soon</span></td></tr>
-            <tr><td class="font-weight-normal">Name (Portuguese)</td><td class="font-weight-normal">{{CategoryDetails.name_pt || '-'}} <span class="ml-2 badge badge-success badge-pill p-2" *ngIf="CategoryDetails.is_coming_soon==1">Comming Soon</span></td></tr>
+            <tr><td class="font-weight-normal">Name (Portuguese)</td><td class="font-weight-normal">{{CategoryDetails.name_pt || '-'}} <span class="ml-2 badge badge-success badge-pill p-2" *ngIf="CategoryDetails.is_coming_soon==1">Comming Soon</span></td></tr> -->
            
             <tr><td class="font-weight-normal">URL</td><td class="font-weight-normal">{{ CategoryDetails.slug || '-' }}</td></tr>
             <tr><td class="font-weight-normal">Active</td><td class="font-weight-normal"><h5><i class="fa fa-check text-success" *ngIf="CategoryDetails.is_active"></i><i class="fa fa-times text-danger" *ngIf="!CategoryDetails.is_active"></i></h5></td></tr>
             <tr><td class="font-weight-normal">Description (English)</td><td class="font-weight-normal">{{CategoryDetails.description}}</td></tr>
-            <tr><td class="font-weight-normal">Description (French)</td><td class="font-weight-normal">{{CategoryDetails.description_fr}}</td></tr>
+            <!-- <tr><td class="font-weight-normal">Description (French)</td><td class="font-weight-normal">{{CategoryDetails.description_fr}}</td></tr>
             <tr><td class="font-weight-normal">Description (Dutch)</td><td class="font-weight-normal">{{CategoryDetails.description_nl}}</td></tr>
             <tr><td class="font-weight-normal">Description (Spanish)</td><td class="font-weight-normal">{{CategoryDetails.description_es}}</td></tr>
-            <tr><td class="font-weight-normal">Description (Portuguese)</td><td class="font-weight-normal">{{CategoryDetails.description_pt}}</td></tr>
+            <tr><td class="font-weight-normal">Description (Portuguese)</td><td class="font-weight-normal">{{CategoryDetails.description_pt}}</td></tr> -->
           
-            <tr><td class="font-weight-normal">Min Shipping Weight (grams)</td><td class="font-weight-normal">{{ CategoryDetails.min_shipping_weight || '-' }}</td></tr>
-            <tr><td class="font-weight-normal">Max Shipping Weight (grams)</td><td class="font-weight-normal">{{ CategoryDetails.max_shipping_weight || '-' }}</td></tr>
+            <!-- <tr><td class="font-weight-normal">Min Shipping Weight (grams)</td><td class="font-weight-normal">{{ CategoryDetails.min_shipping_weight || '-' }}</td></tr>
+            <tr><td class="font-weight-normal">Max Shipping Weight (grams)</td><td class="font-weight-normal">{{ CategoryDetails.max_shipping_weight || '-' }}</td></tr> -->
             <tr>
               <td class="font-weight-normal">Image</td>
               <td class="font-weight-normal">
@@ -30,38 +30,7 @@
           </tbody>
         </table>
 
-        <table class="table table-sm">
-           <thead class="bg-light">
-              <tr>
-                <th colspan="2">Attributes</th>
-              </tr>
-           </thead>
-           <tbody>
-              <tr *ngFor="let attr of CategoryDetails.attributes">
-                  <td>{{ attr.attribute_name }}</td>
-                  <td *ngFor="let val of attr.values">
-                      <span  class="badge badge-pill badge-primary p-2 mr-2">{{ val.attribute_value_name }}</span>
-                      
-                      <table class="table table-sm">
-                        <thead class="bg-light">
-                           <tr>
-                             <th colspan="2">Child Attributes</th>
-                           </tr>
-                        </thead>
-                        <tbody>
-                           <tr *ngFor="let child of val.children">
-                               <td>{{ child.attribute_name }}</td>
-                               <td>
-                                   <span *ngFor="let childval of child.values" class="badge badge-pill badge-primary p-2 mr-2">{{ childval.attribute_value_name }}</span>                                 
-                               </td>
-                           </tr>
-                        </tbody>
-                     </table>
-
-                  </td>
-              </tr>
-           </tbody>
-        </table>
+        
   </div>
 </ng-container>
 <ng-template #noCategoryDetails>

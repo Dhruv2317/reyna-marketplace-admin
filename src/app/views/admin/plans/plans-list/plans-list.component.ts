@@ -115,18 +115,18 @@ export class  PlansListComponent implements OnInit, AfterViewInit, OnDestroy {
         this.blockDataTable.start();
         this._http
           .post<any>(
-            'api/admin/subscription_plans/list',
+            environment.api_url+'api/SubscriptionPlan/GetSubscriptionPlans',
             dataTablesParameters,
             {}
           )
           .subscribe((resp:any) => {
-            this.plansList = resp.data;
+            this.plansList = resp.data.data;
 
             this.blockDataTable.stop();
             callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsFiltered,
-              data: resp.data
+              recordsTotal: resp.data.recordsTotal,
+              recordsFiltered: resp.data.recordsFiltered,
+              data: resp.data.data
             });
           });
       },
@@ -137,7 +137,7 @@ export class  PlansListComponent implements OnInit, AfterViewInit, OnDestroy {
           className: 'text-left  font-weight-normal'
         },
         {
-          data: 'plan_for',
+          data: 'planFor',
           title: 'Plan for',
           className: 'text-left  font-weight-normal'
         },
@@ -145,18 +145,18 @@ export class  PlansListComponent implements OnInit, AfterViewInit, OnDestroy {
           data: 'duration',
           title: 'Duration',
           render: function (data: any, type: any, full: any) {
-            return `${full.duration} ${full.duration_unit}`
+            return `${full.duration} ${full.durationUnit}`
           }
         },
         {
-          data: 'charge',
+          data: 'price',
           title: 'Price',
           render: function (data: any, type: any, full: any) {
-            return that._helper.getInINRFormat(full.currency,full.charge)
+            return that._helper.getInINRFormat(full.currency ! =null ? full.currency : 'INR',full.price)
           }
         },
         {
-          data: 'is_active',
+          data: 'isActive',
           title: 'Active',
           className: 'text-center  font-weight-normal',
           render: (data: any) => {
@@ -168,7 +168,7 @@ export class  PlansListComponent implements OnInit, AfterViewInit, OnDestroy {
           }
         },
         {
-          data: 'created_at',
+          data: 'createdAt',
           title: 'Created At',
           className: 'text-center  font-weight-normal',
           render: (data) => {
@@ -180,7 +180,7 @@ export class  PlansListComponent implements OnInit, AfterViewInit, OnDestroy {
           }
         },
         {
-          data: 'updated_at',
+          data: 'updatedAt',
           title: 'Updated At',
           className: 'text-center  font-weight-normal',
           render: (data) => {
@@ -192,6 +192,7 @@ export class  PlansListComponent implements OnInit, AfterViewInit, OnDestroy {
           }
         },
         {
+          data:'',
           title: 'Action',
           className: 'text-center  font-weight-normal',
           render: function (data: any, type: any, full: any) {

@@ -1,19 +1,22 @@
 import { Injectable } from '@angular/core';
 import { User } from '../models/User';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { catchError, tap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class AuthService {
-	username: string='';
-	tempPassword: string='';
-	loggedInUser:User|null=null;
-	auth_token: string|null = '';
+	username: string = '';
+	tempPassword: string = '';
+	loggedInUser: User | null = null;
+	auth_token: string | null = '';
 	user_id: number = 0;
 	isLogoutClicked: boolean = false;
 
-	constructor(private _http: HttpClient) {}
+	constructor(private _http: HttpClient) { }
 
 	setAuthorizationToken(_token: string) {
 		localStorage.removeItem('access_token');
@@ -26,13 +29,13 @@ export class AuthService {
 		return this.auth_token ? this.auth_token : '';
 	}
 
-  validateToken(_token: string) {
-		return this._http.post('api/auth/validate-token', {token:_token});
+	validateToken(_token: string) {
+		return this._http.post('api/auth/validate-token', { token: _token });
 	}
 
-  removeAuthorizationToken() {
-    this.auth_token = '';
-    localStorage.removeItem('access_token');
+	removeAuthorizationToken() {
+		this.auth_token = '';
+		localStorage.removeItem('access_token');
 	}
 
 	setUserId(id: number) {
@@ -43,15 +46,15 @@ export class AuthService {
 
 	getUserId() {
 		if (this.loggedInUser && this.loggedInUser['id'] == 0) {
-      let user =localStorage.getItem('loggedInUser');
+			let user = localStorage.getItem('loggedInUser');
 			this.loggedInUser = user ? JSON.parse(user) : null;
 		}
-		return this.loggedInUser && this.loggedInUser.id ? this.loggedInUser.id:null;
+		return this.loggedInUser && this.loggedInUser.id ? this.loggedInUser.id : null;
 	}
 
-  getAccountServiceEnabled(){
-    let user:any =localStorage.getItem('loggedInUser');
-    user = user ? JSON.parse(user) : null;
+	getAccountServiceEnabled() {
+		let user: any = localStorage.getItem('loggedInUser');
+		user = user ? JSON.parse(user) : null;
 		return user && user.account_service_enabled;
 	}
 
@@ -62,12 +65,12 @@ export class AuthService {
 	}
 
 	getUser() {
-    let user = localStorage.getItem('loggedInUser');
-		this.loggedInUser = user ? JSON.parse(user):null;
+		let user = localStorage.getItem('loggedInUser');
+		this.loggedInUser = user ? JSON.parse(user) : null;
 		return this.loggedInUser;
 	}
 
-  clearLoggedInUser() {
+	clearLoggedInUser() {
 		this.loggedInUser = new User();
 		this.user_id = 0;
 	}
@@ -98,20 +101,37 @@ export class AuthService {
 	async load(): Promise<any> {
 		if (this.checkIfLoggedIn()) {
 			return this._http.get('api/auth/me').toPromise();
-		} else{
-      return new Promise((res: any, rej: any) => {
+		} else {
+			return new Promise((res: any, rej: any) => {
 				rej({});
 			});
-    }
-  }
+		}
+	}
 
-  async logout():Promise<any>{
-    if (this.checkIfLoggedIn()) {
-       return this._http.post('api/auth/logout',{}).toPromise();
-    } else{
-      return new Promise((res: any, rej: any) => {
+	async logout(): Promise<any> {
+		if (this.checkIfLoggedIn()) {
+			return this._http.post(environment.api_url + 'api/Auth/Logout', {}).toPromise();
+		} else {
+			return new Promise((res: any, rej: any) => {
 				rej({});
 			});
-    }
-  }
+		}
+	}
+
+	refreshToken() {
+		return this._http
+			.post<any>(`${environment.api_url}Auth/GetRefreshToken`, {
+				refreshToken: this.getAuthorizationToken(), token: this.getAuthorizationToken()
+			})
+			.pipe(
+				tap((tokens) => {
+					this.setAuthorizationToken(tokens);
+				}),
+				catchError((error) => {
+					this.clearLoggedInUser();
+					return of(false);
+				})
+			);
+	}
+
 }

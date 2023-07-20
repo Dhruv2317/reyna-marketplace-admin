@@ -53,17 +53,17 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
 		this.navItems = [
 			{ route: '/admin/dashboard', iconName: 'fa-tachometer-alt', displayName: 'Dashboard' },
-			{ route: '/admin/customers', iconName: 'fa-users', displayName: 'Customers' },
+			// { route: '/admin/customers', iconName: 'fa-users', displayName: 'Customers' },
 			{ route: '/admin/sellers', iconName: 'fa-users', displayName: 'Sellers' },
-			{ route: '/admin/dealers', iconName: 'fa-users', displayName: 'Dealers' },
-			{
-						displayName: 'Manufacturers & Brands',
-						iconName: 'fa-id-badge',
-						children: [
-					{ route: '/admin/manufacturers', iconName: 'fa-list', displayName: 'Manufacturers' },
-					{ route: '/admin/brands', iconName: 'fa-list', displayName: 'Brands' }
-				]
-			},
+			// { route: '/admin/dealers', iconName: 'fa-users', displayName: 'Dealers' },
+			// {
+			// 			displayName: 'Manufacturers & Brands',
+			// 			iconName: 'fa-id-badge',
+			// 			children: [
+			// 		{ route: '/admin/manufacturers', iconName: 'fa-list', displayName: 'Manufacturers' },
+			// 		{ route: '/admin/brands', iconName: 'fa-list', displayName: 'Brands' }
+			// 	]
+			// },
 			// { route: '/admin/sponsor', iconName: 'fa-list', displayName: 'Sponsors' },
 			// { route: '/admin/orders', iconName: 'fa-shopping-cart', displayName: 'Orders' },
 			{ route: '/admin/products', iconName: 'fa-golf-ball', displayName: 'Products' },
@@ -79,14 +79,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
 				displayName: 'Others',
 				iconName: 'fa-info-circle',
 				children: [
-					{ route: '/admin/policy', iconName: 'fa-file', displayName: 'Policy' },
-					{ route: '/admin/faq', iconName: 'fa-question-circle', displayName: 'FAQ' },
-					{ route: '/admin/faq-group', iconName: 'fa-question-circle', displayName: 'FAQ Group' },
+					// { route: '/admin/policy', iconName: 'fa-file', displayName: 'Policy' },
+					// { route: '/admin/faq', iconName: 'fa-question-circle', displayName: 'FAQ' },
+					// { route: '/admin/faq-group', iconName: 'fa-question-circle', displayName: 'FAQ Group' },
 					{ route: '/admin/settings', iconName: 'fa-cog', displayName: 'Settings' },
 					/*{ route: '/admin/shipping_pricing',iconName:'fa-cog',displayName:'Shipping Pricing'},*/
-					{ route: '/admin/shipping_insurance', iconName: 'fa-cog', displayName: 'Shipping insurance' },
-					{ route: '/admin/article-categories', iconName: 'fa-bars', displayName: 'Article Categories' },
-					{ route: '/admin/articles', iconName: 'fa-newspaper', displayName: 'Articles' },
+					// { route: '/admin/shipping_insurance', iconName: 'fa-cog', displayName: 'Shipping insurance' },
+					// { route: '/admin/article-categories', iconName: 'fa-bars', displayName: 'Article Categories' },
+					// { route: '/admin/articles', iconName: 'fa-newspaper', displayName: 'Articles' },
 				]
 			},
 			/*{ route: '/admin/reports', iconName: 'fa-file', displayName: 'Reports' }*/		]

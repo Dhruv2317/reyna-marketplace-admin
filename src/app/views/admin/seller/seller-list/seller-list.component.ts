@@ -96,7 +96,7 @@ export class SellerListComponent  implements OnInit, AfterViewInit,OnDestroy {
         this.blockDataTable.start();
         this._http
           .post<any>(
-            'api/admin/sellers/list',
+            environment.api_url+'api/User/GetAllSellers',
             dataTablesParameters,
             {}
           )
@@ -104,20 +104,20 @@ export class SellerListComponent  implements OnInit, AfterViewInit,OnDestroy {
             this.patientsTableData = resp.data;
             this.blockDataTable.stop();
             callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsFiltered,
-              data: resp.data
+              recordsTotal: resp.data.recordsTotal,
+              recordsFiltered: resp.data.recordsFiltered,
+              data: resp.data.data
             });
           });
       },
       columns: [
         {
-          data: 'first_name',
+          data: 'firstName',
           title: 'Name',
           className: 'text-left  font-weight-normal',
           render: (data: any, type: any, record: any) => {
             if (data) {
-              return `<a class="text-primary font-weight-bold" href="javascript:void(0);" sellerID=${record.id}>${data.charAt(0).toUpperCase() + data.slice(1) +' '+record.last_name}</a>`;
+              return `<a class="text-primary font-weight-bold" href="javascript:void(0);" sellerID=${record.id}>${data.charAt(0).toUpperCase() + data.slice(1) +' '+record.lastName}</a>`;
             } else {
               return `<span></span>`;
             }
@@ -136,7 +136,7 @@ export class SellerListComponent  implements OnInit, AfterViewInit,OnDestroy {
           }
         },
         {
-          data: 'cell_phone_number',
+          data: 'phoneNumber',
           title: 'Phone',
           className: 'text-center  font-weight-normal',
           render: (data: any, type: any, record: any) => {
@@ -147,56 +147,56 @@ export class SellerListComponent  implements OnInit, AfterViewInit,OnDestroy {
             }
           }
         },
+        // {
+        //   data: 'country',
+        //   title: 'Country',
+        //   className: 'text-center  font-weight-normal',
+        //   render: (data: any, type: any, record: any) => {
+        //     if (data) {
+        //       return `<span>${data}</span>`;
+        //     } else {
+        //       return `<span>-</span>`;
+        //     }
+        //   }
+        // }, 
+        // {
+        //   data: 'state',
+        //   title: 'State',
+        //   className: 'text-center  font-weight-normal',
+        //   render: (data: any, type: any, record: any) => {
+        //     if (data) {
+        //       return `<span>${data}</span>`;
+        //     } else {
+        //       return `<span>-</span>`;
+        //     }
+        //   }
+        // },
+        // {
+        //   data: 'city_name',
+        //   title: 'City',
+        //   className: 'text-center  font-weight-normal',
+        //   render: (data: any, type: any, record: any) => {
+        //     if (data) {
+        //       return `<span>${data}</span>`;
+        //     } else {
+        //       return `<span>-</span>`;
+        //     }
+        //   }
+        // },
+        // {
+        //   data: 'zip_code',
+        //   title: 'ZipCode',
+        //   className: 'text-center  font-weight-normal',
+        //   render: (data: any, type: any, record: any) => {
+        //     if (data) {
+        //       return `<span>${data}</span>`;
+        //     } else {
+        //       return `<span>-</span>`;
+        //     }
+        //   }
+        // },
         {
-          data: 'country',
-          title: 'Country',
-          className: 'text-center  font-weight-normal',
-          render: (data: any, type: any, record: any) => {
-            if (data) {
-              return `<span>${data}</span>`;
-            } else {
-              return `<span>-</span>`;
-            }
-          }
-        }, 
-        {
-          data: 'state',
-          title: 'State',
-          className: 'text-center  font-weight-normal',
-          render: (data: any, type: any, record: any) => {
-            if (data) {
-              return `<span>${data}</span>`;
-            } else {
-              return `<span>-</span>`;
-            }
-          }
-        },
-        {
-          data: 'city_name',
-          title: 'City',
-          className: 'text-center  font-weight-normal',
-          render: (data: any, type: any, record: any) => {
-            if (data) {
-              return `<span>${data}</span>`;
-            } else {
-              return `<span>-</span>`;
-            }
-          }
-        },
-        {
-          data: 'zip_code',
-          title: 'ZipCode',
-          className: 'text-center  font-weight-normal',
-          render: (data: any, type: any, record: any) => {
-            if (data) {
-              return `<span>${data}</span>`;
-            } else {
-              return `<span>-</span>`;
-            }
-          }
-        },
-        {
-          data: 'is_active',
+          data: 'isActive',
           title: 'Active',
           className: 'text-center  font-weight-normal',
           render: (data: any) => {
@@ -208,7 +208,7 @@ export class SellerListComponent  implements OnInit, AfterViewInit,OnDestroy {
           }
         },
         {
-          data: 'created_at',
+          data: 'createdAt',
           title: 'Member Since',
           className: 'text-center  font-weight-normal',
           render: (data: any) => {
@@ -220,6 +220,7 @@ export class SellerListComponent  implements OnInit, AfterViewInit,OnDestroy {
           }
         },
         {
+          data:'',
           title: 'Action',
           className: 'text-center  font-weight-normal',
           render: function (data: any, type: any, record: any) {

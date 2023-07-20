@@ -104,18 +104,18 @@ export class AttributesListComponent implements OnInit, AfterViewInit, OnDestroy
         this.blockDataTable.start();
         this._http
           .post<any>(
-            'api/admin/attributes/list',
+            environment.api_url+'api/Attribute/GetAllAttributesList',
             dataTablesParameters,
             {}
           )
           .subscribe((resp:any) => {
-            this.attributesList = resp.data;
+            this.attributesList = resp.data.data;
 
             this.blockDataTable.stop();
             callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsFiltered,
-              data: resp.data
+              recordsTotal: resp.data.recordsTotal,
+              recordsFiltered: resp.data.recordsFiltered,
+              data: resp.data.data
             });
           });
       },
@@ -126,7 +126,7 @@ export class AttributesListComponent implements OnInit, AfterViewInit, OnDestroy
           className: 'text-left  font-weight-normal'
         },
         {
-          data: 'is_active',
+          data: 'isActive',
           title: 'Active',
           className: 'text-center  font-weight-normal',
           render: (data: any) => {
@@ -138,7 +138,7 @@ export class AttributesListComponent implements OnInit, AfterViewInit, OnDestroy
           }
         },
         {
-          data: 'created_at',
+          data: 'createdAt',
           title: 'Created At',
           className: 'text-center  font-weight-normal',
           render: (data) => {
@@ -150,7 +150,7 @@ export class AttributesListComponent implements OnInit, AfterViewInit, OnDestroy
           }
         },
         {
-          data: 'updated_at',
+          data: 'updatedAt',
           title: 'Updated At',
           className: 'text-center  font-weight-normal',
           render: (data) => {
@@ -162,6 +162,7 @@ export class AttributesListComponent implements OnInit, AfterViewInit, OnDestroy
           }
         },
         {
+          data:'',
           title: 'Action',
           className: 'text-center  font-weight-normal',
           render: function (data: any, type: any, full: any) {

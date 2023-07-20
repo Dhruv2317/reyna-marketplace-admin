@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import {GolfedApiEndpoints} from 'src/app/constants/GolfedApiEndpoints';
+import {MarketplaceApiEndpoints} from 'src/app/constants/MarketplaceApiEndpoints';
 
 @Injectable()
 export class DashboardService {
@@ -10,7 +10,7 @@ export class DashboardService {
   }
 
   async getDashboardDetails(): Promise<any> {
-      return await this._http.get<any>(GolfedApiEndpoints.ADMIN_DASHBOARD).toPromise();
+      return await this._http.get<any>(MarketplaceApiEndpoints.ADMIN_DASHBOARD).toPromise();
   }
 
 }
