@@ -10,8 +10,16 @@ body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
     -webkit-font-smoothing: antialiased;
+    background-color: #F7F7F7;
 }
 
+@media (max-width: 991px) {
+    #navbar-main { padding-left: 0 !important; }
+}
+
+.nav-tabs { display: none; }
+
+.sub-menu-list { background-color: #10100f !important; padding-left: 20px; }
 
 .modal-md {
     max-width: 768px;
@@ -56,6 +64,7 @@ body {
     z-index: 1020;
 }
 
+.navbar { padding: 20px 1rem; }
 .navbar,
 .page-footer,
 .main-layout {
