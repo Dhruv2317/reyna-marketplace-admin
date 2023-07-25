@@ -1,5 +1,6 @@
-<section>
+<!-- <section>
   <div class="d-flex flex-md-row flex-column justify-content-between align-items-center mt-3 p-3">
+
     <div class="flex-fill mx-2">
       <a href="javascript:void(0)" class="text-decoration-none">
         <div class="card classic-admin-card green-base">
@@ -9,7 +10,6 @@
             </div>
             <p class="white-text">PLATFORM EARNINGS</p>
             <h4>
-              <!-- <strong>{{(counts.total_earnings | currency:'EUR') }}</strong> -->
               <strong>Rs 10000</strong>
             </h4>
           </div>
@@ -45,7 +45,7 @@
       </div>
     </div>
 
-    <!-- <div class="flex-fill mx-2">
+    <div class="flex-fill mx-2">
       <a class="text-decoration-none" href="javascript:void(0)" routerLink="/admin/orders/">
         <div class="card classic-admin-card indigo-darken-4">
           <div class="card-body">
@@ -84,7 +84,7 @@
           </tr>
         </table>
       </div>
-    </div> -->
+    </div>
 
     <div class="flex-fill mx-2">
       <a class="text-decoration-none" href="javascript:void(0)" routerLink="/admin/dealer-subscriptions">
@@ -95,37 +95,31 @@
             </div>
             <p>SELLER SUBSCRIPTION</p>
             <h4>
-              <!-- <strong>{{counts.total_dealer_sales|currency:'EUR' }}</strong> -->
-              <strong>Rs 1000</strong>
-            </h4>
+            <strong>{{counts.total_dealer_sales|currency:'EUR' }}</strong>
+              </h4>
           </div>
         </div>
       </a>
       <div *ngIf="detstats && detstats.earnings && detstats.earnings.dealer_account_subscription_stats">
         <table class="table table-hover table-sm">
           <tr>
-            <!-- <td class="font-weight-normal">Today</td> -->
             <td class="font-weight-normal"><span class="">{{detstats.earnings.dealer_account_subscription_stats.today.count }}</span></td>
             <td class="text-right"><span class="">{{detstats.earnings.dealer_account_subscription_stats.today.total.toFixed(2)|currency:'EUR'}}</span></td>
           </tr>
           <tr>
-            <!-- <td class="font-weight-normal">Yesterday</td> -->
             <td class="font-weight-normal"><span class="">{{detstats.earnings.dealer_account_subscription_stats.yesterday.count}}</span>
             </td>
             <td class="text-right"><span class="">{{detstats.earnings.dealer_account_subscription_stats.yesterday.total.toFixed(2)|currency:'EUR'}}</span></td>
           </tr>
           <tr>
-            <!-- <td class="font-weight-normal">Last 7 day</td> -->
             <td class="font-weight-normal"><span class="">{{detstats.earnings.dealer_account_subscription_stats.last_7days.count}}</span></td>
             <td class="text-right"><span class="">{{detstats.earnings.dealer_account_subscription_stats.last_7days.total.toFixed(2)|currency:'EUR'}}</span></td>
           </tr>
           <tr>
-            <!-- <td class="font-weight-normal">Last 15 day</td> -->
             <td class="font-weight-normal"><span class="">{{detstats.earnings.dealer_account_subscription_stats.last_15days.count}}</span></td>
             <td class="text-right"><span class="">{{detstats.earnings.dealer_account_subscription_stats.last_15days.total.toFixed(2)|currency:'EUR'}}</span></td>
           </tr>
           <tr>
-            <!-- <td class="font-weight-normal">Last 30 day</td> -->
             <td class="font-weight-normal"><span class="">{{detstats.earnings.dealer_account_subscription_stats.last_30days.count}}</span></td>
             <td class="text-right"><span class="">{{detstats.earnings.dealer_account_subscription_stats.last_30days.total.toFixed(2)|currency:'EUR'}}</span></td>
           </tr>
@@ -142,7 +136,6 @@
             </div>
             <p>PRODUCT SUBSCRIPTION</p>
             <h4>
-              <!-- <strong>{{counts.total_toplisting_sales|currency:'EUR' }}</strong> -->
               <strong>Rs 10000</strong>
             </h4>
           </div>
@@ -151,28 +144,23 @@
       <div *ngIf="detstats && detstats.earnings && detstats.earnings.product_toplisting_stats">
         <table class="table table-hover table-sm">
           <tr>
-            <!-- <td class="font-weight-normal">Today</td> -->
             <td class="font-weight-normal"><span class="">{{detstats.earnings.product_toplisting_stats.today.count }}</span></td>
             <td class="text-right"><span class="">{{detstats.earnings.product_toplisting_stats.today.total.toFixed(2)|currency:'EUR'}}</span></td>
           </tr>
           <tr>
-            <!-- <td class="font-weight-normal">Yesterday</td> -->
             <td class="font-weight-normal"><span class="">{{detstats.earnings.product_toplisting_stats.yesterday.count}}</span>
             </td>
             <td class="text-right"><span class="">{{detstats.earnings.product_toplisting_stats.yesterday.total.toFixed(2)|currency:'EUR'}}</span></td>
           </tr>
           <tr>
-            <!-- <td class="font-weight-normal">Last 7 day</td> -->
             <td class="font-weight-normal"><span class="">{{detstats.earnings.product_toplisting_stats.last_7days.count}}</span></td>
             <td class="text-right"><span class="">{{detstats.earnings.product_toplisting_stats.last_7days.total.toFixed(2)|currency:'EUR'}}</span></td>
           </tr>
           <tr>
-            <!-- <td class="font-weight-normal">Last 15 day</td> -->
             <td class="font-weight-normal"><span class="">{{detstats.earnings.product_toplisting_stats.last_15days.count}}</span></td>
             <td class="text-right"><span class="">{{detstats.earnings.product_toplisting_stats.last_15days.total.toFixed(2)|currency:'EUR'}}</span></td>
           </tr>
           <tr>
-            <!-- <td class="font-weight-normal">Last 30 day</td> -->
             <td class="font-weight-normal"><span class="">{{detstats.earnings.product_toplisting_stats.last_30days.count}}</span></td>
             <td class="text-right"><span class="">{{detstats.earnings.product_toplisting_stats.last_30days.total.toFixed(2)|currency:'EUR'}}</span></td>
           </tr>
@@ -180,7 +168,6 @@
       </div>
     </div>
 
-  
   </div>
 
   <div class="row mt-3 p-3">
@@ -193,7 +180,6 @@
             </div>
             <p>CUSTOMERS</p>
             <h4>
-              <!-- <strong>{{counts.total_customers }}</strong> -->
               <strong>10</strong>
             </h4>
           </div>
@@ -225,7 +211,7 @@
       </div>
     </div>
 
-    <!-- <div class="col-xl-3 col-md-6 mb-r">
+    <div class="col-xl-3 col-md-6 mb-r">
       <a class="text-decoration-none" href="javascript:void(0)" routerLink="/admin/dealers/">
         <div class="card classic-admin-card blue-grey-darken-1">
           <div class="card-body">
@@ -263,7 +249,7 @@
           </tr>
         </table>
       </div>
-    </div> -->
+    </div>
    
     <div class="col-xl-3 col-md-6 mb-r">
       <a class="text-decoration-none" href="javascript:void(0)" routerLink="/admin/sellers/">
@@ -274,7 +260,6 @@
             </div>
             <p>SELLERS</p>
             <h4>
-              <!-- <strong>{{counts.total_seller }}</strong> -->
               <strong>10</strong>
             </h4>
           </div>
@@ -315,7 +300,6 @@
             </div>
             <p>PRODUCTS</p>
             <h4>
-              <!-- <strong>{{counts.total_products }}</strong> -->
               <strong>12</strong>
             </h4>
           </div>
@@ -330,7 +314,6 @@
             </div>
             <p>CATEGORIES</p>
             <h4>
-              <!-- <strong>{{counts.total_categories }}</strong> -->
               <strong>11</strong>
             </h4>
           </div>
@@ -345,7 +328,6 @@
             </div>
             <p>BRANDS</p>
             <h4>
-              <!-- <strong>{{counts.total_brands }}</strong> -->
               <strong>10</strong>
             </h4>
           </div>
@@ -356,16 +338,15 @@
   
   </div>
 
-
-  <!-- <div class="row mt-3">
+  <div class="row mt-3">
     <div class="col-xl-12 col-md-12 col-12">
       <highcharts-chart style="display:block;max-height:500px;width:100%;display:block;" [Highcharts]="Highcharts"
         [constructorType]="chartConstructor" [options]="chartOptionsline" [callbackFunction]="chartCallback"
         [(update)]="updateFlag" [oneToOne]="oneToOneFlag"></highcharts-chart>
     </div>
-  </div> -->
+  </div>
 
-  <!-- <div class="row mt-3">
+  <div class="row mt-3">
     <div class="col-xl-6 col-lg-4 col-md-6 col-12">
       <highcharts-chart style="max-height:500px;width:100%;display:block;" [Highcharts]="Highcharts"
         [constructorType]="chartConstructor" [options]="chartOptionsUserExperienceLevel" [callbackFunction]="chartCallback"
@@ -386,6 +367,215 @@
         [constructorType]="chartConstructor" [options]="chartOptionsUserOs" [callbackFunction]="chartCallback"
         [(update)]="updateFlag" [oneToOne]="oneToOneFlag"></highcharts-chart>
     </div>
-  </div> -->
+  </div>
 
-</section>
+</section> -->
+
+<div class="container-fluid">
+
+  <div class="row content_space">
+
+    <div class="col-md">
+      <a class="text-decoration-none" href="javascript:void(0)" routerLink="">
+        <div class="dashboard-card dashboard-card-1 shine">
+          <div class="img-icon-box">
+            <img src="assets/img/Platform.png" class="img-icon" />
+          </div>
+          <p class="card-ammount">10,000</p>
+          <p class="card-name">Platform Earnings</p>
+        </div>
+      </a>
+    </div>
+
+    <div class="col-md">
+      <a class="text-decoration-none" href="javascript:void(0)" routerLink="">
+        <div class="dashboard-card dashboard-card-2 shine">
+          <div class="img-icon-box">
+            <img src="assets/img/Subscription.png" class="img-icon" />
+          </div>
+          <p class="card-ammount">1,000</p>
+          <p class="card-name">Subscription</p>
+        </div>
+      </a>
+    </div>
+
+    <div class="col-md">
+      <a class="text-decoration-none" href="javascript:void(0)" routerLink="">
+        <div class="dashboard-card dashboard-card-3 shine">
+          <div class="img-icon-box">
+            <img src="assets/img/Customers.png" class="img-icon" />
+          </div>
+          <p class="card-ammount">500</p>
+          <p class="card-name">Customers</p>
+        </div>
+      </a>
+    </div>
+
+    <div class="col-md">
+      <a class="text-decoration-none" href="javascript:void(0)" routerLink="">
+        <div class="dashboard-card dashboard-card-4 shine">
+          <div class="img-icon-box">
+            <img src="assets/img/Sellers.png" class="img-icon" />
+          </div>
+          <p class="card-ammount">100</p>
+          <p class="card-name">Sellers</p>
+        </div>
+      </a>
+    </div>
+
+    <div class="col-md">
+      <a class="text-decoration-none" href="javascript:void(0)" routerLink="">
+        <div class="dashboard-card dashboard-card-5 shine">
+          <div class="img-icon-box">
+            <img src="assets/img/Products.png" class="img-icon" />
+          </div>
+          <p class="card-ammount">500</p>
+          <p class="card-name">Products</p>
+        </div>
+      </a>
+    </div>
+
+    <div class="col-md">
+      <a class="text-decoration-none" href="javascript:void(0)" routerLink="">
+        <div class="dashboard-card dashboard-card-6 shine">
+          <div class="img-icon-box">
+            <img src="assets/img/Categories.png" class="img-icon" />
+          </div>
+          <p class="card-ammount">10</p>
+          <p class="card-name">Categories</p>
+        </div>
+      </a>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="bg_card mb-2">
+        <div>
+          <h4>Recent Orders</h4>
+          <div class="icon_box mt-4">
+
+            <div class="inner_icon_box img_icon_box_1">
+              <img src="assets/img/icon-1.png" class="img-icon" />
+              <p>Properties</p>
+            </div>
+
+            <div class="inner_icon_box img_icon_box_2">
+              <img src="assets/img/icon-2.png" class="img-icon" />
+              <p>Bikes</p>
+            </div>
+
+            <div class="inner_icon_box img_icon_box_3">
+              <img src="assets/img/icon-3.png" class="img-icon" />
+              <p>Fashion</p>
+            </div>
+
+            <div class="inner_icon_box img_icon_box_4">
+              <img src="assets/img/icon-4.png" class="img-icon" />
+              <p>Furniture</p>
+            </div>
+
+            <div class="inner_icon_box img_icon_box_5">
+              <img src="assets/img/icon-5.png" class="img-icon" />
+              <p>Electronics</p>
+            </div>
+
+            <div class="inner_icon_box img_icon_box_6">
+              <img src="assets/img/icon-6.png" class="img-icon" />
+              <p>Car</p>
+            </div>
+
+            <div class="inner_icon_box img_icon_box_7">
+              <img src="assets/img/icon-7.png" class="img-icon" />
+              <p>Mobiles</p>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="mt-4 pt-2">
+          <div class="table-responsive text-nowrap">
+            <table hover="true" id="" width="100%">
+
+              <tr class="table-title">
+                <th>ITEM</th>
+                <th class="pl-2">QTY</th>
+                <th class="text-right pl-2">Total price</th>
+              </tr>
+
+              <tr>
+                <td class="table-border">
+                  <div class="table-img-desc-block">
+                    <img src="assets/img/bg-img.png" alt="" width="50">
+                    <div class="table-desc">
+                      <p class="table-desc-primary">2 BHK Flat</p>
+                      <p class="table-desc-secondary">Item: #XDG-2347</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="table-border pl-2">
+                  <div class="table-desc">
+                    <p class="table-desc-secondary padd_left_0">Item: #XDG-2347</p>
+                  </div>
+                </td>
+                <td class="table-border text-right pl-2">
+                  <div class="table-desc">
+                    <p class="table-desc-secondary padd_left_0">Item: #XDG-2347</p>
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="table-border">
+                  <div class="table-img-desc-block">
+                    <img src="assets/img/bg-img.png" alt="" width="50">
+                    <div class="table-desc">
+                      <p class="table-desc-primary">2 BHK Flat</p>
+                      <p class="table-desc-secondary">Item: #XDG-2347</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="table-border pl-2">
+                  <div class="table-desc">
+                    <p class="table-desc-secondary padd_left_0">Item: #XDG-2347</p>
+                  </div>
+                </td>
+                <td class="table-border text-right pl-2">
+                  <div class="table-desc">
+                    <p class="table-desc-secondary padd_left_0">Item: #XDG-2347</p>
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="pt-2">
+                  <div class="table-img-desc-block">
+                    <img src="assets/img/bg-img.png" alt="" width="50">
+                    <div class="table-desc">
+                      <p class="table-desc-primary">2 BHK Flat</p>
+                      <p class="table-desc-secondary">Item: #XDG-2347</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="pt-2 pl-2">
+                  <div class="table-desc">
+                    <p class="table-desc-secondary padd_left_0">Item: #XDG-2347</p>
+                  </div>
+                </td>
+                <td class="pt-2 text-right pl-2">
+                  <div class="table-desc">
+                    <p class="table-desc-secondary padd_left_0">Item: #XDG-2347</p>
+                  </div>
+                </td>
+              </tr>
+
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>

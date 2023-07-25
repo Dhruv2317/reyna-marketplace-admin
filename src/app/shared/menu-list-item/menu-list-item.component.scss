@@ -28,11 +28,19 @@ $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
 }
 
 .menu-list-item {
-    color: aliceblue;
-    padding: 0.5rem;
+    color: #6D6563;
+    font-size: 14px;
+    padding: 12px 0 !important;
     display: block;
     width: 100%;
     border-bottom: 1px solid rgba(0, 0, 0, .125);
+
+    &:hover, &:active { 
+        color: #fff; 
+        cursor: pointer;
+        text-decoration: none;
+    }
+
     .routeIcon {
         margin-right: 16px;
     }
@@ -41,7 +49,4 @@ $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
     }
 }
 
-.menu-list-item:hover {
-    cursor: pointer;
-    text-decoration: none;
-}
+a.menu-list-item.active { color: #fff; }
