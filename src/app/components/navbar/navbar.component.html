@@ -1,33 +1,43 @@
 <header class="w-100">
   <!-- Sidebar -->
-  <div  class="sidebar-fixed position-fixed" style="margin-top:-72px;">
+  <div  class="sidebar-fixed position-fixed" style="margin-top:-85px;">
 
-      <div class="text-center">
-      <a class="h4 mt-2 mb-0 text-dark text-decoration-none text-uppercase d-none d-lg-inline-block" href="/">
-        <img src="https://reynasolutions.com/wp-content/uploads/2020/07/reyna-wide-logo-white-text.png" height="40" width="120"/>
+      <div class="text-left">
+      <a class="h4 mt-2 mb-0 text-dark text-decoration-none text-uppercase d-none d-lg-inline-block pt-3" href="">
+        <img src="https://reynasolutions.com/wp-content/uploads/2020/07/reyna-wide-logo-white-text.png" height="auto" width="150"/>
         <!--<span class="logo-text-css">Golfed</span>-->
       </a>
       </div>
 
+      <div class="box_divider"></div>
+
       <div class="mt-3 list-group list-group-flush">
         <app-menu-list-item *ngFor="let item of navItems" [item]="item"></app-menu-list-item>
       </div>
+
+      <div class="text-left d-none d-lg-block footer-box">
+        <a class="text-decoration-none" routerLink="">
+          <span class="footer-text-1">Reyna Solutions</span></a><br>
+          <span class="footer-text-2">© 2023 All Rights Reserved</span>
+      </div>
   </div>
 
-  <nav class="navbar navbar-top fixed-top bg-aliceblue navbar-expand-md shadow" id="navbar-main">
+  <nav class="navbar navbar-top fixed-top bg-white navbar-expand-md" id="navbar-main">
     <div class="container-fluid">
-      <p></p>
+      <div class="mobile_logo">
+        <img src="assets/img/reyna-logo.png" height="auto" width="120"/>
+      </div>
       <div class="d-flex justify-content-end align-items-center">
       <ul class="navbar-nav align-items-center d-md-flex mr-3">
           <li *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
-                <a routerLinkActive="active" [routerLink]="[menuItem.path]" class="nav-link text-dark ">
-                    <i class="ni {{menuItem.icon}} mr-2"></i>
+                <a routerLinkActive="active" [routerLink]="[menuItem.path]" class="nav-link text-dark page_heading">
+                    <!-- <i class="ni {{menuItem.icon}} mr-2"></i> -->
                     {{menuItem.title}}
                 </a>
           </li>
       </ul>
        <!-- User -->
-      <ul class="navbar-nav align-items-center d-none d-md-flex">
+      <ul class="navbar-nav align-items-center d-md-flex">
         <!--<li dropdown class="nav-item inline-block">
             <a dropdownToggle class="nav-link dropdown-toggle text-dark text-decoration-none d-flex align-items-center font-weight-bold" id="navbarDropdownMenuLink">
                 <i class="far fa-bell mr-1 font-weight-bold"></i>
@@ -78,15 +88,16 @@
         <li class="nav-item" dropdown placement="bottom right">
           <a class="nav-link text-dark pr-0" role="button" dropdownToggle>
             <div class="media align-items-center" style="cursor:pointer">
-              <div class="icon icon-shape bg-warning align-self-end text-white rounded-circle shadow" style="height:24px;width:24px;text-align:center;">
-                <i class="fas fa-user-tie"></i><!-- #32325d1c -->
+              <div class="admin_icon">
+                <!-- <i class="fas fa-user-tie"></i>#32325d1c -->
+                <img src="assets/img/admin-icon.png" width="40">
               </div>
               <div class="media-body ml-2 d-none d-lg-block">
                 <span class="mb-0 text-sm  text-dark font-weight-bold">{{userFullName}}</span>
               </div>
             </div>
           </a>
-          <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
+          <div class="dropdown-menu dropdown-menu-right position-absolute" *dropdownMenu>
             <!--<a routerLinkActive="active" [routerLink]="['/admin/profile']" class="dropdown-item">
               <i class="fas fa-user mr-2" aria-hidden="true"></i>
               <span>My profile</span>
@@ -99,7 +110,7 @@
               <i class="fas fa-lock mr-2" aria-hidden="true"></i>
               <span>Change Password</span>
             </a>-->
-            <div class="dropdown-divider"></div>
+            <!-- <div class="dropdown-divider"></div> -->
             <a class="dropdown-item text-danger" href="javascript:void(0);" (click)="logoutUser()">
               <i class="fas fa-sign-out-alt  mr-2"></i>
               <span>Logout</span>
