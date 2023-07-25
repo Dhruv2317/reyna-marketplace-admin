@@ -104,7 +104,7 @@ export class CategoriesListComponent implements OnInit, AfterViewInit, OnDestroy
         this.blockDataTable.start();
         this._http
           .post<any>(
-            environment.api_url+ 'api/Category',
+            environment.api_url+ 'api/Category/GetAllCategories',
             dataTablesParameters,
             {}
           )

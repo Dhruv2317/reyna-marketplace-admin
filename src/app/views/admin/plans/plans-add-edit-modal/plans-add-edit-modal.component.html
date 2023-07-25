@@ -49,10 +49,10 @@
                 </div>
     
     
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-md-5">
                         <div class="form-group">
-                            <label>Name (French)</label><br />
+                            <label>Name (Arabic)</label><br />
                             <input type="text" id="name_fr" class="form-control" placeholder="Enter Name"
                                 formControlName="name_fr" />
                             <div class="invalid-feedback" *ngIf="name_fr?.invalid && (name_fr?.dirty || name_fr?.touched)"
@@ -64,7 +64,7 @@
     
                     <div class="col-md-7">
                         <div class="form-group">
-                            <label>Description (French)</label><br />
+                            <label>Description (Arabic)</label><br />
                             <textarea type="text" rows="2" id="description_fr" class="form-control" formControlName="description_fr"></textarea>
                             <div class="invalid-feedback" *ngIf="description_fr?.invalid && (description_fr?.dirty || description_fr?.touched)"
                                 class="text-danger">
@@ -72,84 +72,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
-    
-    
-                <div class="row">
-                    <div class="col-md-5">
-                        <div class="form-group">
-                            <label>Name (Dutch)</label><br />
-                            <input type="text" id="name_nl" class="form-control" placeholder="Enter Name"
-                                formControlName="name_nl" />
-                            <div class="invalid-feedback" *ngIf="name_nl?.invalid && (name_nl?.dirty || name_nl?.touched)"
-                                class="text-danger">
-                                <div *ngIf="name_nl?.errors?.required">name_nl is required.</div>
-                            </div>
-                        </div>
-                    </div>
-    
-                    <div class="col-md-7">
-                        <div class="form-group">
-                            <label>Description (Dutch)</label><br />
-                            <textarea type="text" rows="2" id="description_nl" class="form-control" formControlName="description_nl"></textarea>
-                            <div class="invalid-feedback" *ngIf="description_nl?.invalid && (description_nl?.dirty || description_nl?.touched)"
-                                class="text-danger">
-                                <div *ngIf="description_nl?.errors?.required">Description_nl is required.</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-    
-    
-                <div class="row">
-                    <div class="col-md-5">
-                        <div class="form-group">
-                            <label>Name (Spanish)</label><br />
-                            <input type="text" id="name_es" class="form-control" placeholder="Enter Name"
-                                formControlName="name_es" />
-                            <div class="invalid-feedback" *ngIf="name_es?.invalid && (name_es?.dirty || name_es?.touched)"
-                                class="text-danger">
-                                <div *ngIf="name_es?.errors?.required">Name is required.</div>
-                            </div>
-                        </div>
-                    </div>
-    
-                    <div class="col-md-7">
-                        <div class="form-group">
-                            <label>Description (Spanish)</label><br />
-                            <textarea type="text" rows="2" id="description_es" class="form-control" formControlName="description_es"></textarea>
-                            <div class="invalid-feedback" *ngIf="description_es?.invalid && (description_es?.dirty || description_es?.touched)"
-                                class="text-danger">
-                                <div *ngIf="description_es?.errors?.required">Description is required.</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-    
-                <div class="row">
-                    <div class="col-md-5">
-                        <div class="form-group">
-                            <label>Name (Portuguese)</label><br />
-                            <input type="text" id="name_pt" class="form-control" placeholder="Enter Name"
-                                formControlName="name_pt" />
-                            <div class="invalid-feedback" *ngIf="name_pt?.invalid && (name_pt?.dirty || name_pt?.touched)"
-                                class="text-danger">
-                                <div *ngIf="name_pt?.errors?.required">name_pt is required.</div>
-                            </div>
-                        </div>
-                    </div>
-    
-                    <div class="col-md-7">
-                        <div class="form-group">
-                            <label>Description (Portuguese)</label><br />
-                            <textarea type="text" rows="2" id="description_pt" class="form-control" formControlName="description_pt"></textarea>
-                            <div class="invalid-feedback" *ngIf="description_pt?.invalid && (description_pt?.dirty || description_pt?.touched)"
-                                class="text-danger">
-                                <div *ngIf="description_pt?.errors?.required">Description_pt is required.</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </div> -->
     
                 <div class="row">
                     <div class="col-md-6">
@@ -177,7 +100,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Charge</label>
-                            <input type="number" id="charge" class="form-control" placeholder="Enter charge" formControlName="charge" />
+                            <input type="number" id="charge" class="form-control" placeholder="Enter charge" formControlName="charge" step="0.01" />
                             <div class="invalid-feedback" *ngIf="charge?.invalid && (charge?.dirty || charge?.touched)"
                                 class="text-danger">
                                 <div *ngIf="charge?.errors?.required">charge is required.</div>
@@ -187,14 +110,18 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Currency</label>
-                            <select class="form-control"  placeholder="Currency"  formControlName="currency">
+                            <!-- <select class="form-control"  placeholder="Currency"  formControlName="currency">
                                 <option *ngFor="let item of countriesList" [value]="item.currency">{{ item.currency_name +'   ('+item.currency_symbol+')'+'   '+item.currency }}</option>
+                            </select> -->
+                        
+                            <select class="form-control"  placeholder="Currency"  formControlName="currency">
+                                <option value="INR">INR</option>
+                                <option value="AED">AED</option>
                             </select>
                         </div>
                     </div>
                 </div>
                 
-           
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-group">

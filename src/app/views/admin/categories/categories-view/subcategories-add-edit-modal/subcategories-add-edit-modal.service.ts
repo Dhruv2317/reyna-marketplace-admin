@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class SubcategoriesAddEditModalService {
   }
 
   async addNewSubcategories(bodyData: any):Promise<any>{
-    return await this._http.post('api/admin/subcategories/create', bodyData).toPromise();
+    return await this._http.post(environment.api_url+'api/SubCategory/AddUpdateSubCategory', bodyData).toPromise();
   }
 
   async editSubcategories(id: number, bodyData: any):Promise<any>{

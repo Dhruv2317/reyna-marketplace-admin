@@ -7,7 +7,7 @@ export const environment = {
 	current_environment: 'local',
 	// encryption_key: 'YDF7IirWSIUxR4ijMHXQrpVQ1ZyI0bR6',
 	encryption_key: '0228202310301035',
-	// api_url: 'https://api-qa.golfed-europe.eu/',
+	// api_url: 'https://marketplaceapi.archesoftronix.in/',
 	api_url: 'http://localhost:5052/',
 	client_app_url: 'http://localhost:4200/',
 	stripeKey: '',

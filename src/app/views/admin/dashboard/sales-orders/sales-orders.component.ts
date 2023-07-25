@@ -45,9 +45,9 @@ export class SalesOrdersComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.getDashbordStats();
-    this.getDashborddetStats();
-    this.getDashborddetStatsline();
+    // this.getDashbordStats();
+    // this.getDashborddetStats();
+    // this.getDashborddetStatsline();
   }
 
 
