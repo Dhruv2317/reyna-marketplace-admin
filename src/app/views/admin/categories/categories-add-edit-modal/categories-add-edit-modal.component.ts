@@ -32,42 +32,23 @@ export class CategoriesAddEditModalComponent implements OnInit {
     this.getAllAttributesData();
 
     this.treatmentConditionForm = this.formBuilder.group({
-      'id': new UntypedFormControl(null, []),
+      'id': new UntypedFormControl(0, []),
       'name': new UntypedFormControl(null, [Validators.required]),
+      'name_ar': new UntypedFormControl(null,[]),
       'is_active': new UntypedFormControl(false, []),
       'description': new UntypedFormControl(null, []),
+      'description_ar': new UntypedFormControl(null,[]),
       'image_url': new UntypedFormControl(null, []),
-      // 'min_shipping_weight': new UntypedFormControl(null, []),
-      // 'max_shipping_weight': new UntypedFormControl(null, []),
-      // 'attributes':new UntypedFormArray([]),
-      // 'name_fr': new UntypedFormControl(null,[]),
-      // 'name_nl': new UntypedFormControl(null,[]),
-      // 'name_es': new UntypedFormControl(null,[]),
-      // 'name_pt': new UntypedFormControl(null,[]),
-      // 'description_fr': new UntypedFormControl(null,[]),
-      // 'description_nl': new UntypedFormControl(null,[]),
-      // 'description_es': new UntypedFormControl(null,[]),
-      // 'description_pt': new UntypedFormControl(null,[]),
     });
   }
 
   get id() { return this.treatmentConditionForm.get('id'); }
   get name() { return this.treatmentConditionForm.get('name'); }
+  get name_ar() { return this.treatmentConditionForm.get('name_ar'); }
   get is_active() { return this.treatmentConditionForm.get('is_active'); }
   get description() { return this.treatmentConditionForm.get('description'); }
+  get description_ar() { return this.treatmentConditionForm.get('description_ar'); }
   get image_url() { return this.treatmentConditionForm.get('image_url'); }
-  // get min_shipping_weight() { return this.treatmentConditionForm.get('min_shipping_weight'); }
-  // get max_shipping_weight() { return this.treatmentConditionForm.get('max_shipping_weight'); }
-
-  // get name_fr() { return this.treatmentConditionForm.get('name_fr'); }
-  // get name_nl() { return this.treatmentConditionForm.get('name_nl'); }
-  // get name_es() { return this.treatmentConditionForm.get('name_es'); }
-  // get name_pt() { return this.treatmentConditionForm.get('name_pt'); }
-
-  // get description_fr() { return this.treatmentConditionForm.get('description_fr'); }
-  // get description_nl() { return this.treatmentConditionForm.get('description_nl'); }
-  // get description_es() { return this.treatmentConditionForm.get('description_es'); }
-  // get description_pt() { return this.treatmentConditionForm.get('description_pt'); }
 
   ngOnInit(): void {
     let details = this._tcAddEditModalService.getData();
@@ -92,18 +73,10 @@ export class CategoriesAddEditModalComponent implements OnInit {
       id: this.categoryDetails.id,
       category_id: this.categoryDetails.id,
       name: this.categoryDetails.name,
+      name_ar:this.categoryDetails.nameAR,
       is_active: this.categoryDetails.isActive,
       description: this.categoryDetails.description,
-      // min_shipping_weight:this.categoryDetails.min_shipping_weight,
-      // max_shipping_weight:this.categoryDetails.max_shipping_weight,
-      // name_fr:this.categoryDetails.name_fr,
-      // name_nl:this.categoryDetails.name_nl,
-      // name_es:this.categoryDetails.name_es,
-      // name_pt:this.categoryDetails.name_pt,
-      // description_fr:this.categoryDetails.description_fr,
-      // description_nl:this.categoryDetails.description_nl,
-      // description_es:this.categoryDetails.description_es,
-      // description_pt:this.categoryDetails.description_pt
+      description_ar:this.categoryDetails.descriptionAR,
     });
     this.imageUrl = this.categoryDetails.image ? environment.api_url + this.categoryDetails.image : `../../../../../assets/img/no_preview.png`;
     // const attributesControl = this.treatmentConditionForm.get('attributes') as UntypedFormArray;
@@ -197,19 +170,23 @@ export class CategoriesAddEditModalComponent implements OnInit {
       const formData: FormData = new FormData();
       var formResult = this.treatmentConditionForm.value;
       let obj: any = {};
+
+      obj.id = formResult.id;
       obj.name = formResult.name;
+      obj.NameAR = formResult.name_ar;
       obj.description = formResult.description;
-      obj.image = this.imageUrl;
+      obj.descriptionAR = formResult.description_ar;
       obj.isActive = formResult.is_active;
-      obj.imageFile = JSON.stringify(this.selectedImageFile);
-      console.log("Object : ", obj);
+      
+      formData.append("Category",JSON.stringify(obj));
+      formData.append("image",this.selectedImageFile);
 
       if (this.modalEvent == 'ADD') {
         obj.id = 0;
-        let create = await this._tcAddEditModalService.addNewCategories(obj);
+        let create = await this._tcAddEditModalService.addNewCategories(formData);
       } else if (this.modalEvent == 'EDIT') {
         obj.id = this.treatmentConditionForm.value.id;
-        let update = await this._tcAddEditModalService.editCategories(this.treatmentConditionForm.value.id, obj);
+        let update = await this._tcAddEditModalService.editCategories( formData);
       }
 
       this.onEventCompleted.emit(true);
