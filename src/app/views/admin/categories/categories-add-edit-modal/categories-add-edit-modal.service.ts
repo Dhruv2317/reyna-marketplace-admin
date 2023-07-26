@@ -26,7 +26,7 @@ export class CategoriesAddEditModalService {
     return await this._http.post(environment.api_url+'api/Category/AddCategory', bodyData).toPromise();
   }
 
-  async editCategories(id: number, bodyData: any):Promise<any>{
+  async editCategories( bodyData: any):Promise<any>{
     console.log("Bodydata : ",bodyData);
 
     return await this._http.post(environment.api_url+'api/Category/AddCategory', bodyData).toPromise();

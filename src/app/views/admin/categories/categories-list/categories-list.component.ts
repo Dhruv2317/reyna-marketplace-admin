@@ -128,7 +128,7 @@ export class CategoriesListComponent implements OnInit, AfterViewInit, OnDestroy
           render: (data: any) => {
             if (data) {
               let url = data;
-              return `<img src=${url} height="80" width="80" />`;
+              return `<img src=${environment.api_url + url} height="80" width="80" />`;
             } else {
               return `-`;
             }
