@@ -1,7 +1,10 @@
 
 <ng-container *ngIf="AttributeDetails; else noAttributeDetails">
-  <div class="p-2">
-        <button class="btn btn-primary float-right" type="button" (click)="openEditModal()">Edit <i class="ml-2 fa fa-pencil" aria-hidden="true"></i></button>
+  <div class="bg_card">
+    <div class="d-flex flex-nowrap align-items-center justify-content-between mb-3">
+        <h4 class="font-weight-bold mb-0 float-left font_size_20">Attribute Details</h4>
+        <button class="btn bg_secondary float-right" type="button" (click)="openEditModal()">Edit</button>
+    </div>
         <table class="table">
           <tbody>
             <tr><td class="font-weight-normal">Name (English)</td><td class="font-weight-normal">{{AttributeDetails.name || '-'}}</tr>

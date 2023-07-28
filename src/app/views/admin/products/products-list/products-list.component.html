@@ -1,49 +1,57 @@
-  <div *ngIf="showHeader" class="w-100 p-3 bg-dark-blue d-flex justify-content-between align-items-center">
-      <h4 class="text-white font-weight-bold mb-0 text-center"><i class="fas fa-golf-ball mr-2"></i>Products</h4>
+  <div *ngIf="showHeader" class="w-100 p-3 justify-content-between align-items-center title-box">
+      <h4 class="font-weight-bold mb-0"><!--<i class="fas fa-golf-ball mr-2"></i>-->Products</h4>
+      <p class="mb-0">Manage your Products list by add, edit & delete</p>
   </div>
 
-  <div class="card-body  bg-transparent">
+  <div class="bg_card">
     <div class="row">
-        <div class="col-md-2">
-            <mat-label>Category</mat-label>
-            <mat-select placeholder="Select Category" (selectionChange)="handleChange('CATEGORY', $event.value)" [(ngModel)]="product_config.filter.CATEGORY" multiple>
+        <div class="col-md-6">
+          <div class="dopd_list_box">
+            <!-- <mat-label>Category</mat-label> -->
+            <mat-select placeholder="Category" (selectionChange)="handleChange('CATEGORY', $event.value)" [(ngModel)]="product_config.filter.CATEGORY" multiple class="color_secondary drop_input_bg">
               <mat-checkbox class="mat-option ckb1" (click)="$event.stopPropagation()" color="primary" (change)="handleCheckAll($event, 'CATEGORY')"
               [indeterminate]="product_config.filter.CATEGORY.length && notSelectedCategory"
               [checked]="!notSelectedCategory">All</mat-checkbox>
               <mat-option color="primary" *ngFor="let category of productCategoryList" [value]="category.id">{{category.name}}</mat-option>
             </mat-select>
+
+            <!-- <mat-label>Subscription Plan</mat-label> -->
+            <mat-select placeholder="Subscription Plan" (selectionChange)="handleChange('SUBSCRIPTION_PLAN', $event.value)" [(ngModel)]="product_config.filter.SUBSCRIPTION_PLAN" multiple class="color_secondary drop_input_bg">
+              <mat-checkbox class="mat-option ckb1" (click)="$event.stopPropagation()" color="primary" (change)="handleCheckAll($event, 'SUBSCRIPTION_PLAN')"
+              [indeterminate]="product_config.filter.SUBSCRIPTION_PLAN.length && notSelectedSubscriptionPlan"
+              [checked]="!notSelectedSubscriptionPlan">All</mat-checkbox>
+              <mat-option color="primary" *ngFor="let plan of productSubscriptionPlanList" [value]="plan.id">{{plan.name}}</mat-option>
+            </mat-select>
+
+            <!-- <mat-label>Status</mat-label> -->
+            <mat-select placeholder="Status" (selectionChange)="handleChange('STATUS', $event.value)" [(ngModel)]="product_config.filter.STATUS" multiple class="color_secondary drop_input_bg">
+              <mat-checkbox class="mat-option ckb1" (click)="$event.stopPropagation()" color="primary" (change)="handleCheckAll($event, 'STATUS')"
+              [indeterminate]="product_config.filter.STATUS.length && notSelectedStutus"
+              [checked]="!notSelectedStutus">All</mat-checkbox>
+              <mat-option color="primary" *ngFor="let status of productStatusList" [value]="status.value">{{status.name}}</mat-option>
+            </mat-select>
+          </div>
         </div>
-        <div class="col-md-2">
-          <mat-label>Subscription Plan</mat-label>
-          <mat-select placeholder="Select Subscription Plan" (selectionChange)="handleChange('SUBSCRIPTION_PLAN', $event.value)" [(ngModel)]="product_config.filter.SUBSCRIPTION_PLAN" multiple>
-            <mat-checkbox class="mat-option ckb1" (click)="$event.stopPropagation()" color="primary" (change)="handleCheckAll($event, 'SUBSCRIPTION_PLAN')"
-            [indeterminate]="product_config.filter.SUBSCRIPTION_PLAN.length && notSelectedSubscriptionPlan"
-            [checked]="!notSelectedSubscriptionPlan">All</mat-checkbox>
-            <mat-option color="primary" *ngFor="let plan of productSubscriptionPlanList" [value]="plan.id">{{plan.name}}</mat-option>
-          </mat-select>
-      </div>
-        <div class="col-md-2">
-          <mat-label>Status</mat-label>
-          <mat-select placeholder="Select Status" (selectionChange)="handleChange('STATUS', $event.value)" [(ngModel)]="product_config.filter.STATUS" multiple>
-            <mat-checkbox class="mat-option ckb1" (click)="$event.stopPropagation()" color="primary" (change)="handleCheckAll($event, 'STATUS')"
-            [indeterminate]="product_config.filter.STATUS.length && notSelectedStutus"
-            [checked]="!notSelectedStutus">All</mat-checkbox>
-            <mat-option color="primary" *ngFor="let status of productStatusList" [value]="status.value">{{status.name}}</mat-option>
-          </mat-select>
-      </div>
       
-        <div class="col-md-2">
-          <button type="button" (click)="openMoreFiltersModal()" class="btn btn-primary">More Filters</button>
-          <button type="button" (click)="clearFilter()" class="btn btn-danger">Clear</button>
+        <div class="col-md-6">
+          <div class="right_btn_box">
+            <button type="button" (click)="openMoreFiltersModal()" class="btn btm_size btn_filter_bg"> <img src="assets/img/filter-icon.png" class="item_img_icon"> Filters</button>
+            <button type="button" (click)="clearFilter()" class="btn btn-danger btm_size">Clear</button>
+          </div>
         </div>
     </div>
-    <div class="row mt-2">
-        <button type="button" class="btn btn-success mr-2" (click)="bulkUpdate('published')"><i class="fas fa-check-circle mr-2"></i>Publish</button>
-        <button type="button" class="btn btn-danger mr-2" (click)="bulkUpdate('rejected')"><i class="fas fa-times mr-2"></i>Reject</button>
-        <button type="button" class="btn btn-dark" (click)="bulkUpdate('deleted')"><i class="fas fa-trash-alt mr-2"></i>Delete</button>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="action_btns">
+          <button type="button" class="btn btn-success btm_size" (click)="bulkUpdate('published')"><i class="fas fa-check-circle mr-2"></i>Publish</button>
+          <button type="button" class="btn btn-danger btm_size" (click)="bulkUpdate('rejected')"><i class="fas fa-times mr-2"></i>Reject</button>
+          <button type="button" class="btn btn-dark btm_size" (click)="bulkUpdate('deleted')"><i class="fas fa-trash-alt mr-2"></i>Delete</button>
+        </div>
+      </div>
     </div>
-  <div class="p-2" *blockUI="'datatable'">
-    <div class="table-responsive">
+  <div class="pt-3" *blockUI="'datatable'">
+    <div class="table-responsive table_search_box text-nowrap product_imgs table_button table-text-data">
             <table  hover="true" id="productsList" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"></table>
     </div>
   </div>

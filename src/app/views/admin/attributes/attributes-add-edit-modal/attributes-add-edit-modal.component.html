@@ -11,7 +11,7 @@
         <form (ngSubmit)="saveAttribute(attributesForm.valid)" [formGroup]="attributesForm" autocomplete="off">
             
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-12">
                     <div class="form-group">
                         <label>Element Type</label><br />
                         <select class="form-control" formControlName="element_type" id="element_type">
@@ -23,8 +23,8 @@
                             <div *ngIf="element_type?.errors?.required">Element Type is required.</div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6">
+                <!-- </div>
+                <div class="col-md-6"> -->
                     <div class="form-group">
                         <label>Attribute Name (English)</label><br />
                         <input type="hidden" id="id" formControlName="id" />
@@ -34,8 +34,8 @@
                             <div *ngIf="name?.errors?.required">Name is required.</div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-3">
+                <!-- </div>
+                <div class="col-md-3"> -->
                     <div class="form-group">
                         <mat-checkbox id="is_active" formControlName="is_active" color="primary">Active</mat-checkbox>
                     </div>
@@ -86,7 +86,7 @@
             </div> -->
 
             <div class="form-group">
-                <button class="btn btn-success btn-block btn-sm mt-2" type="submit">Save</button>
+                <button class="btn btn-info btn-block btn-sm mt-2" type="submit">Save</button>
             </div>
         </form>
     </div>
