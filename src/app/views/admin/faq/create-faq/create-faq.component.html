@@ -1,14 +1,16 @@
-<div class="w-100 p-3 bg-dark-blue">
-    <h4 class="text-white font-weight-bold mb-0">Add FAQ</h4>
+<div class="w-100 p-3 justify-content-between align-items-center title-box">
+    <h4 class="font-weight-bold mb-0">Add FAQ</h4>
+    <p class="mb-0">Add FAQ from below details</p>
 </div>
 
-<div class="p-3">
+<div class="bg_card">
+  
     <form (ngSubmit)="saveFAQ()" [formGroup]="FAQForm">
         <div class="form-group">
             <div class="form-row">
                 <div class="col-md-6">
                     <label>Select FAQ Group</label><br>
-                    <mat-select placeholder="Select FAQ Group" class="form-control" formControlName="group_id">
+                    <mat-select placeholder="Select FAQ Group" class="form-control-select" formControlName="group_id">
                         <mat-option *ngFor="let group of FAQgroup;" [value]="group.id">
                             {{group.name}}
                         </mat-option>
@@ -20,7 +22,7 @@
             </div>
         </div>
 
-    <div class="alert alert-primary mb-3">
+    <div class="alert-primary mb-5 mt-5">
         <h5>English</h5>
         <div class="form-group">
             <div class="form-row">
@@ -38,7 +40,7 @@
         <div class="form-group">
             <div class="form-row">
                 <div class="col-md-12">
-                    <label class="float-left">Answer</label><br><br>
+                    <label class="text-left">Answer</label><br>
                     <div class="NgxEditor__Wrapper">
                         <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
                         <ngx-editor
@@ -58,7 +60,7 @@
         </div>
     </div>
         
-    <div class="alert alert-primary mb-3">
+    <div class="alert-primary mb-5">
         <h5>French</h5>
         <div class="form-group">
             <div class="form-row">
@@ -76,7 +78,7 @@
         <div class="form-group">
             <div class="form-row">
                 <div class="col-md-12">
-                    <label class="float-left">Answer</label><br><br>
+                    <label class="text-left">Answer</label><br>
                     <div class="NgxEditor__Wrapper">
                         <ngx-editor-menu [editor]="editor_fr"> </ngx-editor-menu>
                         <ngx-editor
@@ -96,7 +98,7 @@
         </div>
     </div>
 
-    <div class="alert alert-primary mb-3">
+    <div class="alert-primary mb-5">
         <h5>Dutch</h5>
         <div class="form-group">
             <div class="form-row">
@@ -114,7 +116,7 @@
         <div class="form-group">
             <div class="form-row">
                 <div class="col-md-12">
-                    <label class="float-left">Answer</label><br><br>
+                    <label class="text-left">Answer</label><br>
                     <div class="NgxEditor__Wrapper">
                         <ngx-editor-menu [editor]="editor_nl"> </ngx-editor-menu>
                         <ngx-editor
@@ -134,7 +136,7 @@
         </div>
     </div>
 
-    <div class="alert alert-primary mb-3">
+    <div class="alert-primary mb-5">
         <h5>Spanish</h5>
         <div class="form-group">
             <div class="form-row">
@@ -152,7 +154,7 @@
         <div class="form-group">
             <div class="form-row">
                 <div class="col-md-12">
-                    <label class="float-left">Answer</label><br><br>
+                    <label class="text-left">Answer</label><br>
                     <div class="NgxEditor__Wrapper">
                         <ngx-editor-menu [editor]="editor_es"> </ngx-editor-menu>
                         <ngx-editor
@@ -172,7 +174,7 @@
         </div>
     </div>
 
-    <div class="alert alert-primary mb-3">
+    <div class="alert-primary mb-5">
         <h5>Portuguese</h5>
         <div class="form-group">
             <div class="form-row">
@@ -190,7 +192,7 @@
         <div class="form-group">
             <div class="form-row">
                 <div class="col-md-12">
-                    <label class="float-left">Answer</label><br><br>
+                    <label class="text-left">Answer</label><br>
                     <div class="NgxEditor__Wrapper">
                         <ngx-editor-menu [editor]="editor_pt"> </ngx-editor-menu>
                         <ngx-editor
@@ -223,7 +225,7 @@
                 <div class="col">
                     <div class="text-center">
                         <button type="submit" class="btn btn-info mr-2">Submit</button>
-                        <a routerLink="/admin/faq/list" routerLinkActive="active" class="btn btn-primary">Back</a>
+                        <!-- <a routerLink="/admin/faq/list" routerLinkActive="active" class="btn btn-primary">Back</a> -->
                     </div>
                 </div>
             </div>

@@ -7,7 +7,7 @@
             </button>
         </div>
     </div>
-    <div class="modal-body">
+    <div class="modal-body lable_size">
         <form (ngSubmit)="saveTreatmentCondition(treatmentConditionForm.valid)"
             [formGroup]="treatmentConditionForm" autocomplete="off">
             
@@ -67,13 +67,14 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label class="float-left">Image Url</label><br>
-                        <div class="float-left w-100">
-                            <img class="rounded shadow" id="blah" [(src)]="imageUrl" alt="your image"
-                                style="max-height: 250px; max-width: 250px; margin-bottom: 10px;" />
-                                <p>Drag & Drop or Choose file to upload</p>
-                        </div>
-                        <input type="file" id="image" accept="image/*" (change)="onFileChange($event, 'IMAGE')" class="form-control"
+                        <div class="file-upload w-100">
+                            <!-- <img src="assets/img/File_upload_icon.png" style="position: absolute; top: 10pc; margin-left: 6.4pc; height: 25px; width: auto; z-index: 1;"> -->
+                            <img class="rounded" id="blah" [(src)]="imageUrl" alt="your image" style="width: auto; height: 200px; margin-bottom: 5px; z-index: 2; position: relative;" />
+                                <p style="font-weight: 500;">Drag & Drop or <font color="#EF4D24">Choose file</font> to upload</p>
+                                <input type="file" id="image" accept="image/*" (change)="onFileChange($event, 'IMAGE')" class="form-control"
                             placeholder="Upload Image" formControlimage="image_url" />
+                        </div>
+                        
                         <div class="invalid-feedback" *ngIf="image_url?.invalid && (image_url?.dirty || image_url?.touched)"
                             class="text-danger">
                             <div *ngIf="image_url?.errors?.required">Image is required.</div>
@@ -176,7 +177,7 @@
             </div> -->
       
             <div class="form-group">
-                <button class="btn btn-info btn-block btn-sm mt-2" type="submit">Save</button>
+                <button class="btn btn-info btn-block btn-sm mt-2 p-2" type="submit">Save</button>
             </div>
         </form>
     </div>
