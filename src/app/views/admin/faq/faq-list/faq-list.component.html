@@ -1,15 +1,36 @@
-<div class="w-100 p-3 bg-dark-blue d-flex justify-content-between align-items-center">
-      <h4 class="text-white font-weight-bold mb-0">
-        <i class="fas fa-question-circle mr-2"></i>FAQ
-      </h4>
-      <div>
-        <a routerLink="/admin/faq/create" routerLinkActive="active" class="btn btn-primary mr-2"><i class="fa fa-plus"></i> Add FAQ</a>
-        <a routerLink="/admin/faq/change-sequence" routerLinkActive="active" class="btn btn-warning">Change Sequence</a>
-      </div>
+<div class="w-100 p-3 justify-content-between align-items-center title-box">
+      <h4 class="font-weight-bold mb-0"><!-- <i class="fas fa-question-circle mr-2"></i> --> FAQ</h4>
+      <p class="mb-0">Manage your FAQ list by add, edit & delete</p>
 </div>
 
-<div class="p-3"  *blockUI="'datatable'">
-    <div class="table-responsive">
-      <table  hover="true" id="faqList" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"></table>
+<div class="bg_card">
+  <div class="row">
+
+    <div class="col-md-6">
+      <div class="action_btns">
+        <button type="button" class="btn btn_lite btm_size"><i class="fas fa-eye mr-2"></i>View</button>
+        <button type="button" class="btn btn_lite btm_size"><i class="far fa-edit mr-2"></i>Edit</button>
+        <button type="button" class="btn Add_btn btm_size"><i class="fas fa-trash-alt mr-2"></i>Delete</button>
     </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="right_btn_box">
+        <a routerLink="/admin/faq/create" routerLinkActive="active" class="btn Add_btn btm_size"><i class="fa fa-plus"></i> Add FAQ</a>
+        <a routerLink="/admin/faq/change-sequence" routerLinkActive="active" class="btn btm_size bg_secondary mr-0">Change Sequence</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="col-md-12" *blockUI="'datatable'">
+        <div class="table-responsive table_search_box table_button table-text-data mt-3">
+          <table  hover="true" id="faqList" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"></table>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
