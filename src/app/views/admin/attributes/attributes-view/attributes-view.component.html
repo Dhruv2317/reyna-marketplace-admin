@@ -1,7 +1,8 @@
-<div class="w-100 p-3 justify-content-between align-items-center title-box">
+<div class="w-100 justify-content-between align-items-center title-box">
       <!-- <h4 class="text-white font-weight-bold mb-0">Attribute Details</h4> -->
 </div>
-<ul class="nav nav-tabs">
+<div class="container-fluid">
+<ul class="nav nav-tabs nav_tab_btn">
     <li class="nav-item">
         <a class="nav-link font-weight-bold" routerLinkActive="active" routerLink="/admin/attributes/view/{{attributeId}}/info">view</a>
     </li>
@@ -9,6 +10,7 @@
         <a class="nav-link font-weight-bold" routerLinkActive="active" routerLink="/admin/attributes/view/{{attributeId}}/values">Values</a>
     </li>
 </ul>
+</div>
 <div class="tab-content">
     <router-outlet></router-outlet>
 </div>

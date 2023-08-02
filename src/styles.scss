@@ -23,7 +23,9 @@ body {
 
 .btm_size { padding: 12px 20px; border-radius: 8px; margin-top: 15px; margin-right: 20px; }
 .btn_filter_bg { background-color: #424857; color: #fff; }
+.btn-primary { background-color: #21201F; border-color: #b6b6b6; }
 .btn-primary:hover { color: #fff; background-color: #21201F; border-color: #000; }
+.btn-primary:disabled { color: #fff; background-color: #474747; border-color: #b6b6b6; }
 
 .color_secondary { color: #424857; }
 .bg_secondary { background-color: #424857; color: #fff !important; }
@@ -86,9 +88,27 @@ body {
     #navbar-main { padding-left: 0 !important; }
 }
 
-.nav-tabs { display: none; }
+.nav-tabs { border-bottom: 0; padding: 20px 20px; }
+.nav_tab_btn a { border: 1px solid #a9a9a9 !important; color: #222222; background-color: #0000 !important; transition: .7s; margin-right: 15px !important; }
+.nav_tab_btn a:hover { border: 1px solid #000 !important; background-color: #fff !important; }
+.nav_tab_btn a.active, .nav_tab_btn a.active:active { color: #fff !important; background-color: #10100f !important; border-color: #000 !important; } 
 
 .sub-menu-list { background-color: #10100f !important; padding-left: 20px; }
+
+.add_sub_cat, .add_value { padding: 8px 10px; position: absolute; right: 35px; margin-top: -61px; }
+@media (max-width:470px) {
+    .nav-tabs { justify-content: center; }
+    .add_sub_cat, .add_value { padding: 8px 10px; position: relative; right: unset; margin-top: 0; margin-bottom: 20px; }
+}
+
+@media (max-width:947px) {
+    .all_tabs { justify-content: center; }
+    .all_tabs.nav_tab_btn a { margin-bottom: 15px !important;}
+}
+@media (min-width:992px) and (max-width:1207px) {
+    .all_tabs { justify-content: center; }
+    .all_tabs.nav_tab_btn a { margin-bottom: 15px !important; }
+}
 
 .modal-md {
     max-width: 768px;

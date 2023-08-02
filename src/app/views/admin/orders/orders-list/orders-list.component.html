@@ -1,15 +1,15 @@
-<div class="card mb-3">
-          <div class="card-header bg-dark-blue">
+<div class="bg_card mb-3">
+          <div class="text-dark">
             <div class="row">
               <div class="col-md-4 col-12">
                 <div class="form-group">
-                    <label class="text-white">Search Order</label>
+                    <label class="text-dark">Search Order</label>
                     <input type="text" class="form-control form-control-sm"  (keyup)="handleChange('SEARCH',$event)" [(ngModel)]="orders_search" placeholder="OrderNumber, Customer, Product , City , State" />
                 </div>
               </div>
               <div class="col-md-2 col-12">
                 <div class="form-group">
-                <label class="text-white">Order Status</label>
+                <label class="text-dark">Order Status</label>
                 <select class="form-control form-control-sm"  (change)="handleChange('STATUS',$event)" [(ngModel)]="orders_status">
                       <option *ngFor="let option of orders_status_options" [value]="option">{{option}}</option>
                 </select>
@@ -18,7 +18,7 @@
 
               <div class="col-md-3 col-12">
                 <div class="form-group">
-                <label class="text-white">Sorting</label>
+                <label class="text-dark">Sorting</label>
                 <select class="form-control form-control-sm" (change)="handleChange('SORT',$event)">
                       <option *ngFor="let option of orders_sort_options" [value]="option.id">{{option.title}}</option>
                 </select>
@@ -27,7 +27,7 @@
 
               <div class="col-md-2 col-12">
                 <div class="form-group">
-                  <label class="text-white">Limit</label>
+                  <label class="text-dark">Limit</label>
                   <select class="form-control form-control-sm" (change)="handleChange('LIMIT',$event)" [(ngModel)]="orders_limit">
                       <option *ngFor="let option of orders_limit_options" [value]="option">{{option}}</option>
                   </select>
@@ -36,7 +36,7 @@
 
               <div class="col-md-1 col-12">
                 <div class="form-group">
-                  <label class="text-white">Records</label>
+                  <label class="text-dark">Records</label>
                   <p class="mb-0"><span class="badge badge-success p-2">{{orders_collection.count}}</span></p>
                 </div>
               </div>
@@ -45,7 +45,7 @@
           </div>
       </div>
 
-      <div class="row"  *blockUI="'datatable'">
+      <div class="bg_card"  *blockUI="'datatable'">
         <div class="col-12">
               <div *ngIf="orders_collection.count > 0 ">
                         <div class="card mb-3"  *ngFor = "let order of orders_collection.data | paginate: orders_config">
