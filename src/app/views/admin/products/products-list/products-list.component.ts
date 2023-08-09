@@ -284,21 +284,25 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy {
   updateStatus(status: string, ids: any, reason: string) {
     const url = environment.api_url+'api/Product/UpdateProductStatus';
     this._http.post(url, { status: status, reason: reason, ids: ids }).subscribe((res: any) => {
-      if (res.data.update_success.length > 0) {
-        this._toastr.showSuccess(res.data.update_success);
-      }
 
-      if (res.data.rejected.length > 0) {
-        this._toastr.showSuccess(res.data.rejected);
-      }
-      if (res.data.deleted.length > 0) {
-        this._toastr.showSuccess(res.data.deleted);
-      }
-      if (res.data.updated.length > 0) {
+      console.log("Res : ",res);
+      
+
+      if (res.data.updated > 0) {
         this._toastr.showSuccess(res.data.updated);
       }
-      if (res.data.update_error.length > 0) {
-        this._toastr.showWarning(res.data.update_error);
+
+      if (res.data.rejected > 0) {
+        this._toastr.showSuccess(res.data.rejected);
+      }
+      if (res.data.deleted > 0) {
+        this._toastr.showSuccess(res.data.deleted);
+      }
+      if (res.data.updated > 0) {
+        this._toastr.showSuccess(res.data.updated);
+      }
+      if (res.data.updateError > 0) {
+        this._toastr.showWarning(res.data.updateError);
       }
       this.rerender();
     }, (err: any) => {
