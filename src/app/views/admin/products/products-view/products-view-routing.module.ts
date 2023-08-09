@@ -5,13 +5,14 @@ import { ProductsViewComponent } from './products-view.component';
 
 const routes: Routes = [
   {
-    path: '', component: ProductsViewComponent , canActivate : [AuthGuard],
+    path: '', component: ProductsViewComponent,
+    canActivate: [AuthGuard],
     children: [
       { path: '', redirectTo: 'info', pathMatch: 'full' },
-      { path: 'info', loadChildren:()=>import('./product-info/product-info.module').then(productInfo=>productInfo.ProductInfoModule) },
-      { path: 'orders', loadChildren:()=>import('../../orders/orders-list/orders-list.module').then(VD=>VD.OrdersListModule) },
-      { path: 'reviews', loadChildren:()=>import('./product-reviews/product-reviews.module').then(productReviews=>productReviews.ProductReviewsModule) },
-      { path: 'enquiry', loadChildren:()=>import('./product-enquiry/product-enquiry.module').then(productEnquiry=>productEnquiry.ProductEnquiryModule) }
+      { path: 'info', loadChildren: () => import('./product-info/product-info.module').then(productInfo => productInfo.ProductInfoModule) },
+      { path: 'orders', loadChildren: () => import('../../orders/orders-list/orders-list.module').then(VD => VD.OrdersListModule) },
+      { path: 'reviews', loadChildren: () => import('./product-reviews/product-reviews.module').then(productReviews => productReviews.ProductReviewsModule) },
+      { path: 'enquiry', loadChildren: () => import('./product-enquiry/product-enquiry.module').then(productEnquiry => productEnquiry.ProductEnquiryModule) }
     ]
   },
 ];
