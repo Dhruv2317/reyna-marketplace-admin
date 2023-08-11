@@ -97,7 +97,7 @@ export class SubcategoriesAddEditModalComponent implements OnInit {
       subCategoryModel.categoryId = subCategoryFormValues.category_id;
       subCategoryModel.description = subCategoryFormValues.description;
       subCategoryModel.image = '';
-      subCategoryModel.attributes = {};
+      subCategoryModel.attributes = subCategoryFormValues.attributes;
 
       // formData.append('SubCategory', JSON.stringify(subCategoryModel));
       // for (const pair of subCategoryModel.entries()) {

@@ -5,7 +5,8 @@ import { ProductsComponent } from './products.component';
 
 const routes: Routes = [
   {
-    path: '', component: ProductsComponent, canActivate: [AuthGuard],
+    path: '', component: ProductsComponent,
+     canActivate: [AuthGuard],
     children: [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
       { path: 'list', loadChildren:()=>import('./products-list/products-list.module').then(product => product.ProductsListModule) },

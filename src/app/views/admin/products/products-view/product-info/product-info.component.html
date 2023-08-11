@@ -1,12 +1,13 @@
 <div  *blockUI="'product'">
   <ng-container  *ngIf="product; else noProduct">
 
-    <div class="alert alert-warning" *ngIf="product.seller_dealer.is_verified!=1 || product.seller_dealer.account_verified_by_admin!=1">
-      <span *ngIf="product.seller_dealer.is_verified!=1">User email address is not verified yet .</span> 
+    <div class="alert alert-warning">
+    <!-- *ngIf="product.seller_dealer.is_verified!=1 || product.seller_dealer.account_verified_by_admin!=1"> -->
+      <!-- <span *ngIf="product.seller_dealer.is_verified!=1">User email address is not verified yet .</span> 
       <span *ngIf="product.seller_dealer.account_verified_by_admin!=1">Please Verify User account to publish this product! </span>
       <a class="ml-2 btn btn-warning btn-sm" *ngIf="product.seller_dealer.role=='dealer'" [routerLink]="'/admin/dealers/view/'+product.seller_dealer.dealer_id+'/info'">View</a>
       <a class="ml-2 btn btn-warning btn-sm" *ngIf="product.seller_dealer.role=='seller'" [routerLink]="'/admin/sellers/view/'+product.seller_dealer.id+'/info'">View</a>   
-      <a class="ml-2 btn btn-warning btn-sm" *ngIf="product.seller_dealer.role=='user'" [routerLink]="'/admin/customers/view/'+product.seller_dealer.id+'/info'">View</a>   
+      <a class="ml-2 btn btn-warning btn-sm" *ngIf="product.seller_dealer.role=='user'" [routerLink]="'/admin/customers/view/'+product.seller_dealer.id+'/info'">View</a>    -->
     </div>
     <div class="row">
       <button *ngIf="(product.status == 'under_review' || product.status == 'draft') && product.seller_dealer.is_verified==1 && product.seller_dealer.account_verified_by_admin==1" type="button" (click)="updateStatus('published','')" class="btn btn-success mr-2"><i class="fas fa-check-circle mr-2"></i>Publish</button>
@@ -23,15 +24,11 @@
             <table class="table table-hover">
                   <tr>
                     <td class="font-weight-bold">Name</td>
-                    <td class="font-weight-normal">{{product.name}}</td>
+                    <td class="font-weight-normal">{{product.title}}</td>
                   </tr>
                   <tr>
                     <td class="font-weight-bold">Slug</td>
-                    <td class="font-weight-normal">{{product.slug}}</td>
-                  </tr>
-                  <tr>
-                    <td class="font-weight-bold">Model</td>
-                    <td class="font-weight-normal">{{product.model}}</td>
+                    <td class="font-weight-normal">{{product.title}}</td>
                   </tr>
                   <tr>
                     <td class="font-weight-bold">Status</td>
@@ -43,38 +40,26 @@
                   </tr>
                   <tr *ngIf="product && product.category">
                     <td class="font-weight-bold">Category</td>
-                    <td class="font-weight-normal">{{product.category.name }}</td>
-                  </tr>
-                  <tr *ngIf="product && product.brand">
-                    <td class="font-weight-bold">Brand</td>
-                    <td class="font-weight-normal">{{product.brand.name }}</td>
-                  </tr>
-                  <tr *ngIf="product && product.manufacturer">
-                    <td class="font-weight-bold">Manufacturer</td>
-                    <td class="font-weight-normal">{{product.manufacturer.name  }}</td>
+                    <td class="font-weight-normal">{{product.categoryName }}</td>
                   </tr>
                   <tr>
                     <td  class="font-weight-bold">Active</td>
                     <td  class="font-weight-normal">
-                      <i class="fa fa-check text-success" *ngIf="product.is_active"></i>
-                      <i class="fa fa-times text-danger" *ngIf="!product.is_active"></i>
+                      <i class="fa fa-check text-success" *ngIf="product.isActive"></i>
+                      <i class="fa fa-times text-danger" *ngIf="!product.isActive"></i>
                     </td>
                   </tr>
                   <tr>
                     <td class="font-weight-bold">Is Featured</td>
                     <td class="font-weight-normal">
-                      <i class="fa fa-check text-success" *ngIf="product.is_featured"></i>
-                      <i class="fa fa-times text-danger" *ngIf="!product.is_featured"></i>
+                      <i class="fa fa-check text-success" *ngIf="product.isFeatured"></i>
+                      <i class="fa fa-times text-danger" *ngIf="!product.isFeatured"></i>
                     </td>
                   </tr>
                   <tr>
                     <td class="font-weight-bold">Description</td>
                     <td class="font-weight-normal">{{ product.description }}</td>
-                  </tr>
-                  <tr>
-                    <td class="font-weight-bold">Weight (grams)</td>
-                    <td class="font-weight-normal">{{ product.weight }}</td>
-                  </tr>
+                  </tr>                 
             </table>
           </div>
       </div>
@@ -83,19 +68,19 @@
               <table class="table table-hover">
                   <tr>
                     <td class="font-weight-bold">Rating count</td>
-                    <td class="font-weight-bold">{{product.rating_count}}</td>
+                    <td class="font-weight-bold">0</td>
                   </tr>
                   <tr>
                     <td class="font-weight-bold">Average rating</td>
-                    <td class="font-weight-bold">{{product.average_rating}}</td>
+                    <td class="font-weight-bold">0</td>
                   </tr>
                   <tr>
                     <td class="font-weight-bold">Sold count</td>
-                    <td class="font-weight-bold">{{product.sold_count}}</td>
+                    <td class="font-weight-bold">0</td>
                   </tr>
                   <tr>
                     <td class="font-weight-bold">Total sales</td>
-                    <td class="font-weight-bold">{{product.total_sales}}</td>
+                    <td class="font-weight-bold">0</td>
                   </tr>
               </table>
           </div>
@@ -109,11 +94,11 @@
             <table class="table table-hover">
                   <tr>
                     <td class="font-weight-bold">Regular Price</td>
-                    <td class="font-weight-normal"> {{(product.regular_price | currency:product.currency) || '-' }} </td>
+                    <td class="font-weight-normal"> {{(product.productPrice | currency:product.currency) || '-' }} </td>
                   </tr>
                   <tr>
                     <td class="font-weight-bold">Sale Price</td>
-                    <td class="font-weight-normal"> {{(product.sale_price | currency:product.currency) || '-' }} </td>
+                    <td class="font-weight-normal"> {{(product.productPrice | currency:product.currency) || '-' }} </td>
                   </tr>
             </table>
           </div>
@@ -132,21 +117,21 @@
                   <tbody>
                       <tr>
                          <td>Id</td>
-                         <td>{{ product.seller_dealer.id }}</td>
+                         <td>{{ product.sellerInfo.id }}</td>
                       </tr>
                       <tr>
                          <td>Name</td>
-                         <td>{{ product.seller_dealer.first_name +' '+product.seller_dealer.last_name }}</td>
+                         <td>{{ product.sellerInfo.userName}}</td>
                       </tr>
                       <tr>
                          <td>Email</td>
-                         <td>{{ product.seller_dealer.email }}</td>
+                         <td>{{ product.sellerInfo.email }}</td>
                       </tr>
                       <tr>
                          <td>Role</td>
-                         <td>{{ product.seller_dealer.role | titlecase }}</td>
+                         <td>{{ product.sellerInfo.role | titlecase }}</td>
                       </tr>
-                      <tr><td>Email Verified</td><td><p *ngIf="product.seller_dealer.is_verified" class="badge badge-pill badge-success">Verified</p></td></tr>
+                      <!-- <tr><td>Email Verified</td><td><p *ngIf="product.seller_dealer.is_verified" class="badge badge-pill badge-success">Verified</p></td></tr> -->
                       <tr>
                         <td>Account Verified</td>
                         <td>

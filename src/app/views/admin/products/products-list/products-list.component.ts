@@ -112,8 +112,6 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy {
       value: 1
     }]
 
-    console.log("Attribute json object : ",JSON.stringify(attr));
-    
   }
 
   listenerFn: any;
@@ -282,23 +280,24 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   updateStatus(status: string, ids: any, reason: string) {
-    const url = 'api/admin/products/update-status';
+    const url = environment.api_url + 'api/Product/UpdateProductStatus';
     this._http.post(url, { status: status, reason: reason, ids: ids }).subscribe((res: any) => {
-      if (res.update_success.length > 0) {
-        this._toastr.showSuccess(res.update_success);
+
+      if (res.data.updated > 0) {
+        this._toastr.showSuccess(res.data.updated);
       }
 
-      if (res.rejected.length > 0) {
-        this._toastr.showSuccess(res.rejected);
+      if (res.data.rejected > 0) {
+        this._toastr.showSuccess(res.data.rejected);
       }
-      if (res.deleted.length > 0) {
-        this._toastr.showSuccess(res.deleted);
+      if (res.data.deleted > 0) {
+        this._toastr.showSuccess(res.data.deleted);
       }
-      if (res.updated.length > 0) {
-        this._toastr.showSuccess(res.updated);
+      if (res.data.updated > 0) {
+        this._toastr.showSuccess(res.data.updated);
       }
-      if (res.update_error.length > 0) {
-        this._toastr.showWarning(res.update_error);
+      if (res.data.updateError > 0) {
+        this._toastr.showWarning(res.data.updateError);
       }
       this.rerender();
     }, (err: any) => {
@@ -320,11 +319,12 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy {
       order: [[1, 'desc']],
       ajax: (dataTablesParameters: any, callback: any) => {
         dataTablesParameters.filter = {}
-        dataTablesParameters.filter = this.product_config.filter;
+        var dbFilter = dataTablesParameters;
+        dbFilter.filter= JSON.stringify(this.product_config.filter);
         this._http
           .post<any>(
             environment.api_url + 'api/Product/GetProductList',
-            dataTablesParameters,
+            dbFilter,
             {}
           )
           .subscribe((resp: any) => {
