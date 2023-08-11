@@ -112,8 +112,6 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy {
       value: 1
     }]
 
-    console.log("Attribute json object : ",JSON.stringify(attr));
-    
   }
 
   listenerFn: any;
@@ -282,11 +280,8 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   updateStatus(status: string, ids: any, reason: string) {
-    const url = environment.api_url+'api/Product/UpdateProductStatus';
+    const url = environment.api_url + 'api/Product/UpdateProductStatus';
     this._http.post(url, { status: status, reason: reason, ids: ids }).subscribe((res: any) => {
-
-      console.log("Res : ",res);
-      
 
       if (res.data.updated > 0) {
         this._toastr.showSuccess(res.data.updated);
@@ -324,11 +319,12 @@ export class ProductsListComponent implements OnInit, AfterViewInit, OnDestroy {
       order: [[1, 'desc']],
       ajax: (dataTablesParameters: any, callback: any) => {
         dataTablesParameters.filter = {}
-        dataTablesParameters.filter = this.product_config.filter;
+        var dbFilter = dataTablesParameters;
+        dbFilter.filter= JSON.stringify(this.product_config.filter);
         this._http
           .post<any>(
             environment.api_url + 'api/Product/GetProductList',
-            dataTablesParameters,
+            dbFilter,
             {}
           )
           .subscribe((resp: any) => {
