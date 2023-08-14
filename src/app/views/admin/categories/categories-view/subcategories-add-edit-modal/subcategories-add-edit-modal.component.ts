@@ -99,13 +99,13 @@ export class SubcategoriesAddEditModalComponent implements OnInit {
       subCategoryModel.image = '';
       subCategoryModel.attributes = subCategoryFormValues.attributes;
 
-      // formData.append('SubCategory', JSON.stringify(subCategoryModel));
+      formData.append('SubCategory', JSON.stringify(subCategoryModel));
       // for (const pair of subCategoryModel.entries()) {
       //   formData.append('SubCategory.'+pair.key, pair.value);
       // }
-      Object.keys(subCategoryModel).forEach(key => {
-        formData.append('SubCategory.'+key, subCategoryModel[key]);
-      });
+      // Object.keys(subCategoryModel).forEach(key => {
+      //   formData.append('SubCategory.'+key, subCategoryModel[key]);
+      // });
       formData.append('ImageUrl', this.selectedImageFile);
       // var formObject: any = {};
       // formObject.subCategory = subCategoryModel;
@@ -245,7 +245,13 @@ export class SubcategoriesAddEditModalComponent implements OnInit {
     let attrId = value;
     let values = [];
     if (attrId) {
+
+      console.log("this.attributesData",this.attributesData);
+      
+
       let objFound = this.attributesData.find((item: any) => item.id == attrId);
+      debugger;
+
       if (objFound && objFound.id) {
         values = objFound.values;
       } else {
